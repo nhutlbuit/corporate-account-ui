@@ -1,0 +1,23 @@
+
+.search-panel {
+  background-color: #dedfe1;
+  padding: 10px;
+  height: 60px;
+
+  .fieldset {
+    margin-right: 15px;
+    float: left;
+  }
+  .add-profile {
+    margin-right: 5px;
+    float: right;
+  }
+  .select {
+    min-width: 300px;
+    margin-left: 20px;
+  }
+  .filter-input {
+    height: 37px;
+  }
+}
+

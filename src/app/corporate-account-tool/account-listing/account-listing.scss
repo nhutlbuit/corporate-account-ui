@@ -1,0 +1,76 @@
+.account-listing {
+  margin: 30px;
+
+  .search-message{
+    padding: 0px 0px 15px 0px;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+
+    thead {
+      background: #2865A2;
+      text-align: center;
+
+      tr > th {
+        font-weight: bold;
+        color: white;
+      }
+    }
+
+    tr > *:nth-child(1) {
+      width: 20%;
+    }
+
+    tr > *:nth-child(2) {
+      width: 20%;
+    }
+
+    tr > *:nth-child(3) {
+      width: 10%;
+    }
+
+    tr > *:nth-child(4) {
+      width: 10%;
+    }
+
+    tr > *:nth-child(5) {
+      width: 10%;
+    }
+
+    tr > *:nth-child(6) {
+      width: fit-content;
+      word-break: break-word;
+    }
+
+    tr > *:nth-child(7) {
+      width: 10%;
+    }
+
+    tbody {
+      tr:hover {
+        cursor: pointer;
+        background-color: #fcfbdc;
+      }
+
+      .active {
+        color: #19B82A;
+      }
+
+    }
+
+    th, td {
+      padding: 5px !important;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    .no-record-found {
+      background-color: white;
+      text-align: center !important;
+      cursor: auto;
+    }
+  }
+}
+
