@@ -25,12 +25,12 @@ function CorporateAccountTool() {
             <SearchPanel/>
             {isShowAccountListing && <AccountListing/>}
             {isShowContentPage &&
-            <div className="section columns">
+            <div className='section columns'>
                 {toggleNavbar && <NavBar/>}
-                <div className="column main-menu">
+                <div className='column main-menu'>
                     <Suspense fallback={<div>Loading...</div>}>
                         <Switch>
-                            <Redirect from="/" exact to={`${match.url}/profile`}/>
+                            <Redirect from='/' exact to={`${match.url}/profile`}/>
                             <Route path={`${match.url}/profile`} component={Profile}/>
                             <Route path={`${match.url}/accounts`} component={Accounts}/>
                             <Route path={`${match.url}/directors`} component={Directors}/>

@@ -1,6 +1,6 @@
-import "./account-listing.scss";
+import './account-listing.scss';
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from 'react-redux';
 import {getAccountDetail} from '../../../store/slice/account.slice';
 
 function AccountListing() {
@@ -9,12 +9,12 @@ function AccountListing() {
 
     const gotoAccountDetail = (item: any) => {
         dispatch(getAccountDetail(item.id));
-    }
+    };
 
     return (
         <>
-            <div className="account-listing">
-                <p className="search-message" >Showing {accounts.length} search results for <b>{filterName}</b> </p>
+            <div className='account-listing'>
+                <p className='search-message' >Showing {accounts.length} search results for <b>{filterName}</b> </p>
                 <table>
                     <thead>
                     <tr>
@@ -29,19 +29,19 @@ function AccountListing() {
                     </thead>
                     <tbody>
                     {accounts?.map((item: any, index: number) => (
-                        <tr key={index} onClick={()=>gotoAccountDetail(item)}>
+                        <tr key={index} onClick={() => gotoAccountDetail(item)}>
                             <td>{item?.id}</td>
                             <td>{item?.name}</td>
                             <td>{item?.partnerId}</td>
                             <td>{item?.level}</td>
                             <td>{item?.currency}</td>
                             <td>{item?.email}</td>
-                            <td className={item?.status === 'ACTIVE'? 'active' : ''}>{item?.status}</td>
+                            <td className={item?.status === 'ACTIVE' ? 'active' : ''}>{item?.status}</td>
                         </tr>
                     ))}
                     {!accounts?.length &&
                     <tr>
-                        <td colSpan={7} className="no-record-found">
+                        <td colSpan={7} className='no-record-found'>
                             No Record Found
                         </td>
                     </tr>

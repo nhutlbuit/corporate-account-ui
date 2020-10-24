@@ -22,3 +22,5 @@ yarn-error.log*
 yarn.lock
 debug.log
 package-lock.json
+.idea/
+pacman-reactjs.iml

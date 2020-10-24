@@ -30,7 +30,7 @@ const accounts = [
         address: 'United KingDom', postalCode: '10000', language: 'English', phoneNumber: '0968868300', mobile: '0968868300',
         userName: 'nat.os', password: '1234qwer', questionnaireReceiptDate: new Date(), approvedDate: new Date()
     }
-]
+];
 
 export const getAccountListingService = async (accountId: any) => {
     return accounts.filter(e => e.id.toString().includes(accountId));
