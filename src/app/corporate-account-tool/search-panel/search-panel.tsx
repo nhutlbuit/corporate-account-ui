@@ -15,7 +15,7 @@ function SearchPanel() {
     const dispatch = useDispatch();
     const [filterName, setFilterName] = useState('');
 
-    const onChangeClassCode = async () => {
+    const onChangeClassCode = () => {
         setFilterName('');
     };
 

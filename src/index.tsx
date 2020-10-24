@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import App from "./app/App";
 import store from './store/store'
 
+const rootNode = document.getElementById('root');
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter basename='account-ui'>
@@ -12,6 +14,6 @@ ReactDOM.render(
     </BrowserRouter>
   </Provider>,
 
-  document.getElementById('app')
+    rootNode
 );
 
