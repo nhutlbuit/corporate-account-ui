@@ -33,7 +33,7 @@ Current time, we just use 'start' & 'build' to develop and pack modules in the p
 ```
 ## 2. Structure of project
 ```
-App
+Corporate-account-ui
 ├───nginx
 └───src
 	│   index.html
@@ -41,24 +41,18 @@ App
 	├───app
 	│   │   app.scss
 	│   │   App.tsx
-	│   ├───base (utility function)
 	│   └───shared (shared commponent)
 	│   ├───corporate-account-tool
-	│   │   │   index.tsx
-	│   │   ├───components
-	│   │   └───pages
+	│   │   ├───header-bar
+	│   │   ├───nav-bar
+	│   │   └───search-panel
+	│   └───corporate-account-report
 	├───assets
 	├───common
 	│   ├───constants
 	│   ├───enums
 	│   └───types
-	├───main
-	│   └───webapp
-	│       └───WEB-INF
-	│               glassfish-web.xml
 	├───services
-	├───static
-	│       v.html
 	└───store
 		│   store.ts
 		├───middleware

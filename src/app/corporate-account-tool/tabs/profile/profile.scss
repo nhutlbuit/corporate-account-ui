@@ -28,10 +28,16 @@
       tr > th {
         font-weight: bold;
         color: white;
+        border: none;
 
         .edit-action {
           float: right;
+          height: 44px;
         }
+      }
+
+      tr > *:nth-child(1) {
+         padding: 10px !important;
       }
     }
 

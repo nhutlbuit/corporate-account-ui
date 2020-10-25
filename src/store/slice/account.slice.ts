@@ -22,6 +22,7 @@ export const AccountSlice = createSlice({
             state.error = '';
             state.filterName = payloadAction.payload.value;
             state.isShowContentPage = false;
+            state.isShowAccountListing = false;
         },
         loadAccountsSuccess: (state, payloadAction: PayloadAction<any>) => {
             state.loading = false;
