@@ -1,6 +1,6 @@
 import {ReactElement} from "react";
 import {DataTypeEnum} from "../../../common/enum/DataTypeEnum";
-import {SortOrder} from "../../../common/enum/PagingEnum";
+import {SortOrder} from "../../../common/enums/PagingEnum";
 
 export interface Column {
     id: string

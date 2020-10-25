@@ -1,8 +1,9 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects';
-import {getAccountListingService, getAccountDetailService} from "../../services/account.service";
+import {getAccountListingService, getAccountDetailService, updateAccountService} from "../../services/account.service";
 import {
     loadAccounts, loadAccountsSuccess, loadAccountsError,
-    getAccountDetail, getAccountDetailError, getAccountDetailSuccess,
+    getAccountDetail, getAccountDetailSuccess, getAccountDetailError,
+    saveAccount, saveAccountSuccess, saveAccountError
 } from '../slice/account.slice'
 
 function* loadingAccountsAsync(param: any) {
@@ -23,9 +24,19 @@ function* loadingAccountDetailAsync(param: any) {
     }
 }
 
+function* updatingAccountAsync(param: any) {
+    try {
+        const data = yield call(updateAccountService, param.payload);
+        yield put(saveAccountSuccess(data));
+    } catch (err) {
+        yield put(saveAccountError());
+    }
+}
+
 export function* AccountSaga() {
     yield all([
         yield takeLatest(loadAccounts, loadingAccountsAsync),
         yield takeLatest(getAccountDetail, loadingAccountDetailAsync),
+        yield takeLatest(saveAccount, updatingAccountAsync),
     ]);
 }

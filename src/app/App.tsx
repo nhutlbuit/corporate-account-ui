@@ -5,6 +5,7 @@ import {withRouter} from 'react-router';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {CONSTANT} from '../common/constants/CommonConst';
+import Spinner from './shared/spinner/spinner';
 
 const CorporateAccountTool = withRouter(lazy(() => import('./corporate-account-tool/corporate-account-tool')));
 const CorporateAccountReport = withRouter(lazy(() => import('./corporate-account-report/corporate-account-report')));
@@ -14,7 +15,7 @@ const App = () => {
     return (
         <>
             <main>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Spinner/>}>
                     <Switch>
                         <Redirect from='/' exact to='/corporate-account-tool'/>
                         <Route path='/corporate-account-tool' component={CorporateAccountTool}/>
@@ -31,7 +32,8 @@ const App = () => {
                 rtl={false}
                 pauseOnFocusLoss
                 draggable
-                pauseOnHover/>
+                pauseOnHover
+            />
         </>
     );
 };

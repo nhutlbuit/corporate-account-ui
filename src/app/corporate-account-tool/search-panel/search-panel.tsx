@@ -7,32 +7,34 @@ import {loadAccounts} from '../../../store/slice/account.slice';
 
 function SearchPanel() {
 
-    const options = [
-        { value: 'chocolate', label: 'Corporate Account ID' },
-        { value: 'strawberry', label: 'Corporate Account Name' },
-        { value: 'vanilla', label: 'Partner Label ID' }
+    const types = [
+        { value: 'id', label: 'Corporate Account ID' },
+        { value: 'name', label: 'Corporate Account Name' },
+        { value: 'partnerId', label: 'Partner Label ID' }
     ];
     const dispatch = useDispatch();
-    const [filterName, setFilterName] = useState('');
+    const [filter, setFilter] = useState({type: 'id', value: ''});
+    const [selectedType, setSelectedType] = useState<any>(types[0]);
 
-    const onChangeClassCode = () => {
-        setFilterName('');
+    const onChangeSearchType = (e: any) => {
+        setFilter({...filter, 'type': e.value, 'value': ''});
+        setSelectedType(types.find((el:any) => e.value === el.value));
     };
 
     const search = () => {
-        dispatch(loadAccounts(filterName));
+        dispatch(loadAccounts(filter));
     };
 
-    const onChangeAccountId = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFilterName(e.target.value);
+    const onChangeSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFilter({...filter, 'value': e.target.value});
     };
 
     const onKeyPressEnter = (e: any) => e.key === 'Enter' && search();
 
     return (
         <div className='search-panel'>
-            <Select options={options} onChange={onChangeClassCode} className='select fieldset' value={options[0]}/>
-            <input className='fieldset filter-input' type='text' name='updateBy' value={filterName} onChange={onChangeAccountId} onKeyPress={onKeyPressEnter}/>
+            <Select options={types} onChange={onChangeSearchType} className='select fieldset' value={selectedType}/>
+            <input className='fieldset filter-input' type='text' name='updateBy' value={filter?.value} onChange={onChangeSearchValue} onKeyPress={onKeyPressEnter}/>
             <Button className='fieldset' onClick={search}>SEARCH</Button>
             <Button className='add-profile' onClick={search}>ADD CORPORATE PROFILE</Button>
         </div>

@@ -9,7 +9,8 @@ const initialState = {
     error: '',
     toggleNavbar: true,
     isShowAccountListing: false,
-    isShowContentPage: false
+    isShowContentPage: false,
+    isUpdateAccount: false,
 };
 
 export const AccountSlice = createSlice({
@@ -19,19 +20,20 @@ export const AccountSlice = createSlice({
         loadAccounts: (state, payloadAction: PayloadAction<any>) => {
             state.loading = true;
             state.error = '';
-            state.filterName = payloadAction.payload;
+            state.filterName = payloadAction.payload.value;
             state.isShowContentPage = false;
         },
         loadAccountsSuccess: (state, payloadAction: PayloadAction<any>) => {
             state.loading = false;
             state.error = '';
             state.accounts = payloadAction.payload;
-            if (payloadAction.payload.length) {
+            if (payloadAction.payload?.length) {
                 state.isShowAccountListing = true;
             }
         },
         loadAccountsError: (state) => {
             state.error = 'failed';
+            state.loading = true;
             toast.error("get accounts failed. Please contact admin!");
         },
 
@@ -55,6 +57,23 @@ export const AccountSlice = createSlice({
             state.error = 'failed';
             toast.error("get account detail failed. Please contact admin!");
         },
+
+        saveAccount: (state, payloadAction: PayloadAction<any>) => {
+            state.loading = true;
+            state.error = '';
+            state.isUpdateAccount = false;
+        },
+        saveAccountSuccess: (state, payloadAction: PayloadAction<any>) => {
+            state.loading = false;
+            state.error = '';
+            state.isUpdateAccount = true;
+            toast.success('Update Account successfully!');
+        },
+        saveAccountError: (state) => {
+            state.loading = false;
+            state.error = 'failed';
+            toast.error('Update account failed. Please contact admin!');
+        },
     }
 });
 
@@ -68,6 +87,10 @@ export const {
     getAccountDetail,
     getAccountDetailError,
     getAccountDetailSuccess,
+
+    saveAccount,
+    saveAccountSuccess,
+    saveAccountError
 
 } = AccountSlice.actions;
 

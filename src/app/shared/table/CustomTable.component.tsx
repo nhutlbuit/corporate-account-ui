@@ -5,7 +5,7 @@ import {library} from '@fortawesome/fontawesome-svg-core'
 import {faCaretDown, faCaretRight, faCaretUp} from "@fortawesome/free-solid-svg-icons";
 import {Column, Group, groupBy, hasSort, Row, updateSort} from "./CustomTableCore";
 import PropTypes from "prop-types";
-import {SortOrder} from "../../../common/enum/PagingEnum";
+import {SortOrder} from "../../../common/enums/PagingEnum";
 import CustomGroup from "./CustomGroup";
 
 type GroupProp = {

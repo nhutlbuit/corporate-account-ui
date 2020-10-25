@@ -14,7 +14,8 @@ function AccountListing() {
     return (
         <>
             <div className='account-listing'>
-                <p className='search-message' >Showing {accounts.length} search results for <b>{filterName}</b> </p>
+
+                <p className='search-message' >Showing {accounts?.length} search results for <b>{filterName}</b> </p>
                 <table>
                     <thead>
                     <tr>
@@ -32,11 +33,11 @@ function AccountListing() {
                         <tr key={index} onClick={() => gotoAccountDetail(item)}>
                             <td>{item?.id}</td>
                             <td>{item?.name}</td>
-                            <td>{item?.partnerId}</td>
+                            <td>{item?.partnerLabelId}</td>
                             <td>{item?.level}</td>
                             <td>{item?.currency}</td>
                             <td>{item?.email}</td>
-                            <td className={item?.status === 'ACTIVE' ? 'active' : ''}>{item?.status}</td>
+                            <td className={item?.status === 'ACTIVE' ? 'active' : ''}> {item?.status} </td>
                         </tr>
                     ))}
                     {!accounts?.length &&
