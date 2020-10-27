@@ -110,20 +110,10 @@ function AddEditProfile(props: any) {
                     name: Yup.string().required(' ')
                 })}
             >
-                {(props) => {
-                    const {
-                        values,
-                        touched,
-                        errors,
-                        dirty,
-                        isSubmitting,
-                        handleChange,
-                        handleBlur,
-                        handleSubmit,
-                        handleReset
-                    } = props;
+                {FormikProps => {
+                    const {values, touched, errors, dirty, isSubmitting, handleChange, handleBlur, handleSubmit, handleReset} = FormikProps;
                     return (
-                        <form onSubmit={handleSubmit}>
+                        <Form onSubmit={handleSubmit}>
                             <Modal show={true} onHide={handleClose} keyboard={false} dialogClassName='modal-dialog modal-lg'>
                                 <Modal.Header closeButton>
                                     <Modal.Title className='title'>CORPORATE PROFILE</Modal.Title>
@@ -236,7 +226,7 @@ function AddEditProfile(props: any) {
                                 </Modal.Footer>
                             </Modal>
                             {/*{JSON.stringify(props)}*/}
-                        </form>
+                        </Form>
                     );
                 }}
             </Formik>
