@@ -2,20 +2,22 @@
   color: green;
   margin: 5px 5px 5px 30px;
 
-  .bounce0 {
+  .bounce1 {
     -webkit-animation-delay: -0.48s;
     animation-delay: -0.48s;
   }
 
-  .bounce1 {
+  .bounce2 {
     -webkit-animation-delay: -0.32s;
     animation-delay: -0.32s;
   }
 
-  .bounce2 {
+  .bounce3 {
     -webkit-animation-delay: -0.16s;
     animation-delay: -0.16s;
   }
+
+
 }
 
 .spinner > div {

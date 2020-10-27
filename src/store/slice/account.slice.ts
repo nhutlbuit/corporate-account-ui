@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {toast} from "react-toastify";
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {toast} from 'react-toastify';
 
 const initialState = {
     accounts: [],
@@ -35,7 +35,7 @@ export const AccountSlice = createSlice({
         loadAccountsError: (state) => {
             state.error = 'failed';
             state.loading = true;
-            toast.error("get accounts failed. Please contact admin!");
+            toast.error('get accounts failed. Please contact admin!');
         },
 
         onToggleNavbar: (state, payloadAction: PayloadAction<any>) => {
@@ -47,6 +47,7 @@ export const AccountSlice = createSlice({
             state.error = '';
             state.isShowContentPage = true;
             state.isShowAccountListing = false;
+            state.isUpdateAccount = false;
         },
         getAccountDetailSuccess: (state, payloadAction: PayloadAction<any>) => {
             state.loading = false;
@@ -56,7 +57,7 @@ export const AccountSlice = createSlice({
         getAccountDetailError: (state) => {
             state.loading = false;
             state.error = 'failed';
-            toast.error("get account detail failed. Please contact admin!");
+            toast.error('get account detail failed. Please contact admin!');
         },
 
         saveAccount: (state, payloadAction: PayloadAction<any>) => {

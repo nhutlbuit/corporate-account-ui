@@ -7,18 +7,18 @@ const ModalYesNo = (props: any) => {
     const {message, onYes, onNo} = props;
     return (
         <Modal>
-            <div className="modal is-active">
-                <div className="modal-background"/>
-                <div className="modal-card">
-                    <header className="modal-card-head">
-                        <p className="modal-card-title">Confirm</p>
+            <div className='modal is-active'>
+                <div className='modal-background'/>
+                <div className='modal-card'>
+                    <header className='modal-card-head'>
+                        <p className='modal-card-title'>Confirm</p>
                     </header>
-                    <section className="modal-card-body" dangerouslySetInnerHTML={{__html: message}}></section>
-                    <footer className="modal-card-foot card-footer">
-                        <button className="button modal-no" onClick={onNo}>
+                    <section className='modal-card-body' dangerouslySetInnerHTML={{__html: message}}></section>
+                    <footer className='modal-card-foot card-footer'>
+                        <button className='button modal-no' onClick={onNo}>
                             No
                         </button>
-                        <button className="button is-primary modal-yes" onClick={onYes}>
+                        <button className='button is-primary modal-yes' onClick={onYes}>
                             Yes
                         </button>
                     </footer>
@@ -26,12 +26,12 @@ const ModalYesNo = (props: any) => {
             </div>
         </Modal>
     );
-}
+};
 
 ModalYesNo.propTypes = {
     onYes: PropTypes.func.isRequired,
     onNo: PropTypes.func.isRequired,
     message: PropTypes.string.isRequired,
-}
+};
 
 export default ModalYesNo;

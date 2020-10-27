@@ -1,5 +1,17 @@
 
-.profile {
+.profile-detail {
+
+  .error {
+    border-color: red !important;
+  }
+
+  input {
+    border-color: hsl(0,0%,80%) !important;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+  }
+
   table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -19,12 +31,6 @@
 
     tr > *:nth-child(4) {
       width: fit-content;
-
-      input:disabled {
-        border: none;
-        background-color: white;
-        color: black;
-      }
     }
 
     thead {
@@ -46,7 +52,7 @@
       }
 
       tr > *:nth-child(1) {
-         padding: 10px !important;
+        padding: 10px !important;
       }
     }
 
@@ -67,10 +73,15 @@
         td:nth-child(even) {
           background-color: white;
           padding: 10px 25px !important;
+
+          input{
+            width: 100%;
+          }
         }
 
-        .status-account {
-          color: green;
+        .required-field:after {
+          color: #e83200;
+          content: " *";
         }
       }
     }

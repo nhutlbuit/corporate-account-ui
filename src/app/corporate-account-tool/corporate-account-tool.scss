@@ -1,13 +1,24 @@
 
-.section {
+.columns {
+  display: flex;
   width: 100%;
+  flex-direction: row;
+  padding: 15px;
 
   .left-menu {
     background-color: #dedfe1;
+    flex: 1;
+    padding: 15px;
+
+    ul {
+      padding-left: 0px !important;
+    }
   }
 
   .main-menu {
-    margin-left: 5px;
+    margin: 0px 15px 0px 5px;
     background-color: #f4f4f4;
+    flex: 5;
+    padding: 15px;
   }
 }

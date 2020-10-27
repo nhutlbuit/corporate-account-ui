@@ -1,14 +1,14 @@
 import React from 'react';
 import {NavLink, useRouteMatch} from 'react-router-dom';
 import './nav-bar.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCopy, faBriefcase, faUser, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 
 const NavBar = (props: any) => {
     const match = useRouteMatch();
 
     return(
-        <nav className='column is-2 menu left-menu'>
+        <nav className='column left-menu'>
              <ul className='menu-list'>
                 <NavLink to={`${match.url}/profile`} activeClassName='active-link'>
                     <FontAwesomeIcon icon={faBriefcase}/> Profile

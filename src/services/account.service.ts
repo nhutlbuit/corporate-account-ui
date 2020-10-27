@@ -45,7 +45,7 @@ export const getAccountListingService = async (account: any) => {
         return new Promise(function (resolve, reject) {
             setTimeout(() => {
                 let result = accounts;
-                switch(type) {
+                switch (type) {
                     case 'id': {
                         result = accounts.filter(e => e.id.toString().includes(account.value));
                         break;
@@ -62,9 +62,9 @@ export const getAccountListingService = async (account: any) => {
                     }
                 }
                 return resolve(result);
-            }, 5000)
-        })
-    }
+            }, 1000);
+        });
+    };
 
     return await getAccounts(account.type);
 };
@@ -74,7 +74,7 @@ export const getAccountDetailService = async (accountId: any) => {
 };
 
 export const updateAccountService = async (account: any) => {
-    let acc = accounts.filter((e: any) => e.id != account.id);
+    const acc = accounts.filter((e: any) => e.id != account.id);
     acc.push(account);
     accounts = acc;
     return 'ok';

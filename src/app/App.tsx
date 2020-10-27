@@ -6,6 +6,7 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {CONSTANT} from '../common/constants/CommonConst';
 import Spinner from './shared/spinner/spinner';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CorporateAccountTool = withRouter(lazy(() => import('./corporate-account-tool/corporate-account-tool')));
 const CorporateAccountReport = withRouter(lazy(() => import('./corporate-account-report/corporate-account-report')));

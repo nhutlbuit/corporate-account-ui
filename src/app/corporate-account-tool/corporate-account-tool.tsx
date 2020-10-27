@@ -1,7 +1,6 @@
 import React, {lazy, Suspense, useEffect} from 'react';
 import { Route, Switch, useHistory, useRouteMatch} from 'react-router-dom';
 import {withRouter} from 'react-router';
-import 'bulma/bulma.sass';
 import {useSelector} from 'react-redux';
 import HeaderBar from './header-bar/header-bar';
 import SearchPanel from './search-panel/search-panel';
@@ -26,7 +25,7 @@ function CorporateAccountTool() {
         if (isShowContentPage) {
             history.push(`${match.url}/profile`);
         }
-    }, [isShowContentPage])
+    }, [isShowContentPage]);
 
     return (
         <>
@@ -35,9 +34,9 @@ function CorporateAccountTool() {
             {loading && <Spinner/> }
             {isShowAccountListing && <AccountListing/>}
             {isShowContentPage &&
-            <div className='section columns'>
+            <div className='columns'>
                 {toggleNavbar && <NavBar/>}
-                <div className='column main-menu'>
+                <div className='main-menu'>
                     <Suspense fallback={<Spinner/>}>
                         <Switch>
                             <Route path={`${match.url}/profile`} component={Profile}/>
