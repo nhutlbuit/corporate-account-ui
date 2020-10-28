@@ -10,16 +10,12 @@ import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons';
 import {Button, Modal} from 'react-bootstrap';
 import {FastField, Formik} from 'formik';
 import SelectField from '../../../../shared/SelectField';
+import InputField from '../../../../shared/InputField';
 
 function AddEditProfile(propsAddEditProfile: any) {
     const {closeAddEditProfilePopup, accountDetail} = propsAddEditProfile;
     const {isUpdateAccount} = useSelector((state: any) => state.account);
     const [account, setAccount] = useState(accountDetail);
-
-    const [statusAccount, setStatusAccount] = useState<any>();
-    const [currency, setCurrency] = useState<any>();
-    const [country, setCountry] = useState<any>();
-    const [language, setLanguage] = useState<any>();
     const dispatch = useDispatch();
 
     const listStatus = [
@@ -54,16 +50,6 @@ function AddEditProfile(propsAddEditProfile: any) {
     }, [isUpdateAccount]);
 
     useEffect(() => {
-        if (account) {
-            setStatusAccount(listStatus.find((e: any) => e.value === account.statusAccount));
-            setCurrency(currencies.find((e: any) => e.value === account.currency));
-            setCountry(countries.find((e: any) => e.value === account.country));
-            setLanguage(languages.find((e: any) => e.value === account.language));
-        }
-       // console.log(JSON.stringify(account));
-    }, [account]);
-
-    useEffect(() => {
         if (isUpdateAccount && accountDetail) {
             dispatch(getAccountDetail(accountDetail.id));
         }
@@ -82,13 +68,7 @@ function AddEditProfile(propsAddEditProfile: any) {
     };
 
     const updateAccount = (values: any) => {
-        const newState: any = {};
-        Object.keys(values).forEach((e: any) => {
-            newState[e] = values[e];
-        });
-
-        const accountSubmit = {...account, ...newState};
-        dispatch(saveAccount(accountSubmit));
+        dispatch(saveAccount({...account, ...values}));
     };
 
     const initialValues = () => {
@@ -110,7 +90,7 @@ function AddEditProfile(propsAddEditProfile: any) {
     const validationSchema = () => {
         return Yup.object().shape({
             name: Yup.string().required(),
-            id: Yup.number().required(),
+            id: Yup.number().positive().integer().required(),
             email: Yup.string().email().required(),
             questionnaireReceiptDate: Yup.date().required(),
             statusAccount: Yup.string().required(),
@@ -141,10 +121,6 @@ function AddEditProfile(propsAddEditProfile: any) {
             {(props) => {
                 const {
                     values,
-                    touched,
-                    errors,
-                    handleChange,
-                    handleBlur,
                     handleSubmit,
                     setFieldValue
                 } = props;
@@ -152,7 +128,7 @@ function AddEditProfile(propsAddEditProfile: any) {
                     <form onSubmit={handleSubmit}>
                         <Modal show={true} onHide={handleClose} keyboard={false} dialogClassName='modal-dialog modal-xl'>
                             <Modal.Header closeButton>
-                                <Modal.Title className='title'>CORPORATE PROFILE</Modal.Title>
+                                <Modal.Title className='title'> {accountDetail ? 'EDIT' : 'ADD NEW'} CORPORATE PROFILE</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 <div className='profile-detail'>
@@ -160,131 +136,37 @@ function AddEditProfile(propsAddEditProfile: any) {
                                         <tbody>
                                         <tr>
                                             <td className='required-field'>Account Name</td>
-                                            <td>
-                                                <input
-                                                    id='name'
-                                                    type='text'
-                                                    value={values.name}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    className={errors.name && touched.name ? 'text-input error' : 'text-input'}
-                                                />
-                                            </td>
+                                            <td><FastField name='name' type='text' component={InputField}/></td>
                                             <td className='required-field'>Account ID</td>
-                                            <td>
-                                                <input
-                                                    id='id'
-                                                    type='number'
-                                                    value={values.id}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    className={errors.id && touched.id ? 'text-input error' : 'text-input'}
-                                                    disabled={accountDetail}
-                                                />
-                                            </td>
+                                            <td><FastField name='id' type='number' component={InputField} disabled={accountDetail}/></td>
                                         </tr>
                                         <tr>
                                             <td className='required-field'>Partner Label ID</td>
-                                            <td>
-                                                <input
-                                                    id='partnerLabelId'
-                                                    type='text'
-                                                    value={values.partnerLabelId}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    className={errors.partnerLabelId && touched.partnerLabelId ? 'text-input error' : 'text-input'}
-                                                />
-                                            </td>
+                                            <td><FastField name='partnerLabelId' type='text' component={InputField}/></td>
                                             <td className='required-field'>Level</td>
-                                            <td>
-                                                <input
-                                                    id='level'
-                                                    type='text'
-                                                    value={values.level}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    className={errors.level && touched.level ? 'text-input error' : 'text-input'}
-                                                />
-                                            </td>
+                                            <td><FastField name='level' type='text' component={InputField}/></td>
                                         </tr>
                                         <tr>
                                             <td className='required-field'>Status</td>
-                                            <td>
-                                                <FastField
-                                                    name='statusAccount'
-                                                    component={SelectField}
-                                                    value={values?.statusAccount}
-                                                    styles={{
-                                                        control: (base: any) => ({
-                                                            ...base,
-                                                            borderColor: errors.statusAccount && touched.statusAccount ? 'red' : 'hsl(0,0%,80%)',
-                                                        })
-                                                    }}
-                                                    options={listStatus}
-                                                />
-                                            </td>
+                                            <td><FastField name='statusAccount' component={SelectField} options={listStatus}/></td>
                                             <td className='required-field'>Language</td>
-                                            <td>
-                                                <FastField
-                                                    name='language'
-                                                    component={SelectField}
-                                                    value={values?.language}
-                                                    styles={{
-                                                        control: (base: any) => ({
-                                                            ...base,
-                                                            borderColor: errors.language && touched.language ? 'red' : 'hsl(0,0%,80%)',
-                                                        })
-                                                    }}
-                                                    options={languages}
-                                                />
-                                            </td>
+                                            <td><FastField name='language' component={SelectField} options={languages}/></td>
                                         </tr>
                                         <tr>
                                             <td>License</td>
                                             <td><input type='text' onChange={handleInputChange} name='license' defaultValue={accountDetail?.license}/></td>
                                             <td className='required-field'>Email Address</td>
-                                            <td>
-                                                <input
-                                                    id='email'
-                                                    type='text'
-                                                    value={values.email}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    className={errors.email && touched.email ? 'text-input error' : 'text-input'}
-                                                />
-                                            </td>
+                                            <td><FastField name='email' type='text' component={InputField}/></td>
                                         </tr>
                                         <tr>
                                             <td className='required-field'>Currency</td>
-                                            <td>
-                                                <FastField
-                                                    name='currency'
-                                                    component={SelectField}
-                                                    value={values?.currency}
-                                                    styles={{
-                                                        control: (base: any) => ({
-                                                            ...base,
-                                                            borderColor: errors.currency && touched.currency ? 'red' : 'hsl(0,0%,80%)',
-                                                        })
-                                                    }}
-                                                    options={currencies}
-                                                />
-                                            </td>
+                                            <td><FastField name='currency' component={SelectField} options={currencies}/></td>
                                             <td>Phone</td>
                                             <td><input type='text' onChange={handleInputChange} name='phoneNumber' defaultValue={accountDetail?.phoneNumber}/></td>
                                         </tr>
                                         <tr>
                                             <td className='required-field'>Credit Account</td>
-                                            <td>
-                                                <input
-                                                    id='credit'
-                                                    type='text'
-                                                    value={values.credit}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    className={errors.credit && touched.credit ? 'text-input error' : 'text-input'}
-                                                />
-                                            </td>
+                                            <td><FastField name='credit' type='text' component={InputField}/></td>
                                             <td>Mobile</td>
                                             <td><input type='text' onChange={handleInputChange} name='mobile' defaultValue={accountDetail?.mobile}/></td>
                                         </tr>
@@ -308,20 +190,7 @@ function AddEditProfile(propsAddEditProfile: any) {
                                         </tr>
                                         <tr>
                                             <td className='required-field'>Country</td>
-                                            <td>
-                                                <FastField
-                                                    name='country'
-                                                    component={SelectField}
-                                                    value={values?.country}
-                                                    styles={{
-                                                        control: (base: any) => ({
-                                                            ...base,
-                                                            borderColor: errors.country && touched.country ? 'red' : 'hsl(0,0%,80%)',
-                                                        })
-                                                    }}
-                                                    options={countries}
-                                                />
-                                            </td>
+                                            <td><FastField name='country' component={SelectField} options={countries}/></td>
                                             <td className='required-field'>Questionnaire Receipt Date</td>
                                             <td>
                                                 <label className='calendar-container'>

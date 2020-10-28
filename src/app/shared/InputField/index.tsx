@@ -26,7 +26,6 @@ function InputField(props: any) {
   } = props;
   const { name } = field;
   const { errors, touched } = form;
-  const showError = errors[name] && touched[name];
 
   return (
     <FormGroup>
@@ -35,12 +34,10 @@ function InputField(props: any) {
       <input
         id={name}
         {...field}
-
+        className={errors[name] && touched[name] ? 'text-input error' : 'text-input'}
         type={type}
         disabled={disabled}
         placeholder={placeholder}
-
-        invalid={showError}
       />
     </FormGroup>
   );

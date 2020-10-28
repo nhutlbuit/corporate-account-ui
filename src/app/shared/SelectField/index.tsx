@@ -21,8 +21,9 @@ SelectField.defaultProps = {
 };
 
 function SelectField(props: any) {
-  const { field, options, label, placeholder, disabled, styles} = props;
+  const { field, options, label, placeholder, disabled, form} = props;
   const { name, value } = field;
+  const { errors, touched } = form;
 
   const selectedOption = options.find((option: any) => option.value === value);
 
@@ -44,13 +45,18 @@ function SelectField(props: any) {
 
       <Select
         id={name}
-        {...field}
+        {...field} // name, value, onchange, onblur
         value={selectedOption}
         onChange={handleSelectedOptionChange}
         placeholder={placeholder}
         isDisabled={disabled}
         options={options}
-        styles={styles}
+        styles={{
+          control: (base: any) => ({
+            ...base,
+            borderColor: errors[name] && touched[name] ? 'red' : 'hsl(0,0%,80%)',
+          })
+        }}
       />
     </FormGroup>
   );
