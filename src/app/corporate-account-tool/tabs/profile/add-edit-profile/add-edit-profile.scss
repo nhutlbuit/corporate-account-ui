@@ -83,6 +83,15 @@
           color: #e83200;
           content: " *";
         }
+
+        .calendar-container {
+          display: flex;
+
+          .calendar-alt {
+            padding: 3px 0px 0px 5px;
+          }
+        }
+
       }
     }
   }

@@ -1,7 +1,6 @@
-import React, {lazy, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './add-edit-profile.scss';
 import {useDispatch, useSelector} from 'react-redux';
-import Select from 'react-select';
 import * as Yup from 'yup';
 
 import {getAccountDetail, saveAccount} from '../../../../../store/slice/account.slice';
@@ -9,13 +8,14 @@ import DatePicker from 'react-datepicker';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons';
 import {Button, Modal} from 'react-bootstrap';
-import {Form, Formik} from 'formik';
+import {FastField, Formik} from 'formik';
+import SelectField from '../../../../shared/SelectField';
 
-function AddEditProfile(props: any) {
-    const {closeAddEditProfilePopup, accountDetail} = props;
+function AddEditProfile(propsAddEditProfile: any) {
+    const {closeAddEditProfilePopup, accountDetail} = propsAddEditProfile;
     const {isUpdateAccount} = useSelector((state: any) => state.account);
-    const [isViewMode, setViewMode] = useState(false);
     const [account, setAccount] = useState(accountDetail);
+
     const [statusAccount, setStatusAccount] = useState<any>();
     const [currency, setCurrency] = useState<any>();
     const [country, setCountry] = useState<any>();
@@ -47,20 +47,11 @@ function AddEditProfile(props: any) {
         {name: 'language', value: 'fr', label: 'France'},
     ];
 
-    // const updateAccount = () => {
-    //     setViewMode(true);
-    //     dispatch(saveAccount(account));
-    // };
-
     useEffect(() => {
         if (isUpdateAccount) {
             handleClose();
         }
     }, [isUpdateAccount]);
-
-    const onChangeDropdown = (e: any) => {
-        setAccount({...account, [e.name]: e.value});
-    };
 
     useEffect(() => {
         if (account) {
@@ -68,11 +59,8 @@ function AddEditProfile(props: any) {
             setCurrency(currencies.find((e: any) => e.value === account.currency));
             setCountry(countries.find((e: any) => e.value === account.country));
             setLanguage(languages.find((e: any) => e.value === account.language));
-        } else {
-
         }
-
-        console.log(JSON.stringify(account));
+       // console.log(JSON.stringify(account));
     }, [account]);
 
     useEffect(() => {
@@ -93,145 +81,290 @@ function AddEditProfile(props: any) {
         setAccount({...account, 'approvedDate': value});
     };
 
-    const onQuestionnaireReceiptDateChange = (value: any) => {
-        setAccount({...account, 'questionnaireReceiptDate': value});
+    const updateAccount = (values: any) => {
+        const newState: any = {};
+        Object.keys(values).forEach((e: any) => {
+            newState[e] = values[e];
+        });
+
+        const accountSubmit = {...account, ...newState};
+        dispatch(saveAccount(accountSubmit));
     };
 
-    const updateAccount = (values: any) => {
-        console.log('fasfas', values);
+    const initialValues = () => {
+        return {
+            name: accountDetail?.name ?? '',
+            id: accountDetail?.id ?? undefined,
+            email: accountDetail?.email ?? '',
+            questionnaireReceiptDate: accountDetail?.questionnaireReceiptDate ?? new Date(),
+            statusAccount: accountDetail?.statusAccount ?? '',
+            country: accountDetail?.country ?? '',
+            currency: accountDetail?.currency ?? '',
+            language: accountDetail?.language ?? '',
+            partnerLabelId: accountDetail?.partnerLabelId ?? '',
+            level: accountDetail?.level ?? '',
+            credit: accountDetail?.level ?? ''
+        };
+    };
+
+    const validationSchema = () => {
+        return Yup.object().shape({
+            name: Yup.string().required(),
+            id: Yup.number().required(),
+            email: Yup.string().email().required(),
+            questionnaireReceiptDate: Yup.date().required(),
+            statusAccount: Yup.string().required(),
+            country: Yup.string().required(),
+            currency: Yup.string().required(),
+            language: Yup.string().required(),
+            partnerLabelId: Yup.string().required(),
+            level: Yup.string().required(),
+            credit: Yup.string().required()
+        });
+    };
+
+    const DatePickerField = (propsDatePicker: any) => {
+        const { name, value, onChange, className } = propsDatePicker;
+        return (
+            <DatePicker
+                selected={(value && new Date(value)) || null}
+                onChange={val => {
+                    onChange(name, val);
+                }}
+                className={className}
+            />
+        );
     };
 
     return (
-        <>
-            <Formik
-                initialValues={{name: ''}}
-                onSubmit={async values => updateAccount(values)}
-                validationSchema={Yup.object().shape({
-                    name: Yup.string().required(' ')
-                })}
-            >
-                {FormikProps => {
-                    const {values, touched, errors, dirty, isSubmitting, handleChange, handleBlur, handleSubmit, handleReset} = FormikProps;
-                    return (
-                        <Form onSubmit={handleSubmit}>
-                            <Modal show={true} onHide={handleClose} keyboard={false} dialogClassName='modal-dialog modal-lg'>
-                                <Modal.Header closeButton>
-                                    <Modal.Title className='title'>CORPORATE PROFILE</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <div className='profile-detail'>
-                                        <table>
-                                            <tbody>
-                                            <tr>
-                                                <td className='required-field'>Account Name</td>
-                                                <td>
-                                                    {/*<input  onChange={handleInputChange} disabled={isViewMode} defaultValue={accountDetail?.name} name='name'/>*/}
-                                                    <input
-                                                        id='name'
-                                                        type='text'
-                                                        value={accountDetail?.name}
-                                                        onChange={handleChange}
-                                                        onBlur={handleBlur}
-                                                        className={errors.name && touched.name ? 'text-input error' : 'text-input'}
-                                                        disabled={isViewMode}
-                                                        name='name'
-                                                    />
-
-                                                </td>
-                                                <td className='required-field'>Account ID</td>
-                                                <td><input type='number' onChange={handleInputChange} disabled={isViewMode} defaultValue={accountDetail?.id} name='id'/></td>
-                                            </tr>
-                                            <tr>
-                                                <td className='required-field'>Partner Label ID</td>
-                                                <td><input type='text' onChange={handleInputChange} name='partnerLabelId' disabled={isViewMode} defaultValue={accountDetail?.partnerLabelId}/></td>
-                                                <td className='required-field'>Level</td>
-                                                <td><input type='text' onChange={handleInputChange} name='level' disabled={isViewMode} defaultValue={accountDetail?.level}/></td>
-                                            </tr>
-                                            <tr>
-                                                <td className='required-field'>Status</td>
-                                                <td><Select onChange={onChangeDropdown} isDisabled={isViewMode} options={listStatus} value={statusAccount}/></td>
-                                                <td className='required-field'>Language</td>
-                                                <td><Select onChange={onChangeDropdown} isDisabled={isViewMode} options={languages} value={language}/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>License</td>
-                                                <td><input type='text' onChange={handleInputChange} name='license' disabled={isViewMode} defaultValue={accountDetail?.license}/></td>
-                                                <td className='required-field'>Email Address</td>
-                                                <td><input type='text' onChange={handleInputChange} name='email' disabled={isViewMode} defaultValue={accountDetail?.email}/></td>
-                                            </tr>
-                                            <tr>
-                                                <td className='required-field'>Currency</td>
-                                                <td><Select onChange={onChangeDropdown} isDisabled={isViewMode} options={currencies} value={currency}/></td>
-                                                <td>Phone</td>
-                                                <td><input type='text' onChange={handleInputChange} name='phoneNumber' disabled={isViewMode} defaultValue={accountDetail?.phoneNumber}/></td>
-                                            </tr>
-                                            <tr>
-                                                <td className='required-field'>Credit Account</td>
-                                                <td><input type='text' onChange={handleInputChange} name='credit' disabled={isViewMode} defaultValue={accountDetail?.credit}/></td>
-                                                <td>Mobile</td>
-                                                <td><input type='text' onChange={handleInputChange} name='mobile' disabled={isViewMode} defaultValue={accountDetail?.mobile}/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Credit Limit</td>
-                                                <td><input type='text' onChange={handleInputChange} name='creditLimit' disabled={isViewMode} defaultValue={accountDetail?.creditLimit}/></td>
-                                                <td>username</td>
-                                                <td><input type='text' onChange={handleInputChange} name='userName' disabled={isViewMode} defaultValue={accountDetail?.userName}/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address</td>
-                                                <td><input type='text' onChange={handleInputChange} name='address' disabled={isViewMode} defaultValue={accountDetail?.address}/></td>
-                                                <td>Password</td>
-                                                <td><input type='password' onChange={handleInputChange} name='password' disabled={isViewMode} defaultValue={accountDetail?.password}/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>City</td>
-                                                <td><input type='text' onChange={handleInputChange} disabled={isViewMode} defaultValue={accountDetail?.city}/></td>
-                                                <td/>
-                                                <td/>
-                                            </tr>
-                                            <tr>
-                                                <td className='required-field'>Country</td>
-                                                <td><Select onChange={onChangeDropdown} isDisabled={isViewMode} options={countries} value={country}/></td>
-                                                <td className='required-field'>Questionnaire Receipt Date</td>
-                                                <td>
-                                                    <label>
-                                                        <DatePicker onChange={onQuestionnaireReceiptDateChange} selected={account?.questionnaireReceiptDate} disabled={isViewMode}
-                                                                    name='questionnaireReceiptDate'/>
-                                                        <FontAwesomeIcon icon={faCalendarAlt}/>
-                                                    </label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Postal Code</td>
-                                                <td><input type='text' onChange={handleInputChange} name='postalCode' disabled={isViewMode} defaultValue={accountDetail?.postalCode}/></td>
-                                                <td>Account Approval Date</td>
-                                                <td>
-                                                    <label>
-                                                        <DatePicker onChange={onApprovedDateChange} selected={account?.approvedDate} disabled={isViewMode} name='approvedDate'/> <FontAwesomeIcon
-                                                        icon={faCalendarAlt}/>
-                                                    </label>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant='primary' onClick={handleClose}>
-                                        Close
-                                    </Button>
-                                    <Button type='submit' variant='success' disabled={isSubmitting}>
-                                        Save
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
+        <Formik initialValues={initialValues()} onSubmit={values => updateAccount(values)} validationSchema={validationSchema()}>
+            {(props) => {
+                const {
+                    values,
+                    touched,
+                    errors,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    setFieldValue
+                } = props;
+                return (
+                    <form onSubmit={handleSubmit}>
+                        <Modal show={true} onHide={handleClose} keyboard={false} dialogClassName='modal-dialog modal-xl'>
+                            <Modal.Header closeButton>
+                                <Modal.Title className='title'>CORPORATE PROFILE</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div className='profile-detail'>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td className='required-field'>Account Name</td>
+                                            <td>
+                                                <input
+                                                    id='name'
+                                                    type='text'
+                                                    value={values.name}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    className={errors.name && touched.name ? 'text-input error' : 'text-input'}
+                                                />
+                                            </td>
+                                            <td className='required-field'>Account ID</td>
+                                            <td>
+                                                <input
+                                                    id='id'
+                                                    type='number'
+                                                    value={values.id}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    className={errors.id && touched.id ? 'text-input error' : 'text-input'}
+                                                    disabled={accountDetail}
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className='required-field'>Partner Label ID</td>
+                                            <td>
+                                                <input
+                                                    id='partnerLabelId'
+                                                    type='text'
+                                                    value={values.partnerLabelId}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    className={errors.partnerLabelId && touched.partnerLabelId ? 'text-input error' : 'text-input'}
+                                                />
+                                            </td>
+                                            <td className='required-field'>Level</td>
+                                            <td>
+                                                <input
+                                                    id='level'
+                                                    type='text'
+                                                    value={values.level}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    className={errors.level && touched.level ? 'text-input error' : 'text-input'}
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className='required-field'>Status</td>
+                                            <td>
+                                                <FastField
+                                                    name='statusAccount'
+                                                    component={SelectField}
+                                                    value={values?.statusAccount}
+                                                    styles={{
+                                                        control: (base: any) => ({
+                                                            ...base,
+                                                            borderColor: errors.statusAccount && touched.statusAccount ? 'red' : 'hsl(0,0%,80%)',
+                                                        })
+                                                    }}
+                                                    options={listStatus}
+                                                />
+                                            </td>
+                                            <td className='required-field'>Language</td>
+                                            <td>
+                                                <FastField
+                                                    name='language'
+                                                    component={SelectField}
+                                                    value={values?.language}
+                                                    styles={{
+                                                        control: (base: any) => ({
+                                                            ...base,
+                                                            borderColor: errors.language && touched.language ? 'red' : 'hsl(0,0%,80%)',
+                                                        })
+                                                    }}
+                                                    options={languages}
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>License</td>
+                                            <td><input type='text' onChange={handleInputChange} name='license' defaultValue={accountDetail?.license}/></td>
+                                            <td className='required-field'>Email Address</td>
+                                            <td>
+                                                <input
+                                                    id='email'
+                                                    type='text'
+                                                    value={values.email}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    className={errors.email && touched.email ? 'text-input error' : 'text-input'}
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className='required-field'>Currency</td>
+                                            <td>
+                                                <FastField
+                                                    name='currency'
+                                                    component={SelectField}
+                                                    value={values?.currency}
+                                                    styles={{
+                                                        control: (base: any) => ({
+                                                            ...base,
+                                                            borderColor: errors.currency && touched.currency ? 'red' : 'hsl(0,0%,80%)',
+                                                        })
+                                                    }}
+                                                    options={currencies}
+                                                />
+                                            </td>
+                                            <td>Phone</td>
+                                            <td><input type='text' onChange={handleInputChange} name='phoneNumber' defaultValue={accountDetail?.phoneNumber}/></td>
+                                        </tr>
+                                        <tr>
+                                            <td className='required-field'>Credit Account</td>
+                                            <td>
+                                                <input
+                                                    id='credit'
+                                                    type='text'
+                                                    value={values.credit}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    className={errors.credit && touched.credit ? 'text-input error' : 'text-input'}
+                                                />
+                                            </td>
+                                            <td>Mobile</td>
+                                            <td><input type='text' onChange={handleInputChange} name='mobile' defaultValue={accountDetail?.mobile}/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Credit Limit</td>
+                                            <td><input type='text' onChange={handleInputChange} name='creditLimit' defaultValue={accountDetail?.creditLimit}/></td>
+                                            <td>username</td>
+                                            <td><input type='text' onChange={handleInputChange} name='userName' defaultValue={accountDetail?.userName}/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td><input type='text' onChange={handleInputChange} name='address' defaultValue={accountDetail?.address}/></td>
+                                            <td>Password</td>
+                                            <td><input type='password' onChange={handleInputChange} name='password' defaultValue={accountDetail?.password}/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>City</td>
+                                            <td><input type='text' onChange={handleInputChange} defaultValue={accountDetail?.city}/></td>
+                                            <td/>
+                                            <td/>
+                                        </tr>
+                                        <tr>
+                                            <td className='required-field'>Country</td>
+                                            <td>
+                                                <FastField
+                                                    name='country'
+                                                    component={SelectField}
+                                                    value={values?.country}
+                                                    styles={{
+                                                        control: (base: any) => ({
+                                                            ...base,
+                                                            borderColor: errors.country && touched.country ? 'red' : 'hsl(0,0%,80%)',
+                                                        })
+                                                    }}
+                                                    options={countries}
+                                                />
+                                            </td>
+                                            <td className='required-field'>Questionnaire Receipt Date</td>
+                                            <td>
+                                                <label className='calendar-container'>
+                                                    <DatePickerField
+                                                        name='questionnaireReceiptDate'
+                                                        onChange={setFieldValue}
+                                                        value={values.questionnaireReceiptDate}
+                                                        className={!values.questionnaireReceiptDate ? 'text-input error' : 'text-input'}
+                                                        />
+                                                    <div className='calendar-alt'><FontAwesomeIcon icon={faCalendarAlt}/></div>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Postal Code</td>
+                                            <td><input type='text' onChange={handleInputChange} name='postalCode' defaultValue={accountDetail?.postalCode}/></td>
+                                            <td>Account Approval Date</td>
+                                            <td>
+                                                <label className='calendar-container'>
+                                                    <DatePicker onChange={onApprovedDateChange} selected={account?.approvedDate} name='approvedDate'/>
+                                                    <div className='calendar-alt'><FontAwesomeIcon icon={faCalendarAlt}/></div>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant='primary' onClick={handleClose}>
+                                    Close
+                                </Button>
+                                <Button type='submit' variant='success' disabled={!props.isValid} onClick={props.handleSubmit}>
+                                    Save
+                                </Button>
+                            </Modal.Footer>
                             {/*{JSON.stringify(props)}*/}
-                        </Form>
-                    );
-                }}
-            </Formik>
+                        </Modal>
 
-        </>
+                    </form>
+                );
+            }}
+        </Formik>
     );
 }
 
