@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormGroup } from 'react-bootstrap';
+import './input-field.scss';
 
 InputField.propTypes = {
   field: PropTypes.object.isRequired,
@@ -34,7 +35,7 @@ function InputField(props: any) {
       <input
         id={name}
         {...field}
-        className={errors[name] && touched[name] ? 'text-input error' : 'text-input'}
+        className = {`custom-input ${errors[name] && touched[name] && !disabled ? 'error' : ''}`}
         type={type}
         disabled={disabled}
         placeholder={placeholder}
