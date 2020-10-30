@@ -31,7 +31,7 @@ module.exports = {
     vendor: VENDOR_LIBS
   },
   output: {
-    publicPath: '/corporate-account/',
+    publicPath: '/corporate-account-ui/',
     // the output of the webpack build will be in /build directory
     path: path.resolve(__dirname, 'build'),
     // the filename of the JS bundle will be bundle.js

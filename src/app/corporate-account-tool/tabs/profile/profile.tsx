@@ -143,9 +143,14 @@ function Profile() {
                 {/*Account Status is not Inactive or Closed.*/}
                 {/*License is NOT Malta*/}
 
-                <Button variant='primary' className='create-parent-account' onClick={() => setCreateParentAccount(true)}>
-                    CREATE PARENT ACCOUNT (LEVEL 3)
-                </Button>
+                { (!accountDetail?.parentId || accountDetail?.parentId === 0)
+                    && accountDetail?.level === 'Level 2'
+                    && ['verified', 'pending'].includes(accountDetail?.statusAccount)
+                    && accountDetail.license !== 'Malta' &&
+                    <Button variant='primary' className='create-parent-account' onClick={() => setCreateParentAccount(true)}>
+                        CREATE PARENT ACCOUNT (LEVEL 3)
+                    </Button>
+                }
             </div>
         </>
     );

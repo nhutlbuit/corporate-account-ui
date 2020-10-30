@@ -45,12 +45,12 @@ function AddEditProfile(propsAddEditProfile: any) {
 
     const generateAccountId = (n: number) => {
         return Math.floor(Math.random() * (9 * (Math.pow(10, n)))) + (Math.pow(10, n));
-    }
+    };
 
     const initialValues = () => {
         return {
             name: accountDetail?.name ?? '',
-            id: accountDetail?.id ?? generateAccountId(6),
+            id: (accountDetail?.id && !isLevel3) ? accountDetail.id : generateAccountId(6),
             email: accountDetail?.email ?? '',
             questionnaireReceiptDate: accountDetail?.questionnaireReceiptDate ?? new Date(),
             statusAccount: accountDetail?.statusAccount ?? (isLevel3 ? 'verified' : 'pending'),
@@ -58,7 +58,7 @@ function AddEditProfile(propsAddEditProfile: any) {
             currency: accountDetail?.currency ?? '',
             language: accountDetail?.language ?? '',
             partnerLabelId: accountDetail?.partnerLabelId ?? '',
-            level: accountDetail?.level ?? (isLevel3 ? 'Level 3' : 'Level 2'),
+            level: (isLevel3 ? 'Level 3' : accountDetail?.level) ?? 'Level 2',
             creditLimit: accountDetail?.creditLimit ?? '',
             license: accountDetail?.license ?? '',
             mobile: accountDetail?.mobile ?? '',
@@ -307,7 +307,7 @@ function AddEditProfile(propsAddEditProfile: any) {
                         <Modal show={true} onHide={onClosePopup} keyboard={false} dialogClassName='modal-dialog modal-xl'>
                             <Modal.Header closeButton>
                                 <Modal.Title className='title'>
-                                    {accountDetail ? 'EDIT' : 'ADD NEW'} CORPORATE PROFILE
+                                    {accountDetail && !isLevel3 ? 'EDIT' : 'ADD NEW'} CORPORATE PROFILE
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>

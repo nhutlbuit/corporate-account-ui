@@ -29,6 +29,7 @@ function* updatingAccountAsync(param: any) {
         const data = yield call(updateAccountService, param.payload);
         yield put(saveAccountSuccess(data));
     } catch (err) {
+        console.log(err);
         yield put(saveAccountError());
     }
 }
