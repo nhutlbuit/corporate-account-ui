@@ -83,6 +83,16 @@ export const updateAccountService = async (account: any) => {
     const acc = accounts.filter((e: any) => e.id != account.id);
     acc.push(account);
     accounts = acc;
+
+    if (account.level === 'Level 3') {
+        if (account.parentId) { // chac chan phai co
+
+        }
+    }
+
+    // handle to add acc lv3
+    // update parentId for lv 2
+    // add new level 3
     return 'ok';
 };
 

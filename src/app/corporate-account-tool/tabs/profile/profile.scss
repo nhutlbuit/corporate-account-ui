@@ -101,6 +101,7 @@
         tr {
           td {
             padding: 10px 8% 10px 15px;
+            background-color: white;
             text-align: left;
             border: none;
             .type-product {
@@ -114,5 +115,11 @@
         }
       }
     }
+  }
+
+  .create-parent-account {
+    margin: 10px 0px 0px 0px;
+    float: right;
+    font-weight: bold;
   }
 }

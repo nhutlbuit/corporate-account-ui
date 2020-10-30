@@ -1,19 +1,29 @@
 
 export const CONSTANT = Object.freeze({
     TOAST_TIMEOUT: 5000,
-    COMMUNICATION: {
-        COMMENT_TYPES_CREATE: [
-            { label: 'Verification', value: 'VERIFICATION' },
-            { label: 'Risk', value: 'RISK' },
-            { label: 'Affiliates', value: 'AFFILIATES' },
-            { label: 'General', value: 'GENERAL' },
-            { label: 'Casino', value: 'CASINO' },
-            { label: 'Payments', value: 'PAYMENTS' },
-            { label: 'RG Limit', value: 'RG_LIMIT' },
-            { label: 'Wagering', value: 'WAGERING' },
-            { label: 'Other', value: 'OTHER' },
-            { label: 'Telesales', value: 'TELESALES' }
-        ]
+    ACCOUNT_CREATION: {
+        STATUS: [
+            {name: 'statusAccount', value: 'pending', label: 'Pending Verification'},
+            {name: 'statusAccount', value: 'verified', label: 'Verified'},
+            {name: 'statusAccount', value: 'inactive', label: 'Inactive'},
+            {name: 'statusAccount', value: 'closed', label: 'Closed'}
+        ],
+        CURRENCIES: [
+            {name: 'currency', value: 'GBP', label: 'GPG'},
+            {name: 'currency', value: 'VND', label: 'VND'},
+            {name: 'currency', value: 'USD', label: 'USD'},
+        ],
+        COUNTRIES: [
+            {name: 'country', value: 'uk', label: 'United Kingdom'},
+            {name: 'country', value: 'vn', label: 'Viet Nam'},
+            {name: 'country', value: 'us', label: 'United states'},
+        ],
+        LANGUAGES: [
+            {name: 'language', value: 'en', label: 'English'},
+            {name: 'language', value: 'vn', label: 'Viet Nam'},
+            {name: 'language', value: 'fr', label: 'France'},
+        ],
+
     }
 });
 

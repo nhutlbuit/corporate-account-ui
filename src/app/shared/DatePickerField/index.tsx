@@ -3,36 +3,46 @@ import React from 'react';
 import { FormGroup } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import './date-picker-field.scss';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons';
 
 DatePickerField.propTypes = {
   field: PropTypes.object.isRequired,
+  form: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 DatePickerField.defaultProps = {
   label: '',
   placeholder: '',
-  disabled: false,
+  disabled: false
 };
 
 function DatePickerField(props: any) {
-  const { field, onChange, label, disabled } = props;
+  const { field, onChange, label, disabled, form} = props;
   const { name, value } = field;
+  const { errors, touched } = form;
 
   return (
-    <FormGroup>
+    <FormGroup className='date-picker-field'>
       {label && <label htmlFor={name}>{label}</label>}
 
-      <DatePicker
-          id={name}
-          {...field}
-          selected={(value && new Date(value)) || null}
-          onChange={val => onChange(name, val)}
-          className = {`custom-input text-input ${!value && !disabled ? 'error' : ''}`}
-          disabled={disabled}
-      />
+      <label className='calendar-container'>
+        <DatePicker
+            id={name}
+            {...field}
+            type='text'
+            selected={(value && new Date(value)) || null}
+            onChange={val => onChange(name, val)}
+            className = {`custom-input ${errors[name] && touched[name] ? 'error' : ''}`}
+            disabled={disabled}
+        />
+        <div className='calendar-alt'><FontAwesomeIcon icon={faCalendarAlt} size='lg'/></div>
+      </label>
     </FormGroup>
   );
 }

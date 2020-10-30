@@ -36,7 +36,7 @@ function InputField(props: any) {
         id={name}
         {...field}
         className = {`custom-input ${errors[name] && touched[name] && !disabled ? 'error' : ''}`}
-        type={type}
+        type={type ? type : 'text'}
         disabled={disabled}
         placeholder={placeholder}
       />

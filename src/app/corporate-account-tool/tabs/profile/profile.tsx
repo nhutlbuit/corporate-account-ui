@@ -1,7 +1,7 @@
 import React, {lazy, useState} from 'react';
 import './profile.scss';
 import {useSelector} from 'react-redux';
-import {Button, FormCheck} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPencilAlt} from '@fortawesome/free-solid-svg-icons';
 import {format} from 'date-fns';
@@ -11,10 +11,12 @@ const AddEditProfile = lazy(() => import('./add-edit-profile/add-edit-profile'))
 function Profile() {
     const {accountDetail} = useSelector((state: any) => state.account);
     const [isEdit, setEdit] = useState(false);
+    const [isCreateParentAccount, setCreateParentAccount] = useState(false);
 
     return (
         <>
             {isEdit && <AddEditProfile accountDetail={accountDetail} closeAddEditProfilePopup={(isClose: boolean) => setEdit(isClose)}/>}
+            {isCreateParentAccount && <AddEditProfile accountDetail={accountDetail} isLevel3={true} closeAddEditProfilePopup={(isClose: boolean) => setCreateParentAccount(isClose)}/>}
             <div className='profile'>
                 <div className='profile-info'>
                     <table>
@@ -136,6 +138,14 @@ function Profile() {
                         </tbody>
                     </table>
                 </div>
+
+                {/*Account being displayed is a Level 2 account AND does not have a Level 3 parent account (See Create Parent Account).*/}
+                {/*Account Status is not Inactive or Closed.*/}
+                {/*License is NOT Malta*/}
+
+                <Button variant='primary' className='create-parent-account' onClick={() => setCreateParentAccount(true)}>
+                    CREATE PARENT ACCOUNT (LEVEL 3)
+                </Button>
             </div>
         </>
     );

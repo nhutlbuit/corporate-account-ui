@@ -9,7 +9,7 @@ const rootNode = document.getElementById('root');
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename='account-ui'>
+    <BrowserRouter basename='corporate-account-ui'>
       <App />
     </BrowserRouter>
   </Provider>,
