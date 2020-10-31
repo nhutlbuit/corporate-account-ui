@@ -1,9 +1,913 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{135:function(e,t,n){"use strict";var r=n(506);e.exports=Function.prototype.bind||r},144:function(e,t,n){"use strict";e.exports=n(458)},458:function(e,t,n){"use strict";
-/** @license React v0.18.0
- * scheduler.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */var r,i,a,o,u;if(Object.defineProperty(t,"__esModule",{value:!0}),"undefined"==typeof window||"function"!=typeof MessageChannel){var l=null,c=null,s=function(){if(null!==l)try{var e=t.unstable_now();l(!0,e),l=null}catch(e){throw setTimeout(s,0),e}},f=Date.now();t.unstable_now=function(){return Date.now()-f},r=function(e){null!==l?setTimeout(r,0,e):(l=e,setTimeout(s,0))},i=function(e,t){c=setTimeout(e,t)},a=function(){clearTimeout(c)},o=function(){return!1},u=t.unstable_forceFrameRate=function(){}}else{var d=window.performance,p=window.Date,v=window.setTimeout,h=window.clearTimeout;if("undefined"!=typeof console){var m=window.cancelAnimationFrame;"function"!=typeof window.requestAnimationFrame&&console.error("This browser doesn't support requestAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"),"function"!=typeof m&&console.error("This browser doesn't support cancelAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills")}if("object"==typeof d&&"function"==typeof d.now)t.unstable_now=function(){return d.now()};else{var b=p.now();t.unstable_now=function(){return p.now()-b}}var y=!1,O=null,E=-1,S=5,T=0;o=function(){return t.unstable_now()>=T},u=function(){},t.unstable_forceFrameRate=function(e){0>e||125<e?console.error("forceFrameRate takes a positive int between 0 and 125, forcing framerates higher than 125 fps is not unsupported"):S=0<e?Math.floor(1e3/e):5};var _=new MessageChannel,g=_.port2;_.port1.onmessage=function(){if(null!==O){var e=t.unstable_now();T=e+S;try{O(!0,e)?g.postMessage(null):(y=!1,O=null)}catch(e){throw g.postMessage(null),e}}else y=!1},r=function(e){O=e,y||(y=!0,g.postMessage(null))},i=function(e,n){E=v((function(){e(t.unstable_now())}),n)},a=function(){h(E),E=-1}}function j(e,t){var n=e.length;e.push(t);e:for(;;){var r=Math.floor((n-1)/2),i=e[r];if(!(void 0!==i&&0<R(i,t)))break e;e[r]=t,e[n]=i,n=r}}function k(e){return void 0===(e=e[0])?null:e}function w(e){var t=e[0];if(void 0!==t){var n=e.pop();if(n!==t){e[0]=n;e:for(var r=0,i=e.length;r<i;){var a=2*(r+1)-1,o=e[a],u=a+1,l=e[u];if(void 0!==o&&0>R(o,n))void 0!==l&&0>R(l,o)?(e[r]=l,e[u]=n,r=u):(e[r]=o,e[a]=n,r=a);else{if(!(void 0!==l&&0>R(l,n)))break e;e[r]=l,e[u]=n,r=u}}}return t}return null}function R(e,t){var n=e.sortIndex-t.sortIndex;return 0!==n?n:e.id-t.id}var F=[],A=[],I=1,C=null,M=3,P=!1,D=!1,U=!1;function L(e){for(var t=k(A);null!==t;){if(null===t.callback)w(A);else{if(!(t.startTime<=e))break;w(A),t.sortIndex=t.expirationTime,j(F,t)}t=k(A)}}function V(e){if(U=!1,L(e),!D)if(null!==k(F))D=!0,r(x);else{var t=k(A);null!==t&&i(V,t.startTime-e)}}function x(e,n){D=!1,U&&(U=!1,a()),P=!0;var r=M;try{for(L(n),C=k(F);null!==C&&(!(C.expirationTime>n)||e&&!o());){var u=C.callback;if(null!==u){C.callback=null,M=C.priorityLevel;var l=u(C.expirationTime<=n);n=t.unstable_now(),"function"==typeof l?C.callback=l:C===k(F)&&w(F),L(n)}else w(F);C=k(F)}if(null!==C)var c=!0;else{var s=k(A);null!==s&&i(V,s.startTime-n),c=!1}return c}finally{C=null,M=r,P=!1}}function B(e){switch(e){case 1:return-1;case 2:return 250;case 5:return 1073741823;case 4:return 1e4;default:return 5e3}}var N=u;t.unstable_ImmediatePriority=1,t.unstable_UserBlockingPriority=2,t.unstable_NormalPriority=3,t.unstable_IdlePriority=5,t.unstable_LowPriority=4,t.unstable_runWithPriority=function(e,t){switch(e){case 1:case 2:case 3:case 4:case 5:break;default:e=3}var n=M;M=e;try{return t()}finally{M=n}},t.unstable_next=function(e){switch(M){case 1:case 2:case 3:var t=3;break;default:t=M}var n=M;M=t;try{return e()}finally{M=n}},t.unstable_scheduleCallback=function(e,n,o){var u=t.unstable_now();if("object"==typeof o&&null!==o){var l=o.delay;l="number"==typeof l&&0<l?u+l:u,o="number"==typeof o.timeout?o.timeout:B(e)}else o=B(e),l=u;return e={id:I++,callback:n,priorityLevel:e,startTime:l,expirationTime:o=l+o,sortIndex:-1},l>u?(e.sortIndex=l,j(A,e),null===k(F)&&e===k(A)&&(U?a():U=!0,i(V,l-u))):(e.sortIndex=o,j(F,e),D||P||(D=!0,r(x))),e},t.unstable_cancelCallback=function(e){e.callback=null},t.unstable_wrapCallback=function(e){var t=M;return function(){var n=M;M=t;try{return e.apply(this,arguments)}finally{M=n}}},t.unstable_getCurrentPriorityLevel=function(){return M},t.unstable_shouldYield=function(){var e=t.unstable_now();L(e);var n=k(F);return n!==C&&null!==C&&null!==n&&null!==n.callback&&n.startTime<=e&&n.expirationTime<C.expirationTime||o()},t.unstable_requestPaint=N,t.unstable_continueExecution=function(){D||P||(D=!0,r(x))},t.unstable_pauseExecution=function(){},t.unstable_getFirstCallbackNode=function(){return k(F)},t.unstable_Profiling=null},506:function(e,t,n){"use strict";var r="Function.prototype.bind called on incompatible ",i=Array.prototype.slice,a=Object.prototype.toString;e.exports=function(e){var t=this;if("function"!=typeof t||"[object Function]"!==a.call(t))throw new TypeError(r+t);for(var n,o=i.call(arguments,1),u=function(){if(this instanceof n){var r=t.apply(this,o.concat(i.call(arguments)));return Object(r)===r?r:this}return t.apply(e,o.concat(i.call(arguments)))},l=Math.max(0,t.length-o.length),c=[],s=0;s<l;s++)c.push("$"+s);if(n=Function("binder","return function ("+c.join(",")+"){ return binder.apply(this,arguments); }")(u),t.prototype){var f=function(){};f.prototype=t.prototype,n.prototype=new f,f.prototype=null}return n}},518:function(e,t,n){"use strict";(function(t){var n="__global_unique_id__";e.exports=function(){return t[n]=(t[n]||0)+1}}).call(this,n(61))},527:function(e,t,n){"use strict";n.d(t,"a",(function(){return K})),n.d(t,"b",(function(){return N})),n.d(t,"c",(function(){return L}));var r=n(0),i=n(69),a=n.n(i),o=n(202),u=n(228),l=n(227),c=n(226),s=n(43),f=n(144),d=n(89),p=n.n(d),v=n(410);function h(){return(h=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}function m(e,t){e.prototype=Object.create(t.prototype),e.prototype.constructor=e,e.__proto__=t}function b(e,t){if(null==e)return{};var n,r,i={},a=Object.keys(e);for(r=0;r<a.length;r++)n=a[r],t.indexOf(n)>=0||(i[n]=e[n]);return i}function y(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}var O=function(e){return Array.isArray(e)&&0===e.length},E=function(e){return"function"==typeof e},S=function(e){return null!==e&&"object"==typeof e},T=function(e){return String(Math.floor(Number(e)))===e},_=function(e){return"[object String]"===Object.prototype.toString.call(e)},g=function(e){return 0===r.Children.count(e)},j=function(e){return S(e)&&E(e.then)};function k(e,t,n,r){void 0===r&&(r=0);for(var i=Object(c.a)(t);e&&r<i.length;)e=e[i[r++]];return void 0===e?n:e}function w(e,t,n){for(var r=Object(l.a)(e),i=r,a=0,o=Object(c.a)(t);a<o.length-1;a++){var u=o[a],s=k(e,o.slice(0,a+1));if(s&&(S(s)||Array.isArray(s)))i=i[u]=Object(l.a)(s);else{var f=o[a+1];i=i[u]=T(f)&&Number(f)>=0?[]:{}}}return(0===a?e:i)[o[a]]===n?e:(void 0===n?delete i[o[a]]:i[o[a]]=n,0===a&&void 0===n&&delete r[o[a]],r)}function R(e,t,n,r){void 0===n&&(n=new WeakMap),void 0===r&&(r={});for(var i=0,a=Object.keys(e);i<a.length;i++){var o=a[i],u=e[o];S(u)?n.get(u)||(n.set(u,!0),r[o]=Array.isArray(u)?[]:{},R(u,t,n,r[o])):r[o]=t}return r}var F=Object(r.createContext)(void 0),A=F.Provider,I=F.Consumer;function C(){var e=Object(r.useContext)(F);return e||Object(s.a)(!1),e}function M(e,t){switch(t.type){case"SET_VALUES":return h({},e,{values:t.payload});case"SET_TOUCHED":return h({},e,{touched:t.payload});case"SET_ERRORS":return a()(e.errors,t.payload)?e:h({},e,{errors:t.payload});case"SET_STATUS":return h({},e,{status:t.payload});case"SET_ISSUBMITTING":return h({},e,{isSubmitting:t.payload});case"SET_ISVALIDATING":return h({},e,{isValidating:t.payload});case"SET_FIELD_VALUE":return h({},e,{values:w(e.values,t.payload.field,t.payload.value)});case"SET_FIELD_TOUCHED":return h({},e,{touched:w(e.touched,t.payload.field,t.payload.value)});case"SET_FIELD_ERROR":return h({},e,{errors:w(e.errors,t.payload.field,t.payload.value)});case"RESET_FORM":return h({},e,t.payload);case"SET_FORMIK_STATE":return t.payload(e);case"SUBMIT_ATTEMPT":return h({},e,{touched:R(e.values,!0),isSubmitting:!0,submitCount:e.submitCount+1});case"SUBMIT_FAILURE":case"SUBMIT_SUCCESS":return h({},e,{isSubmitting:!1});default:return e}}var P={},D={};function U(e){var t=e.validateOnChange,n=void 0===t||t,i=e.validateOnBlur,l=void 0===i||i,c=e.validateOnMount,s=void 0!==c&&c,d=e.isInitialValid,p=e.enableReinitialize,v=void 0!==p&&p,m=e.onSubmit,y=b(e,["validateOnChange","validateOnBlur","validateOnMount","isInitialValid","enableReinitialize","onSubmit"]),O=h({validateOnChange:n,validateOnBlur:l,validateOnMount:s,onSubmit:m},y),T=Object(r.useRef)(O.initialValues),g=Object(r.useRef)(O.initialErrors||P),R=Object(r.useRef)(O.initialTouched||D),F=Object(r.useRef)(O.initialStatus),A=Object(r.useRef)(!1),I=Object(r.useRef)({});Object(r.useEffect)((function(){return A.current=!0,function(){A.current=!1}}),[]);var C=Object(r.useReducer)(M,{values:O.initialValues,errors:O.initialErrors||P,touched:O.initialTouched||D,status:O.initialStatus,isSubmitting:!1,isValidating:!1,submitCount:0}),U=C[0],L=C[1],x=Object(r.useCallback)((function(e,t){return new Promise((function(n,r){var i=O.validate(e,t);null==i?n(P):j(i)?i.then((function(e){n(e||P)}),(function(e){r(e)})):n(i)}))}),[O.validate]),N=Object(r.useCallback)((function(e,t){var n=O.validationSchema,r=E(n)?n(t):n,i=t&&r.validateAt?r.validateAt(t,e):function(e,t,n,r){void 0===n&&(n=!1);void 0===r&&(r={});var i=function e(t){var n=Array.isArray(t)?[]:{};for(var r in t)if(Object.prototype.hasOwnProperty.call(t,r)){var i=String(r);!0===Array.isArray(t[i])?n[i]=t[i].map((function(t){return!0===Array.isArray(t)||Object(u.a)(t)?e(t):""!==t?t:void 0})):Object(u.a)(t[i])?n[i]=e(t[i]):n[i]=""!==t[i]?t[i]:void 0}return n}(e);return t[n?"validateSync":"validate"](i,{abortEarly:!1,context:r})}(e,r);return new Promise((function(e,t){i.then((function(){e(P)}),(function(n){"ValidationError"===n.name?e(function(e){var t={};if(e.inner){if(0===e.inner.length)return w(t,e.path,e.message);var n=e.inner,r=Array.isArray(n),i=0;for(n=r?n:n[Symbol.iterator]();;){var a;if(r){if(i>=n.length)break;a=n[i++]}else{if((i=n.next()).done)break;a=i.value}var o=a;k(t,o.path)||(t=w(t,o.path,o.message))}}return t}(n)):t(n)}))}))}),[O.validationSchema]),G=Object(r.useCallback)((function(e,t){return new Promise((function(n){return n(I.current[e].validate(t))}))}),[]),H=Object(r.useCallback)((function(e){var t=Object.keys(I.current).filter((function(e){return E(I.current[e].validate)})),n=t.length>0?t.map((function(t){return G(t,k(e,t))})):[Promise.resolve("DO_NOT_DELETE_YOU_WILL_BE_FIRED")];return Promise.all(n).then((function(e){return e.reduce((function(e,n,r){return"DO_NOT_DELETE_YOU_WILL_BE_FIRED"===n||n&&(e=w(e,t[r],n)),e}),{})}))}),[G]),W=Object(r.useCallback)((function(e){return Promise.all([H(e),O.validationSchema?N(e):{},O.validate?x(e):{}]).then((function(e){var t=e[0],n=e[1],r=e[2];return o.a.all([t,n,r],{arrayMerge:V})}))}),[O.validate,O.validationSchema,H,x,N]),q=B((function(e){return void 0===e&&(e=U.values),t=function(){return W(e).then((function(e){return A.current&&L({type:"SET_ERRORS",payload:e}),e})).catch((function(e){}))},Object(f.unstable_runWithPriority)(f.unstable_LowPriority,(function(){return Object(f.unstable_scheduleCallback)(f.unstable_LowPriority,t)}));var t})),K=B((function(e){return void 0===e&&(e=U.values),L({type:"SET_ISVALIDATING",payload:!0}),W(e).then((function(e){return A.current&&(L({type:"SET_ISVALIDATING",payload:!1}),a()(U.errors,e)||L({type:"SET_ERRORS",payload:e})),e}))}));Object(r.useEffect)((function(){s&&!0===A.current&&a()(T.current,O.initialValues)&&q(T.current)}),[s,q]);var Y=Object(r.useCallback)((function(e){var t=e&&e.values?e.values:T.current,n=e&&e.errors?e.errors:g.current?g.current:O.initialErrors||{},r=e&&e.touched?e.touched:R.current?R.current:O.initialTouched||{},i=e&&e.status?e.status:F.current?F.current:O.initialStatus;T.current=t,g.current=n,R.current=r,F.current=i;var a=function(){L({type:"RESET_FORM",payload:{isSubmitting:!!e&&!!e.isSubmitting,errors:n,touched:r,status:i,values:t,isValidating:!!e&&!!e.isValidating,submitCount:e&&e.submitCount&&"number"==typeof e.submitCount?e.submitCount:0}})};if(O.onReset){var o=O.onReset(U.values,de);j(o)?o.then(a):a()}else a()}),[O.initialErrors,O.initialStatus,O.initialTouched]);Object(r.useEffect)((function(){!0!==A.current||a()(T.current,O.initialValues)||(v&&(T.current=O.initialValues,Y()),s&&q(T.current))}),[v,O.initialValues,Y,s,q]),Object(r.useEffect)((function(){v&&!0===A.current&&!a()(g.current,O.initialErrors)&&(g.current=O.initialErrors||P,L({type:"SET_ERRORS",payload:O.initialErrors||P}))}),[v,O.initialErrors]),Object(r.useEffect)((function(){v&&!0===A.current&&!a()(R.current,O.initialTouched)&&(R.current=O.initialTouched||D,L({type:"SET_TOUCHED",payload:O.initialTouched||D}))}),[v,O.initialTouched]),Object(r.useEffect)((function(){v&&!0===A.current&&!a()(F.current,O.initialStatus)&&(F.current=O.initialStatus,L({type:"SET_STATUS",payload:O.initialStatus}))}),[v,O.initialStatus,O.initialTouched]);var z=B((function(e){if(I.current[e]&&E(I.current[e].validate)){var t=k(U.values,e),n=I.current[e].validate(t);return j(n)?(L({type:"SET_ISVALIDATING",payload:!0}),n.then((function(e){return e})).then((function(t){L({type:"SET_FIELD_ERROR",payload:{field:e,value:t}}),L({type:"SET_ISVALIDATING",payload:!1})}))):(L({type:"SET_FIELD_ERROR",payload:{field:e,value:n}}),Promise.resolve(n))}return O.validationSchema?(L({type:"SET_ISVALIDATING",payload:!0}),N(U.values,e).then((function(e){return e})).then((function(t){L({type:"SET_FIELD_ERROR",payload:{field:e,value:t[e]}}),L({type:"SET_ISVALIDATING",payload:!1})}))):Promise.resolve()})),J=Object(r.useCallback)((function(e,t){var n=t.validate;I.current[e]={validate:n}}),[]),$=Object(r.useCallback)((function(e){delete I.current[e]}),[]),Q=B((function(e,t){return L({type:"SET_TOUCHED",payload:e}),(void 0===t?l:t)?q(U.values):Promise.resolve()})),X=Object(r.useCallback)((function(e){L({type:"SET_ERRORS",payload:e})}),[]),Z=B((function(e,t){var r=E(e)?e(U.values):e;return L({type:"SET_VALUES",payload:r}),(void 0===t?n:t)?q(r):Promise.resolve()})),ee=Object(r.useCallback)((function(e,t){L({type:"SET_FIELD_ERROR",payload:{field:e,value:t}})}),[]),te=B((function(e,t,r){return L({type:"SET_FIELD_VALUE",payload:{field:e,value:t}}),(void 0===r?n:r)?q(w(U.values,e,t)):Promise.resolve()})),ne=Object(r.useCallback)((function(e,t){var n,r=t,i=e;if(!_(e)){e.persist&&e.persist();var a=e.target?e.target:e.currentTarget,o=a.type,u=a.name,l=a.id,c=a.value,s=a.checked,f=(a.outerHTML,a.options),d=a.multiple;r=t||(u||l),i=/number|range/.test(o)?(n=parseFloat(c),isNaN(n)?"":n):/checkbox/.test(o)?function(e,t,n){if("boolean"==typeof e)return Boolean(t);var r=[],i=!1,a=-1;if(Array.isArray(e))r=e,a=e.indexOf(n),i=a>=0;else if(!n||"true"==n||"false"==n)return Boolean(t);if(t&&n&&!i)return r.concat(n);if(!i)return r;return r.slice(0,a).concat(r.slice(a+1))}(k(U.values,r),s,c):d?function(e){return Array.from(e).filter((function(e){return e.selected})).map((function(e){return e.value}))}(f):c}r&&te(r,i)}),[te,U.values]),re=B((function(e){if(_(e))return function(t){return ne(t,e)};ne(e)})),ie=B((function(e,t,n){return void 0===t&&(t=!0),L({type:"SET_FIELD_TOUCHED",payload:{field:e,value:t}}),(void 0===n?l:n)?q(U.values):Promise.resolve()})),ae=Object(r.useCallback)((function(e,t){e.persist&&e.persist();var n=e.target,r=n.name,i=n.id,a=(n.outerHTML,t||(r||i));ie(a,!0)}),[ie]),oe=B((function(e){if(_(e))return function(t){return ae(t,e)};ae(e)})),ue=Object(r.useCallback)((function(e){E(e)?L({type:"SET_FORMIK_STATE",payload:e}):L({type:"SET_FORMIK_STATE",payload:function(){return e}})}),[]),le=Object(r.useCallback)((function(e){L({type:"SET_STATUS",payload:e})}),[]),ce=Object(r.useCallback)((function(e){L({type:"SET_ISSUBMITTING",payload:e})}),[]),se=B((function(){return L({type:"SUBMIT_ATTEMPT"}),K().then((function(e){var t=e instanceof Error;if(!t&&0===Object.keys(e).length){var n;try{if(void 0===(n=pe()))return}catch(e){throw e}return Promise.resolve(n).then((function(e){return A.current&&L({type:"SUBMIT_SUCCESS"}),e})).catch((function(e){if(A.current)throw L({type:"SUBMIT_FAILURE"}),e}))}if(A.current&&(L({type:"SUBMIT_FAILURE"}),t))throw e}))})),fe=B((function(e){e&&e.preventDefault&&E(e.preventDefault)&&e.preventDefault(),e&&e.stopPropagation&&E(e.stopPropagation)&&e.stopPropagation(),se().catch((function(e){console.warn("Warning: An unhandled error was caught from submitForm()",e)}))})),de={resetForm:Y,validateForm:K,validateField:z,setErrors:X,setFieldError:ee,setFieldTouched:ie,setFieldValue:te,setStatus:le,setSubmitting:ce,setTouched:Q,setValues:Z,setFormikState:ue,submitForm:se},pe=B((function(){return m(U.values,de)})),ve=B((function(e){e&&e.preventDefault&&E(e.preventDefault)&&e.preventDefault(),e&&e.stopPropagation&&E(e.stopPropagation)&&e.stopPropagation(),Y()})),he=Object(r.useCallback)((function(e){return{value:k(U.values,e),error:k(U.errors,e),touched:!!k(U.touched,e),initialValue:k(T.current,e),initialTouched:!!k(R.current,e),initialError:k(g.current,e)}}),[U.errors,U.touched,U.values]),me=Object(r.useCallback)((function(e){return{setValue:function(t,n){return te(e,t,n)},setTouched:function(t,n){return ie(e,t,n)},setError:function(t){return ee(e,t)}}}),[te,ie,ee]),be=Object(r.useCallback)((function(e){var t=S(e),n=t?e.name:e,r=k(U.values,n),i={name:n,value:r,onChange:re,onBlur:oe};if(t){var a=e.type,o=e.value,u=e.as,l=e.multiple;"checkbox"===a?void 0===o?i.checked=!!r:(i.checked=!(!Array.isArray(r)||!~r.indexOf(o)),i.value=o):"radio"===a?(i.checked=r===o,i.value=o):"select"===u&&l&&(i.value=i.value||[],i.multiple=!0)}return i}),[oe,re,U.values]),ye=Object(r.useMemo)((function(){return!a()(T.current,U.values)}),[T.current,U.values]),Oe=Object(r.useMemo)((function(){return void 0!==d?ye?U.errors&&0===Object.keys(U.errors).length:!1!==d&&E(d)?d(O):d:U.errors&&0===Object.keys(U.errors).length}),[d,ye,U.errors,O]);return h({},U,{initialValues:T.current,initialErrors:g.current,initialTouched:R.current,initialStatus:F.current,handleBlur:oe,handleChange:re,handleReset:ve,handleSubmit:fe,resetForm:Y,setErrors:X,setFormikState:ue,setFieldTouched:ie,setFieldValue:te,setFieldError:ee,setStatus:le,setSubmitting:ce,setTouched:Q,setValues:Z,submitForm:se,validateForm:K,validateField:z,isValid:Oe,dirty:ye,unregisterField:$,registerField:J,getFieldProps:be,getFieldMeta:he,getFieldHelpers:me,validateOnBlur:l,validateOnChange:n,validateOnMount:s})}function L(e){var t=U(e),n=e.component,i=e.children,a=e.render,o=e.innerRef;return Object(r.useImperativeHandle)(o,(function(){return t})),Object(r.createElement)(A,{value:t},n?Object(r.createElement)(n,t):a?a(t):i?E(i)?i(t):g(i)?null:r.Children.only(i):null)}function V(e,t,n){var r=e.slice();return t.forEach((function(t,i){if(void 0===r[i]){var a=!1!==n.clone&&n.isMergeableObject(t);r[i]=a?Object(o.a)(Array.isArray(t)?[]:{},t,n):t}else n.isMergeableObject(t)?r[i]=Object(o.a)(e[i],t,n):-1===e.indexOf(t)&&r.push(t)})),r}var x="undefined"!=typeof window&&void 0!==window.document&&void 0!==window.document.createElement?r.useLayoutEffect:r.useEffect;function B(e){var t=Object(r.useRef)(e);return x((function(){t.current=e})),Object(r.useCallback)((function(){for(var e=arguments.length,n=new Array(e),r=0;r<e;r++)n[r]=arguments[r];return t.current.apply(void 0,n)}),[])}function N(e){var t=e.validate,n=e.name,i=e.render,a=e.children,o=e.as,u=e.component,l=b(e,["validate","name","render","children","as","component"]),c=b(C(),["validate","validationSchema"]);var s=c.registerField,f=c.unregisterField;Object(r.useEffect)((function(){return s(n,{validate:t}),function(){f(n)}}),[s,f,n,t]);var d=c.getFieldProps(h({name:n},l)),p=c.getFieldMeta(n),v={field:d,form:c};if(i)return i(h({},v,{meta:p}));if(E(a))return a(h({},v,{meta:p}));if(u){if("string"==typeof u){var m=l.innerRef,y=b(l,["innerRef"]);return Object(r.createElement)(u,h({ref:m},d,y),a)}return Object(r.createElement)(u,h({field:d,form:c},l),a)}var O=o||"input";if("string"==typeof O){var S=l.innerRef,T=b(l,["innerRef"]);return Object(r.createElement)(O,h({ref:S},d,T),a)}return Object(r.createElement)(O,h({},d,l),a)}function G(e){var t=function(t){return Object(r.createElement)(I,null,(function(n){return n||Object(s.a)(!1),Object(r.createElement)(e,Object.assign({},t,{formik:n}))}))},n=e.displayName||e.name||e.constructor&&e.constructor.name||"Component";return t.WrappedComponent=e,t.displayName="FormikConnect("+n+")",p()(t,e)}Object(r.forwardRef)((function(e,t){var n=e.action,i=b(e,["action"]),a=n||"#",o=C(),u=o.handleReset,l=o.handleSubmit;return Object(r.createElement)("form",Object.assign({onSubmit:l,ref:t,onReset:u,action:a},i))})).displayName="Form";var H=function(e,t,n){var r=W(e);return r.splice(t,0,n),r},W=function(e){if(e){if(Array.isArray(e))return[].concat(e);var t=Object.keys(e).map((function(e){return parseInt(e)})).reduce((function(e,t){return t>e?t:e}),0);return Array.from(h({},e,{length:t+1}))}return[]},q=function(e){function t(t){var n;return(n=e.call(this,t)||this).updateArrayField=function(e,t,r){var i=n.props,a=i.name;(0,i.formik.setFormikState)((function(n){var i="function"==typeof r?r:e,o="function"==typeof t?t:e,u=w(n.values,a,e(k(n.values,a))),l=r?i(k(n.errors,a)):void 0,c=t?o(k(n.touched,a)):void 0;return O(l)&&(l=void 0),O(c)&&(c=void 0),h({},n,{values:u,errors:r?w(n.errors,a,l):n.errors,touched:t?w(n.touched,a,c):n.touched})}))},n.push=function(e){return n.updateArrayField((function(t){return[].concat(W(t),[Object(v.a)(e)])}),!1,!1)},n.handlePush=function(e){return function(){return n.push(e)}},n.swap=function(e,t){return n.updateArrayField((function(n){return function(e,t,n){var r=W(e),i=r[t];return r[t]=r[n],r[n]=i,r}(n,e,t)}),!0,!0)},n.handleSwap=function(e,t){return function(){return n.swap(e,t)}},n.move=function(e,t){return n.updateArrayField((function(n){return function(e,t,n){var r=W(e),i=r[t];return r.splice(t,1),r.splice(n,0,i),r}(n,e,t)}),!0,!0)},n.handleMove=function(e,t){return function(){return n.move(e,t)}},n.insert=function(e,t){return n.updateArrayField((function(n){return H(n,e,t)}),(function(t){return H(t,e,null)}),(function(t){return H(t,e,null)}))},n.handleInsert=function(e,t){return function(){return n.insert(e,t)}},n.replace=function(e,t){return n.updateArrayField((function(n){return function(e,t,n){var r=W(e);return r[t]=n,r}(n,e,t)}),!1,!1)},n.handleReplace=function(e,t){return function(){return n.replace(e,t)}},n.unshift=function(e){var t=-1;return n.updateArrayField((function(n){var r=n?[e].concat(n):[e];return t<0&&(t=r.length),r}),(function(e){var n=e?[null].concat(e):[null];return t<0&&(t=n.length),n}),(function(e){var n=e?[null].concat(e):[null];return t<0&&(t=n.length),n})),t},n.handleUnshift=function(e){return function(){return n.unshift(e)}},n.handleRemove=function(e){return function(){return n.remove(e)}},n.handlePop=function(){return function(){return n.pop()}},n.remove=n.remove.bind(y(n)),n.pop=n.pop.bind(y(n)),n}m(t,e);var n=t.prototype;return n.componentDidUpdate=function(e){this.props.validateOnChange&&this.props.formik.validateOnChange&&!a()(k(e.formik.values,e.name),k(this.props.formik.values,this.props.name))&&this.props.formik.validateForm(this.props.formik.values)},n.remove=function(e){var t;return this.updateArrayField((function(n){var r=n?W(n):[];return t||(t=r[e]),E(r.splice)&&r.splice(e,1),r}),!0,!0),t},n.pop=function(){var e;return this.updateArrayField((function(t){var n=t;return e||(e=n&&n.pop&&n.pop()),n}),!0,!0),e},n.render=function(){var e={push:this.push,pop:this.pop,swap:this.swap,move:this.move,insert:this.insert,replace:this.replace,unshift:this.unshift,remove:this.remove,handlePush:this.handlePush,handlePop:this.handlePop,handleSwap:this.handleSwap,handleMove:this.handleMove,handleInsert:this.handleInsert,handleReplace:this.handleReplace,handleUnshift:this.handleUnshift,handleRemove:this.handleRemove},t=this.props,n=t.component,i=t.render,a=t.children,o=t.name,u=h({},e,{form:b(t.formik,["validate","validationSchema"]),name:o});return n?Object(r.createElement)(n,u):i?i(u):a?"function"==typeof a?a(u):g(a)?null:r.Children.only(a):null},t}(r.Component);q.defaultProps={validateOnChange:!0};r.Component;var K=G(function(e){function t(t){var n;n=e.call(this,t)||this;var r=t.render,i=t.children,a=t.component,o=t.as;t.name;return r&&Object(s.a)(!1),a&&r&&Object(s.a)(!1),o&&i&&E(i)&&Object(s.a)(!1),a&&i&&E(i)&&Object(s.a)(!1),r&&i&&!g(i)&&Object(s.a)(!1),n}m(t,e);var n=t.prototype;return n.shouldComponentUpdate=function(e){return this.props.shouldUpdate?this.props.shouldUpdate(e,this.props):e.name!==this.props.name||k(e.formik.values,this.props.name)!==k(this.props.formik.values,this.props.name)||k(e.formik.errors,this.props.name)!==k(this.props.formik.errors,this.props.name)||k(e.formik.touched,this.props.name)!==k(this.props.formik.touched,this.props.name)||Object.keys(this.props).length!==Object.keys(e).length||e.formik.isSubmitting!==this.props.formik.isSubmitting},n.componentDidMount=function(){this.props.formik.registerField(this.props.name,{validate:this.props.validate})},n.componentDidUpdate=function(e){this.props.name!==e.name&&(this.props.formik.unregisterField(e.name),this.props.formik.registerField(this.props.name,{validate:this.props.validate})),this.props.validate!==e.validate&&this.props.formik.registerField(this.props.name,{validate:this.props.validate})},n.componentWillUnmount=function(){this.props.formik.unregisterField(this.props.name)},n.render=function(){var e=this.props,t=e.name,n=e.render,i=e.as,a=e.children,o=e.component,u=e.formik,l=b(e,["validate","name","render","as","children","component","shouldUpdate","formik"]),c=b(u,["validate","validationSchema"]),s={value:"radio"===l.type||"checkbox"===l.type?l.value:k(u.values,t),name:t,onChange:u.handleChange,onBlur:u.handleBlur},f={field:s,meta:{value:k(u.values,t),error:k(u.errors,t),touched:!!k(u.touched,t),initialValue:k(u.initialValues,t),initialTouched:!!k(u.initialTouched,t),initialError:k(u.initialErrors,t)},form:c};if(n)return n(f);if(E(a))return a(f);if(o){if("string"==typeof o){var d=l.innerRef,p=b(l,["innerRef"]);return Object(r.createElement)(o,h({ref:d},s,p),a)}return Object(r.createElement)(o,h({field:s,form:u},l),a)}var v=i||"input";if("string"==typeof v){var m=l.innerRef,y=b(l,["innerRef"]);return Object(r.createElement)(v,h({ref:m},s,y),a)}return Object(r.createElement)(v,h({},s,l),a)},t}(r.Component))}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/corporate-account-tool/tabs/profile/add-edit-profile/add-edit-profile.scss":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./src/app/corporate-account-tool/tabs/profile/add-edit-profile/add-edit-profile.scss ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".profile-detail .profile-info .error {\n  border-color: red !important; }\n\n.profile-detail .profile-info input {\n  border-color: #cccccc !important;\n  border-radius: 3px;\n  border-style: solid;\n  border-width: 1px; }\n\n.profile-detail .profile-info table {\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%; }\n  .profile-detail .profile-info table tr > *:nth-child(1) {\n    width: 25%; }\n  .profile-detail .profile-info table tr > *:nth-child(2) {\n    width: 25%; }\n  .profile-detail .profile-info table tr > *:nth-child(3) {\n    width: 25%; }\n  .profile-detail .profile-info table tr > *:nth-child(4) {\n    width: fit-content; }\n  .profile-detail .profile-info table tbody tr td {\n    padding: 5px !important;\n    text-align: left;\n    border: 1px solid #E7EAF1; }\n  .profile-detail .profile-info table tbody tr td:nth-child(odd) {\n    font-weight: bold;\n    padding: 10px 25px !important;\n    background-color: #F8F8F9; }\n  .profile-detail .profile-info table tbody tr td:nth-child(even) {\n    background-color: white;\n    padding: 10px 25px !important; }\n    .profile-detail .profile-info table tbody tr td:nth-child(even) input {\n      width: 100%; }\n  .profile-detail .profile-info table tbody tr .required-field:after {\n    color: #e83200;\n    content: \" *\"; }\n\n.profile-detail .product-access {\n  padding-top: 20px; }\n  .profile-detail .product-access table {\n    border-collapse: collapse;\n    border-spacing: 0;\n    width: 100%;\n    border: 1px solid #d9edf7; }\n    .profile-detail .product-access table thead {\n      background-color: #d9edf7; }\n      .profile-detail .product-access table thead tr > *:nth-child(1) {\n        padding: 10px; }\n    .profile-detail .product-access table tbody tr td {\n      padding: 10px 10px 10px 15px;\n      text-align: left;\n      border: none; }\n    .profile-detail .product-access table tbody tr .inline {\n      display: flex; }\n", "",{"version":3,"sources":["webpack://src/app/corporate-account-tool/tabs/profile/add-edit-profile/add-edit-profile.scss"],"names":[],"mappings":"AACA;EAIM,4BAA4B,EAAA;;AAJlC;EAQM,gCAAwC;EACxC,kBAAkB;EAClB,mBAAmB;EACnB,iBAAiB,EAAA;;AAXvB;EAeM,yBAAyB;EACzB,iBAAiB;EACjB,WAAW,EAAA;EAjBjB;IAoBQ,UAAU,EAAA;EApBlB;IAwBQ,UAAU,EAAA;EAxBlB;IA4BQ,UAAU,EAAA;EA5BlB;IAgCQ,kBAAkB,EAAA;EAhC1B;IAsCY,uBAAuB;IACvB,gBAAgB;IAChB,yBAAyB,EAAA;EAxCrC;IA4CY,iBAAiB;IACjB,6BAA6B;IAC7B,yBAAyB,EAAA;EA9CrC;IAkDY,uBAAuB;IACvB,6BAA6B,EAAA;IAnDzC;MAsDc,WAAW,EAAA;EAtDzB;IA2DY,cAAc;IACd,aAAa,EAAA;;AA5DzB;EAsEI,iBAAiB,EAAA;EAtErB;IAyEM,yBAAyB;IACzB,iBAAiB;IACjB,WAAW;IACX,yBAT0B,EAAA;IAnEhC;MA+EQ,yBAZwB,EAAA;MAnEhC;QAkFU,aAAa,EAAA;IAlFvB;MAyFY,4BAA4B;MAC5B,gBAAgB;MAChB,YAAY,EAAA;IA3FxB;MA8FY,aAAa,EAAA","sourcesContent":["\n.profile-detail {\n\n  .profile-info {\n    .error {\n      border-color: red !important;\n    }\n\n    input {\n      border-color: hsl(0, 0%, 80%) !important;\n      border-radius: 3px;\n      border-style: solid;\n      border-width: 1px;\n    }\n\n    table {\n      border-collapse: collapse;\n      border-spacing: 0;\n      width: 100%;\n\n      tr > *:nth-child(1) {\n        width: 25%;\n      }\n\n      tr > *:nth-child(2) {\n        width: 25%;\n      }\n\n      tr > *:nth-child(3) {\n        width: 25%;\n      }\n\n      tr > *:nth-child(4) {\n        width: fit-content;\n      }\n\n      tbody {\n        tr {\n          td {\n            padding: 5px !important;\n            text-align: left;\n            border: 1px solid #E7EAF1;\n          }\n\n          td:nth-child(odd) {\n            font-weight: bold;\n            padding: 10px 25px !important;\n            background-color: #F8F8F9;\n          }\n\n          td:nth-child(even) {\n            background-color: white;\n            padding: 10px 25px !important;\n\n            input {\n              width: 100%;\n            }\n          }\n\n          .required-field:after {\n            color: #e83200;\n            content: \" *\";\n          }\n        }\n      }\n    }\n  }\n\n  $product-access-color: #d9edf7;\n\n  .product-access {\n    padding-top: 20px;\n\n    table {\n      border-collapse: collapse;\n      border-spacing: 0;\n      width: 100%;\n      border: 1px solid $product-access-color;\n\n      thead {\n        background-color: $product-access-color;\n\n        tr > *:nth-child(1) {\n          padding: 10px;\n        }\n      }\n\n      tbody {\n        tr {\n          td {\n            padding: 10px 10px 10px 15px;\n            text-align: left;\n            border: none;\n          }\n          .inline {\n            display: flex;\n          }\n        }\n      }\n    }\n  }\n\n}\n\n\n\n\n\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/DatePickerField/date-picker-field.scss":
+/*!******************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/DatePickerField/date-picker-field.scss ***!
+  \******************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".date-picker-field .custom-input {\n  height: 37px;\n  padding-left: 5px; }\n\n.date-picker-field .calendar-container {\n  display: flex; }\n  .date-picker-field .calendar-container .calendar-alt {\n    padding: 8px 0px 0px 5px; }\n", "",{"version":3,"sources":["webpack://src/app/shared/DatePickerField/date-picker-field.scss"],"names":[],"mappings":"AAAA;EAEM,YAAY;EACZ,iBAAiB,EAAA;;AAHvB;EAOI,aAAa,EAAA;EAPjB;IAUM,wBAAwB,EAAA","sourcesContent":[".date-picker-field {\n  .custom-input {\n      height: 37px;\n      padding-left: 5px;\n  }\n\n  .calendar-container {\n    display: flex;\n\n    .calendar-alt {\n      padding: 8px 0px 0px 5px;\n    }\n  }\n\n}\n\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/InputField/input-field.scss":
+/*!*******************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/InputField/input-field.scss ***!
+  \*******************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".custom-input {\n  height: 37px;\n  padding-left: 5px; }\n", "",{"version":3,"sources":["webpack://src/app/shared/InputField/input-field.scss"],"names":[],"mappings":"AACA;EACC,YAAY;EACZ,iBAAiB,EAAA","sourcesContent":["\n.custom-input {\n\theight: 37px;\n\tpadding-left: 5px;\n}\n\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/toggle-button/toggle-button.scss":
+/*!************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/toggle-button/toggle-button.scss ***!
+  \************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".toggle-switch {\n  position: relative;\n  margin-right: 10px;\n  width: 75px;\n  display: inline-block;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  text-align: left; }\n  .toggle-switch-checkbox {\n    display: none; }\n  .toggle-switch-label {\n    display: block;\n    overflow: hidden;\n    cursor: pointer;\n    border: 0 solid red;\n    border-radius: 20px;\n    margin: 0; }\n    .toggle-switch-label:focus {\n      outline: none; }\n      .toggle-switch-label:focus > span {\n        box-shadow: 0 0 2px 5px red; }\n    .toggle-switch-label > span:focus {\n      outline: none; }\n  .toggle-switch-inner {\n    display: block;\n    width: 200%;\n    margin-left: -100%;\n    transition: margin 0.3s ease-in 0s; }\n    .toggle-switch-inner:before, .toggle-switch-inner:after {\n      display: block;\n      float: left;\n      width: 50%;\n      height: 34px;\n      padding: 0;\n      line-height: 34px;\n      font-size: 14px;\n      color: white;\n      font-weight: bold;\n      box-sizing: border-box; }\n    .toggle-switch-inner:before {\n      content: attr(data-yes);\n      text-transform: uppercase;\n      padding-left: 10px;\n      background-color: #2F855A;\n      color: #fff; }\n  .toggle-switch-disabled {\n    background-color: #ddd;\n    cursor: not-allowed; }\n    .toggle-switch-disabled:before {\n      background-color: #ddd;\n      cursor: not-allowed; }\n  .toggle-switch-inner:after {\n    content: attr(data-no);\n    text-transform: uppercase;\n    padding-right: 10px;\n    background-color: red;\n    color: #fff;\n    text-align: right; }\n  .toggle-switch-switch {\n    display: block;\n    width: 24px;\n    margin: 5px;\n    background: #fff;\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    right: 40px;\n    border: 0 solid red;\n    border-radius: 20px;\n    transition: all 0.3s ease-in 0s; }\n  .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-inner {\n    margin-left: 0; }\n  .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-switch {\n    right: 0px; }\n  .toggle-switch.small-switch {\n    width: 40px; }\n    .toggle-switch.small-switch .toggle-switch-inner:after, .toggle-switch.small-switch .toggle-switch-inner:before {\n      content: \"\";\n      height: 20px;\n      line-height: 20px; }\n    .toggle-switch.small-switch .toggle-switch-switch {\n      width: 16px;\n      right: 20px;\n      margin: 2px; }\n  @media screen and (max-width: 991px) {\n    .toggle-switch {\n      transform: scale(0.9); } }\n  @media screen and (max-width: 767px) {\n    .toggle-switch {\n      transform: scale(0.825); } }\n  @media screen and (max-width: 575px) {\n    .toggle-switch {\n      transform: scale(0.75); } }\n", "",{"version":3,"sources":["webpack://src/app/shared/toggle-button/toggle-button.scss"],"names":[],"mappings":"AAOA;EACE,kBAAkB;EAClB,kBAAkB;EAClB,WAAW;EACX,qBAAqB;EACrB,sBAAsB;EACtB,yBAAyB;EACzB,sBAAsB;EACtB,qBAAqB;EACrB,gBAAgB,EAAA;EAChB;IACE,aAAa,EAAA;EAEf;IACE,cAAc;IACd,gBAAgB;IAChB,eAAe;IACf,mBAvBc;IAwBd,mBAAmB;IACnB,SAAS,EAAA;IANV;MAQG,aAAa,EAAA;MARhB;QAUK,2BAA2B,EAAA;IAVhC;MAcG,aAAa,EAAA;EAGjB;IACE,cAAc;IACd,WAAW;IACX,kBAAkB;IAClB,kCAAkC,EAAA;IAJnC;MAOG,cAAc;MACd,WAAW;MACX,UAAU;MACV,YAAY;MACZ,UAAU;MACV,iBAAiB;MACjB,eAAe;MACf,YAAY;MACZ,iBAAiB;MACjB,sBAAsB,EAAA;IAhBzB;MAmBG,uBAAuB;MACvB,yBAAyB;MACzB,kBAAkB;MAClB,yBAxDiB;MAyDjB,WAxDM,EAAA;EA2DV;IACE,sBA9DkB;IA+DlB,mBAAmB,EAAA;IAFpB;MAIG,sBAjEgB;MAkEhB,mBAAmB,EAAA;EAGvB;IACE,sBAAsB;IACtB,yBAAyB;IACzB,mBAAmB;IACnB,qBA1Ec;IA2Ed,WAxEQ;IAyER,iBAAiB,EAAA;EAEnB;IACE,cAAc;IACd,WAAW;IACX,WAAW;IACX,gBA/EQ;IAgFR,kBAAkB;IAClB,MAAM;IACN,SAAS;IACT,WAAW;IACX,mBAvFc;IAwFd,mBAAmB;IACnB,+BAA+B,EAAA;EAEhC;IAEG,cAAc,EAAA;EAFjB;IAKG,UAAU,EAAA;EA1FhB;IA8FI,WAAW,EAAA;IA9Ff;MAkGQ,WAAW;MACX,YAAY;MACZ,iBAAiB,EAAA;IApGzB;MAwGM,WAAW;MACX,WAAW;MACX,WAAW,EAAA;EAGf;IA7GF;MA8GI,qBAAqB,EAAA,EAQxB;EANC;IAhHF;MAiHI,uBAAuB,EAAA,EAK1B;EAHC;IAnHF;MAoHI,sBAAsB,EAAA,EAEzB","sourcesContent":["// Colors\n$label-colour: red;\n$disabled-colour: #ddd;\n$toggle-colour: #2F855A;\n$white: #fff;\n$focus-color: #ff0;\n\n.toggle-switch {\n  position: relative;\n  margin-right: 10px;\n  width: 75px;\n  display: inline-block;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  text-align: left;\n  &-checkbox {\n    display: none;\n  }\n  &-label {\n    display: block;\n    overflow: hidden;\n    cursor: pointer;\n    border: 0 solid $label-colour;\n    border-radius: 20px;\n    margin: 0;\n    &:focus {\n      outline: none;\n      > span {\n        box-shadow: 0 0 2px 5px red;\n      }\n    }\n    > span:focus {\n      outline: none;\n    }\n  }\n  &-inner {\n    display: block;\n    width: 200%;\n    margin-left: -100%;\n    transition: margin 0.3s ease-in 0s;\n    &:before,\n    &:after {\n      display: block;\n      float: left;\n      width: 50%;\n      height: 34px;\n      padding: 0;\n      line-height: 34px;\n      font-size: 14px;\n      color: white;\n      font-weight: bold;\n      box-sizing: border-box;\n    }\n    &:before {\n      content: attr(data-yes);\n      text-transform: uppercase;\n      padding-left: 10px;\n      background-color: $toggle-colour;\n      color: $white;\n    }\n  }\n  &-disabled {\n    background-color: $disabled-colour;\n    cursor: not-allowed;\n    &:before {\n      background-color: $disabled-colour;\n      cursor: not-allowed;\n    }\n  }\n  &-inner:after {\n    content: attr(data-no);\n    text-transform: uppercase;\n    padding-right: 10px;\n    background-color: $label-colour;\n    color: $white;\n    text-align: right;\n  }\n  &-switch {\n    display: block;\n    width: 24px;\n    margin: 5px;\n    background: $white;\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    right: 40px;\n    border: 0 solid $label-colour;\n    border-radius: 20px;\n    transition: all 0.3s ease-in 0s;\n  }\n  &-checkbox:checked + &-label {\n    .toggle-switch-inner {\n      margin-left: 0;\n    }\n    .toggle-switch-switch {\n      right: 0px;\n    }\n  }\n  &.small-switch {\n    width: 40px;\n    .toggle-switch-inner {\n      &:after,\n      &:before {\n        content: \"\";\n        height: 20px;\n        line-height: 20px;\n      }\n    }\n    .toggle-switch-switch {\n      width: 16px;\n      right: 20px;\n      margin: 2px;\n    }\n  }\n  @media screen and (max-width: 991px) {\n    transform: scale(0.9);\n  }\n  @media screen and (max-width: 767px) {\n    transform: scale(0.825);\n  }\n  @media screen and (max-width: 575px) {\n    transform: scale(0.75);\n  }\n}\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./src/app/corporate-account-tool/tabs/profile/add-edit-profile/add-edit-profile.scss":
+/*!********************************************************************************************!*\
+  !*** ./src/app/corporate-account-tool/tabs/profile/add-edit-profile/add-edit-profile.scss ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_add_edit_profile_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../../../node_modules/sass-loader/dist/cjs.js!./add-edit-profile.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/corporate-account-tool/tabs/profile/add-edit-profile/add-edit-profile.scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_add_edit_profile_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+if (true) {
+  if (!_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_add_edit_profile_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || module.hot.invalidate) {
+    var isEqualLocals = function isEqualLocals(a, b, isNamedExport) {
+  if (!a && b || a && !b) {
+    return false;
+  }
+
+  var p;
+
+  for (p in a) {
+    if (isNamedExport && p === 'default') {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    if (a[p] !== b[p]) {
+      return false;
+    }
+  }
+
+  for (p in b) {
+    if (isNamedExport && p === 'default') {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    if (!a[p]) {
+      return false;
+    }
+  }
+
+  return true;
+};
+    var oldLocals = _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_add_edit_profile_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals;
+
+    module.hot.accept(
+      /*! !../../../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../../../node_modules/sass-loader/dist/cjs.js!./add-edit-profile.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/corporate-account-tool/tabs/profile/add-edit-profile/add-edit-profile.scss",
+      function(__WEBPACK_OUTDATED_DEPENDENCIES__) { /* harmony import */ _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_add_edit_profile_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../../../node_modules/sass-loader/dist/cjs.js!./add-edit-profile.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/corporate-account-tool/tabs/profile/add-edit-profile/add-edit-profile.scss");
+(function () {
+        if (!isEqualLocals(oldLocals, _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_add_edit_profile_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals, undefined)) {
+                module.hot.invalidate();
+
+                return;
+              }
+
+              oldLocals = _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_add_edit_profile_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals;
+
+              update(_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_add_edit_profile_scss__WEBPACK_IMPORTED_MODULE_1__["default"]);
+      })(__WEBPACK_OUTDATED_DEPENDENCIES__); }.bind(this)
+    )
+  }
+
+  module.hot.dispose(function() {
+    update();
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_add_edit_profile_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./src/app/corporate-account-tool/tabs/profile/add-edit-profile/add-edit-profile.tsx":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/corporate-account-tool/tabs/profile/add-edit-profile/add-edit-profile.tsx ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _add_edit_profile_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./add-edit-profile.scss */ "./src/app/corporate-account-tool/tabs/profile/add-edit-profile/add-edit-profile.scss");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
+/* harmony import */ var _store_slice_account_slice__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../store/slice/account.slice */ "./src/store/slice/account.slice.ts");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _shared_SelectField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/SelectField */ "./src/app/shared/SelectField/index.tsx");
+/* harmony import */ var _shared_InputField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../shared/InputField */ "./src/app/shared/InputField/index.tsx");
+/* harmony import */ var _shared_DatePickerField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../shared/DatePickerField */ "./src/app/shared/DatePickerField/index.tsx");
+/* harmony import */ var _shared_toggle_button_toggle_button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../shared/toggle-button/toggle-button */ "./src/app/shared/toggle-button/toggle-button.tsx");
+/* harmony import */ var _common_constants_CommonConst__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../../common/constants/CommonConst */ "./src/common/constants/CommonConst.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+function AddEditProfile(propsAddEditProfile) {
+    var closeAddEditProfilePopup = propsAddEditProfile.closeAddEditProfilePopup, accountDetail = propsAddEditProfile.accountDetail, isLevel3 = propsAddEditProfile.isLevel3;
+    var isUpdateAccount = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(function (state) { return state.account; }).isUpdateAccount;
+    var _a = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(accountDetail), account = _a[0], setAccount = _a[1];
+    var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+    Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+        if (isUpdateAccount) {
+            onClosePopup();
+        }
+    }, [isUpdateAccount]);
+    Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+        if (isLevel3) {
+            setAccount(__assign(__assign({}, account), { 'parentId': accountDetail.id }));
+        }
+    }, []);
+    Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+        if (isUpdateAccount && accountDetail) {
+            dispatch(Object(_store_slice_account_slice__WEBPACK_IMPORTED_MODULE_4__["getAccountDetail"])(accountDetail.id));
+        }
+    }, [isUpdateAccount]);
+    var onClosePopup = function () {
+        closeAddEditProfilePopup(false);
+    };
+    var updateAccount = function (values) {
+        dispatch(Object(_store_slice_account_slice__WEBPACK_IMPORTED_MODULE_4__["saveAccount"])(__assign(__assign({}, account), values)));
+    };
+    var generateAccountId = function (n) {
+        return Math.floor(Math.random() * (9 * (Math.pow(10, n)))) + (Math.pow(10, n));
+    };
+    var initialValues = function () {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u;
+        return {
+            name: (_a = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.name) !== null && _a !== void 0 ? _a : '',
+            id: ((accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.id) && !isLevel3) ? accountDetail.id : generateAccountId(6),
+            email: (_b = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.email) !== null && _b !== void 0 ? _b : '',
+            questionnaireReceiptDate: (_c = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.questionnaireReceiptDate) !== null && _c !== void 0 ? _c : new Date(),
+            statusAccount: (_d = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.statusAccount) !== null && _d !== void 0 ? _d : (isLevel3 ? 'verified' : 'pending'),
+            country: (_e = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.country) !== null && _e !== void 0 ? _e : '',
+            currency: (_f = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.currency) !== null && _f !== void 0 ? _f : '',
+            language: (_g = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.language) !== null && _g !== void 0 ? _g : '',
+            partnerLabelId: (_h = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.partnerLabelId) !== null && _h !== void 0 ? _h : '',
+            level: (_j = (isLevel3 ? 'Level 3' : accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.level)) !== null && _j !== void 0 ? _j : 'Level 2',
+            creditLimit: (_k = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.creditLimit) !== null && _k !== void 0 ? _k : '',
+            license: (_l = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.license) !== null && _l !== void 0 ? _l : '',
+            mobile: (_m = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.mobile) !== null && _m !== void 0 ? _m : '',
+            phoneNumber: (_o = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.phoneNumber) !== null && _o !== void 0 ? _o : '',
+            userName: (_p = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.userName) !== null && _p !== void 0 ? _p : '',
+            address: (_q = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.address) !== null && _q !== void 0 ? _q : '',
+            password: (_r = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.password) !== null && _r !== void 0 ? _r : '',
+            city: (_s = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.city) !== null && _s !== void 0 ? _s : '',
+            postalCode: (_t = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.postalCode) !== null && _t !== void 0 ? _t : '',
+            approvedDate: (_u = accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.approvedDate) !== null && _u !== void 0 ? _u : null,
+        };
+    };
+    var validationSchema = function () {
+        return yup__WEBPACK_IMPORTED_MODULE_3__["object"]().shape(__assign({ name: yup__WEBPACK_IMPORTED_MODULE_3__["string"]().required(), id: yup__WEBPACK_IMPORTED_MODULE_3__["number"]().positive().integer().required(), email: yup__WEBPACK_IMPORTED_MODULE_3__["string"]().email().required(), questionnaireReceiptDate: yup__WEBPACK_IMPORTED_MODULE_3__["date"]().required(), statusAccount: yup__WEBPACK_IMPORTED_MODULE_3__["string"]().required(), country: yup__WEBPACK_IMPORTED_MODULE_3__["string"]().required(), currency: yup__WEBPACK_IMPORTED_MODULE_3__["string"]().required(), language: yup__WEBPACK_IMPORTED_MODULE_3__["string"]().required(), partnerLabelId: yup__WEBPACK_IMPORTED_MODULE_3__["string"]().required(), level: yup__WEBPACK_IMPORTED_MODULE_3__["string"]().required() }, ((account === null || account === void 0 ? void 0 : account.credit) === 'Yes' ? { creditLimit: yup__WEBPACK_IMPORTED_MODULE_3__["string"]().required() } : { creditLimit: yup__WEBPACK_IMPORTED_MODULE_3__["string"]() })));
+    };
+    var profileInfo = function (setFieldValue, values) {
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'profile-info' },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null,
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", { className: 'required-field' }, "Account Name"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'name', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"] })),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", { className: 'required-field' }, "Account ID"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'id', type: 'number', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"], disabled: true }))),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", { className: 'required-field' }, "Partner Label ID"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'partnerLabelId', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"] })),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", { className: 'required-field' }, "Level"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'level', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"], disabled: !accountDetail || isLevel3 }))),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", { className: 'required-field' }, "Status"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Field"], { name: 'statusAccount', component: _shared_SelectField__WEBPACK_IMPORTED_MODULE_7__["default"], options: _common_constants_CommonConst__WEBPACK_IMPORTED_MODULE_11__["CONSTANT"].ACCOUNT_CREATION.STATUS })),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", { className: 'required-field' }, "Language"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'language', component: _shared_SelectField__WEBPACK_IMPORTED_MODULE_7__["default"], options: _common_constants_CommonConst__WEBPACK_IMPORTED_MODULE_11__["CONSTANT"].ACCOUNT_CREATION.LANGUAGES }))),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "License"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'license', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"] })),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", { className: 'required-field' }, "Email Address"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'email', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"] }))),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", { className: 'required-field' }, "Currency"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'currency', component: _shared_SelectField__WEBPACK_IMPORTED_MODULE_7__["default"], options: _common_constants_CommonConst__WEBPACK_IMPORTED_MODULE_11__["CONSTANT"].ACCOUNT_CREATION.CURRENCIES })),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Phone"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'phoneNumber', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"] }))),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", { className: 'required-field' }, "Credit Account"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shared_toggle_button_toggle_button__WEBPACK_IMPORTED_MODULE_10__["default"], { name: 'credit', small: true, onClick: onChangeCredit, defaultChecked: (account === null || account === void 0 ? void 0 : account.credit) === 'Yes' })),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Mobile"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'mobile', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"] }))),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Credit Limit"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Field"], { name: 'creditLimit', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"], disabled: (account === null || account === void 0 ? void 0 : account.credit) !== 'Yes' })),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "username"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Field"], { name: 'userName', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"], disabled: !accountDetail || (values === null || values === void 0 ? void 0 : values.statusAccount) !== 'verified' }))),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Address"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'address', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"] })),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Password"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'password', type: 'password', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"], disabled: !accountDetail }))),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "City"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Field"], { name: 'city', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"] })),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null)),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", { className: 'required-field' }, "Country"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'country', component: _shared_SelectField__WEBPACK_IMPORTED_MODULE_7__["default"], options: _common_constants_CommonConst__WEBPACK_IMPORTED_MODULE_11__["CONSTANT"].ACCOUNT_CREATION.COUNTRIES })),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", { className: 'required-field' }, "Questionnaire Receipt Date"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'questionnaireReceiptDate', component: _shared_DatePickerField__WEBPACK_IMPORTED_MODULE_9__["default"], onChange: setFieldValue }))),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Postal Code"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'postalCode', component: _shared_InputField__WEBPACK_IMPORTED_MODULE_8__["default"] })),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Account Approval Date"),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["FastField"], { name: 'approvedDate', component: _shared_DatePickerField__WEBPACK_IMPORTED_MODULE_9__["default"], onChange: setFieldValue })))))));
+    };
+    var productAccess = function () {
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'product-access' },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null,
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", { colSpan: 4 }, " Product Access"))),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'inline' },
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["FormCheck"], { name: 'deposits', type: 'checkbox', defaultChecked: !accountDetail || (accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.deposits) === 'Yes', onClick: onChangeProductAccess }),
+                                "Deposits")),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'inline' },
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["FormCheck"], { name: 'withdrawals', type: 'checkbox', defaultChecked: !accountDetail || (accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.withdrawals) === 'Yes', onClick: onChangeProductAccess }),
+                                "Withdrawals")),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'inline' },
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["FormCheck"], { name: 'casino', type: 'checkbox', defaultChecked: !accountDetail || (accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.casino) === 'Yes', onClick: onChangeProductAccess }),
+                                "Casino")),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null,
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'inline' },
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["FormCheck"], { name: 'sportsbook', type: 'checkbox', defaultChecked: !accountDetail || (accountDetail === null || accountDetail === void 0 ? void 0 : accountDetail.sportsbook) === 'Yes', onClick: onChangeProductAccess }),
+                                "Sportsbook")))))));
+    };
+    var onChangeCredit = function (e) {
+        var _a;
+        setAccount(__assign(__assign({}, account), (_a = {}, _a[e.target.name] = e.target.checked ? 'Yes' : 'No', _a)));
+    };
+    var onChangeProductAccess = function (e) {
+        var _a;
+        setAccount(__assign(__assign({}, account), (_a = {}, _a[e.target.name] = e.target.checked ? 'Yes' : 'No', _a)));
+    };
+    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_6__["Formik"], { initialValues: initialValues(), onSubmit: function (values) { return updateAccount(values); }, validationSchema: validationSchema() }, function (props) {
+        var handleSubmit = props.handleSubmit, setFieldValue = props.setFieldValue, values = props.values;
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", { onSubmit: handleSubmit },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Modal"], { show: true, onHide: onClosePopup, keyboard: false, dialogClassName: 'modal-dialog modal-xl' },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Modal"].Header, { closeButton: true },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Modal"].Title, { className: 'title' },
+                        accountDetail && !isLevel3 ? 'EDIT' : 'ADD NEW',
+                        " CORPORATE PROFILE")),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Modal"].Body, null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'profile-detail' },
+                        profileInfo(setFieldValue, values),
+                        productAccess())),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Modal"].Footer, null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Button"], { variant: 'primary', onClick: onClosePopup }, "Close"),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Button"], { type: 'submit', variant: 'success', disabled: !props.isValid, onClick: props.handleSubmit }, "Save")))));
+    }));
+}
+/* harmony default export */ __webpack_exports__["default"] = (AddEditProfile);
+
+
+/***/ }),
+
+/***/ "./src/app/shared/DatePickerField/date-picker-field.scss":
+/*!***************************************************************!*\
+  !*** ./src/app/shared/DatePickerField/date-picker-field.scss ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_date_picker_field_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!./date-picker-field.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/DatePickerField/date-picker-field.scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_date_picker_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+if (true) {
+  if (!_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_date_picker_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || module.hot.invalidate) {
+    var isEqualLocals = function isEqualLocals(a, b, isNamedExport) {
+  if (!a && b || a && !b) {
+    return false;
+  }
+
+  var p;
+
+  for (p in a) {
+    if (isNamedExport && p === 'default') {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    if (a[p] !== b[p]) {
+      return false;
+    }
+  }
+
+  for (p in b) {
+    if (isNamedExport && p === 'default') {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    if (!a[p]) {
+      return false;
+    }
+  }
+
+  return true;
+};
+    var oldLocals = _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_date_picker_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals;
+
+    module.hot.accept(
+      /*! !../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!./date-picker-field.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/DatePickerField/date-picker-field.scss",
+      function(__WEBPACK_OUTDATED_DEPENDENCIES__) { /* harmony import */ _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_date_picker_field_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!./date-picker-field.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/DatePickerField/date-picker-field.scss");
+(function () {
+        if (!isEqualLocals(oldLocals, _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_date_picker_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals, undefined)) {
+                module.hot.invalidate();
+
+                return;
+              }
+
+              oldLocals = _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_date_picker_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals;
+
+              update(_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_date_picker_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"]);
+      })(__WEBPACK_OUTDATED_DEPENDENCIES__); }.bind(this)
+    )
+  }
+
+  module.hot.dispose(function() {
+    update();
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_date_picker_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./src/app/shared/DatePickerField/index.tsx":
+/*!**************************************************!*\
+  !*** ./src/app/shared/DatePickerField/index.tsx ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+/* harmony import */ var react_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-datepicker */ "./node_modules/react-datepicker/dist/react-datepicker.min.js");
+/* harmony import */ var react_datepicker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_datepicker__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _date_picker_field_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./date-picker-field.scss */ "./src/app/shared/DatePickerField/date-picker-field.scss");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+
+
+
+
+
+
+DatePickerField.propTypes = {
+    field: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object.isRequired,
+    form: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object.isRequired,
+    onChange: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func.isRequired,
+    label: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+    placeholder: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+    disabled: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+};
+DatePickerField.defaultProps = {
+    label: '',
+    placeholder: '',
+    disabled: false
+};
+function DatePickerField(props) {
+    var field = props.field, onChange = props.onChange, label = props.label, disabled = props.disabled, form = props.form;
+    var name = field.name, value = field.value;
+    var errors = form.errors, touched = form.touched;
+    return (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], { className: 'date-picker-field' },
+        label && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", { htmlFor: name }, label),
+        react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", { className: 'calendar-container' },
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_datepicker__WEBPACK_IMPORTED_MODULE_3___default.a, __assign({ id: name }, field, { type: 'text', selected: (value && new Date(value)) || null, onChange: function (val) { return onChange(name, val); }, className: "custom-input " + (errors[name] && touched[name] ? 'error' : ''), disabled: disabled })),
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: 'calendar-alt' },
+                react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_5__["FontAwesomeIcon"], { icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faCalendarAlt"], size: 'lg' })))));
+}
+/* harmony default export */ __webpack_exports__["default"] = (DatePickerField);
+
+
+/***/ }),
+
+/***/ "./src/app/shared/InputField/index.tsx":
+/*!*********************************************!*\
+  !*** ./src/app/shared/InputField/index.tsx ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+/* harmony import */ var _input_field_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./input-field.scss */ "./src/app/shared/InputField/input-field.scss");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+
+
+
+InputField.propTypes = {
+    field: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object.isRequired,
+    form: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object.isRequired,
+    type: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+    label: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+    placeholder: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+    disabled: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+};
+InputField.defaultProps = {
+    type: 'text',
+    label: '',
+    placeholder: '',
+    disabled: false,
+};
+function InputField(props) {
+    var field = props.field, form = props.form, type = props.type, label = props.label, placeholder = props.placeholder, disabled = props.disabled;
+    var name = field.name;
+    var errors = form.errors, touched = form.touched;
+    return (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null,
+        label && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", { htmlFor: name }, label),
+        react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", __assign({ id: name }, field, { className: "custom-input " + (errors[name] && touched[name] && !disabled ? 'error' : ''), type: type ? type : 'text', disabled: disabled, placeholder: placeholder }))));
+}
+/* harmony default export */ __webpack_exports__["default"] = (InputField);
+
+
+/***/ }),
+
+/***/ "./src/app/shared/InputField/input-field.scss":
+/*!****************************************************!*\
+  !*** ./src/app/shared/InputField/input-field.scss ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_input_field_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!./input-field.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/InputField/input-field.scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_input_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+if (true) {
+  if (!_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_input_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || module.hot.invalidate) {
+    var isEqualLocals = function isEqualLocals(a, b, isNamedExport) {
+  if (!a && b || a && !b) {
+    return false;
+  }
+
+  var p;
+
+  for (p in a) {
+    if (isNamedExport && p === 'default') {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    if (a[p] !== b[p]) {
+      return false;
+    }
+  }
+
+  for (p in b) {
+    if (isNamedExport && p === 'default') {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    if (!a[p]) {
+      return false;
+    }
+  }
+
+  return true;
+};
+    var oldLocals = _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_input_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals;
+
+    module.hot.accept(
+      /*! !../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!./input-field.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/InputField/input-field.scss",
+      function(__WEBPACK_OUTDATED_DEPENDENCIES__) { /* harmony import */ _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_input_field_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!./input-field.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/InputField/input-field.scss");
+(function () {
+        if (!isEqualLocals(oldLocals, _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_input_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals, undefined)) {
+                module.hot.invalidate();
+
+                return;
+              }
+
+              oldLocals = _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_input_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals;
+
+              update(_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_input_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"]);
+      })(__WEBPACK_OUTDATED_DEPENDENCIES__); }.bind(this)
+    )
+  }
+
+  module.hot.dispose(function() {
+    update();
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_input_field_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./src/app/shared/SelectField/index.tsx":
+/*!**********************************************!*\
+  !*** ./src/app/shared/SelectField/index.tsx ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.browser.esm.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+
+
+
+SelectField.propTypes = {
+    field: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object.isRequired,
+    form: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object.isRequired,
+    label: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+    placeholder: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+    disabled: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+    options: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array,
+};
+SelectField.defaultProps = {
+    label: '',
+    placeholder: '',
+    disabled: false,
+    options: [],
+};
+function SelectField(props) {
+    var field = props.field, options = props.options, label = props.label, placeholder = props.placeholder, disabled = props.disabled, form = props.form;
+    var name = field.name, value = field.value;
+    var errors = form.errors, touched = form.touched;
+    var selectedOption = options.find(function (option) { return option.value === value; });
+    var handleSelectedOptionChange = function (selectedOption) {
+        var selectedValue = selectedOption ? selectedOption.value : selectedOption;
+        var changeEvent = {
+            target: {
+                name: name,
+                value: selectedValue
+            }
+        };
+        field.onChange(changeEvent);
+    };
+    return (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["FormGroup"], null,
+        label && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", { htmlFor: name }, label),
+        react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_2__["default"], __assign({ id: name }, field, { value: selectedOption, onChange: handleSelectedOptionChange, placeholder: placeholder, isDisabled: disabled, options: options, styles: {
+                control: function (base) { return (__assign(__assign({}, base), { borderColor: errors[name] && touched[name] ? 'red' : 'hsl(0,0%,80%)' })); }
+            } }))));
+}
+/* harmony default export */ __webpack_exports__["default"] = (SelectField);
+
+
+/***/ }),
+
+/***/ "./src/app/shared/toggle-button/toggle-button.scss":
+/*!*********************************************************!*\
+  !*** ./src/app/shared/toggle-button/toggle-button.scss ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_toggle_button_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!./toggle-button.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/toggle-button/toggle-button.scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_toggle_button_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+if (true) {
+  if (!_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_toggle_button_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || module.hot.invalidate) {
+    var isEqualLocals = function isEqualLocals(a, b, isNamedExport) {
+  if (!a && b || a && !b) {
+    return false;
+  }
+
+  var p;
+
+  for (p in a) {
+    if (isNamedExport && p === 'default') {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    if (a[p] !== b[p]) {
+      return false;
+    }
+  }
+
+  for (p in b) {
+    if (isNamedExport && p === 'default') {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    if (!a[p]) {
+      return false;
+    }
+  }
+
+  return true;
+};
+    var oldLocals = _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_toggle_button_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals;
+
+    module.hot.accept(
+      /*! !../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!./toggle-button.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/toggle-button/toggle-button.scss",
+      function(__WEBPACK_OUTDATED_DEPENDENCIES__) { /* harmony import */ _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_toggle_button_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../node_modules/sass-loader/dist/cjs.js!./toggle-button.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/dist/cjs.js!./src/app/shared/toggle-button/toggle-button.scss");
+(function () {
+        if (!isEqualLocals(oldLocals, _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_toggle_button_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals, undefined)) {
+                module.hot.invalidate();
+
+                return;
+              }
+
+              oldLocals = _node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_toggle_button_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals;
+
+              update(_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_toggle_button_scss__WEBPACK_IMPORTED_MODULE_1__["default"]);
+      })(__WEBPACK_OUTDATED_DEPENDENCIES__); }.bind(this)
+    )
+  }
+
+  module.hot.dispose(function() {
+    update();
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_ref_6_1_node_modules_sass_loader_dist_cjs_js_toggle_button_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./src/app/shared/toggle-button/toggle-button.tsx":
+/*!********************************************************!*\
+  !*** ./src/app/shared/toggle-button/toggle-button.tsx ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _toggle_button_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toggle-button.scss */ "./src/app/shared/toggle-button/toggle-button.scss");
+
+
+
+ToggleButton.propTypes = {
+    onClick: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+    name: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+    disabled: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+    defaultChecked: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+    small: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+};
+ToggleButton.defaultProps = {
+    disabled: false,
+    optionLabels: ['Yes', 'No']
+};
+function ToggleButton(props) {
+    var onClick = props.onClick, disabled = props.disabled, defaultChecked = props.defaultChecked, name = props.name, small = props.small, optionLabels = props.optionLabels;
+    return (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", { className: 'toggle-switch' + (small ? ' small-switch' : '') },
+        react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", { type: 'checkbox', id: name, name: name, className: 'toggle-switch-checkbox', defaultChecked: defaultChecked, onClick: onClick, disabled: disabled }),
+        name ? (react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", { className: 'toggle-switch-label', tabIndex: disabled ? -1 : 1, htmlFor: name },
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", { "data-yes": optionLabels[0], "data-no": optionLabels[1], tabIndex: -1, className: disabled ? 'toggle-switch-inner toggle-switch-disabled' : 'toggle-switch-inner' }),
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", { tabIndex: -1, className: disabled ? 'toggle-switch-switch toggle-switch-disabled' : 'toggle-switch-switch' })))
+            : null));
+}
+/* harmony default export */ __webpack_exports__["default"] = (ToggleButton);
+
+
+/***/ })
+
+}]);
+//# sourceMappingURL=5.chunk.js.map
