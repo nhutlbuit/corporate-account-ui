@@ -45,6 +45,30 @@ let accounts = [
     }
 ];
 
+let directors = [
+    {
+        id: 1112890, name: 'Kevin.os', dateOfBirth: new Date(), countryOfResidence: 'Malta', idType: 'passport', idNumber: '164 465 987',
+        partnerLabelId: 'Peter Pan', passPort: true, nationalId: true, proofOfAddress: false, certificateOfIncumbency: false,
+    },
+    {
+        id: 1112891, name: 'Rob.os', dateOfBirth: new Date(), countryOfResidence: 'Malta', idType: 'nationalID', idNumber: '165 465 987',
+        partnerLabelId: 'Peter Pan', passPort: true, nationalID: false, proofOfAddress: false, certificateOfIncumbency: false,
+    },
+    {
+        id: 1112892, name: 'Kenny.os', dateOfBirth: new Date(), countryOfResidence: 'Malta', idType: 'proofOfAddress', idNumber: '166 465 987',
+        partnerLabelId: 'Peter Pan', passPort: true, nationalID: false, proofOfAddress: false, certificateOfIncumbency: false,
+    },
+    {
+        id: 1112893, name: 'Ali.os', dateOfBirth: new Date(), countryOfResidence: 'Malta', idType: 'certificateOfIncumbency', idNumber: '167 465 987',
+        partnerLabelId: 'Conan Huynh', passPort: true, nationalID: false, proofOfAddress: false, certificateOfIncumbency: false,
+    },
+    {
+        id: 1112894, name: 'nat.os', dateOfBirth: new Date(), countryOfResidence: 'Malta', idType: 'passport', idNumber: '164 465 987',
+        partnerLabelId: 'Conan Huynh', passPort: true, nationalID: false, proofOfAddress: false, certificateOfIncumbency: false,
+    },
+
+];
+
 export const getAccountListingService = async (account: any) => {
 
     const getAccounts = (type: String) => {
@@ -93,6 +117,29 @@ export const updateAccountService = async (account: any) => {
     accounts = acc;
     return 'ok';
 };
+
+export const getDirectorsService = async (partnerLabelId: any) => {
+    return directors.filter(e => e.partnerLabelId == partnerLabelId);
+};
+
+export const addDirectorService = async (director: any) => {
+    directors.push(director);
+    return 'success';
+};
+
+export const updateDirectorService = async (director: any) => {
+    const direc = directors.filter((e: any) => e.id != director.id);
+    direc.push(director);
+    directors = direc;
+    return 'success';
+};
+
+export const deleteDirectorService = async (directorId: number) => {
+    const direc = directors.filter((e: any) => e.id != directorId);
+    directors = direc;
+    return 'success';
+};
+
 
 
 

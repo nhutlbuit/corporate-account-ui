@@ -4,10 +4,10 @@ import './toggle-button.scss';
 
 ToggleButton.propTypes = {
     onClick: PropTypes.func,
-    name: PropTypes.string,
     disabled: PropTypes.bool,
     defaultChecked: PropTypes.bool,
     small: PropTypes.bool,
+    field: PropTypes.object.isRequired,
 };
 
 ToggleButton.defaultProps = {
@@ -16,7 +16,8 @@ ToggleButton.defaultProps = {
 };
 
 function ToggleButton(props: any) {
-    const {onClick, disabled, defaultChecked, name, small, optionLabels} = props;
+    const {onClick, disabled, defaultChecked, field, small, optionLabels} = props;
+    const { name, value } = field;
 
     return (
         <div className={'toggle-switch' + (small ? ' small-switch' : '')}>
@@ -27,7 +28,9 @@ function ToggleButton(props: any) {
                           <span tabIndex={-1} className={disabled ? 'toggle-switch-switch toggle-switch-disabled' : 'toggle-switch-switch'} />
                     </label>
                     )
-             : null}
+                    :
+                    null
+            }
         </div>
     );
 }

@@ -28,9 +28,7 @@ export const AccountSlice = createSlice({
             state.loading = false;
             state.error = '';
             state.accounts = payloadAction.payload;
-            if (payloadAction.payload?.length) {
-                state.isShowAccountListing = true;
-            }
+            state.isShowAccountListing = true;
         },
         loadAccountsError: (state) => {
             state.error = 'failed';

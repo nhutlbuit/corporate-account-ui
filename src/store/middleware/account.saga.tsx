@@ -1,10 +1,10 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects';
-import {getAccountListingService, getAccountDetailService, updateAccountService} from "../../services/account.service";
+import {getAccountListingService, getAccountDetailService, updateAccountService} from '../../services/account.service';
 import {
     loadAccounts, loadAccountsSuccess, loadAccountsError,
     getAccountDetail, getAccountDetailSuccess, getAccountDetailError,
     saveAccount, saveAccountSuccess, saveAccountError
-} from '../slice/account.slice'
+} from '../slice/account.slice';
 
 function* loadingAccountsAsync(param: any) {
     try {
@@ -29,7 +29,6 @@ function* updatingAccountAsync(param: any) {
         const data = yield call(updateAccountService, param.payload);
         yield put(saveAccountSuccess(data));
     } catch (err) {
-        console.log(err);
         yield put(saveAccountError());
     }
 }

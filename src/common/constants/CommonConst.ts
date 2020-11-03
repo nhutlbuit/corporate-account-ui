@@ -17,11 +17,18 @@ export const CONSTANT = Object.freeze({
             {name: 'country', value: 'uk', label: 'United Kingdom'},
             {name: 'country', value: 'vn', label: 'Viet Nam'},
             {name: 'country', value: 'us', label: 'United states'},
+            {name: 'country', value: 'Malta', label: 'Malta'},
         ],
         LANGUAGES: [
             {name: 'language', value: 'en', label: 'English'},
             {name: 'language', value: 'vn', label: 'Viet Nam'},
             {name: 'language', value: 'fr', label: 'France'},
+        ],
+        ID_TYPES: [
+            {name: 'idType', value: 'passport', label: 'Passport'},
+            {name: 'idType', value: 'nationalID', label: 'National ID'},
+            {name: 'idType', value: 'proofOfAddress', label: 'Proof Of Address'},
+            {name: 'idType', value: 'certificateOfIncumbency', label: 'Certificate Of Incumbency'},
         ],
 
     }

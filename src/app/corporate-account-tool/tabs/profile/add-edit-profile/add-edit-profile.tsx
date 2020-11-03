@@ -12,7 +12,7 @@ import ToggleButton from '../../../../shared/toggle-button/toggle-button';
 import {CONSTANT} from '../../../../../common/constants/CommonConst';
 
 function AddEditProfile(propsAddEditProfile: any) {
-    const {closeAddEditProfilePopup, accountDetail, isLevel3} = propsAddEditProfile;
+    const {closeAddEditProfilePopup, accountDetail} = propsAddEditProfile;
     const {isUpdateAccount} = useSelector((state: any) => state.account);
     const [account, setAccount] = useState(accountDetail);
     const dispatch = useDispatch();
@@ -22,12 +22,6 @@ function AddEditProfile(propsAddEditProfile: any) {
             onClosePopup();
         }
     }, [isUpdateAccount]);
-
-    useEffect(() => {
-        if (isLevel3) {
-            setAccount({...account, 'parentId': accountDetail.id});
-        }
-    }, []);
 
     useEffect(() => {
         if (isUpdateAccount && accountDetail) {
@@ -50,15 +44,16 @@ function AddEditProfile(propsAddEditProfile: any) {
     const initialValues = () => {
         return {
             name: accountDetail?.name ?? '',
-            id: (accountDetail?.id && !isLevel3) ? accountDetail.id : generateAccountId(6),
+            id: accountDetail?.id ?? generateAccountId(6),
             email: accountDetail?.email ?? '',
             questionnaireReceiptDate: accountDetail?.questionnaireReceiptDate ?? new Date(),
-            statusAccount: accountDetail?.statusAccount ?? (isLevel3 ? 'verified' : 'pending'),
+            statusAccount: accountDetail?.statusAccount ?? 'pending',
             country: accountDetail?.country ?? '',
             currency: accountDetail?.currency ?? '',
             language: accountDetail?.language ?? '',
             partnerLabelId: accountDetail?.partnerLabelId ?? '',
-            level: (isLevel3 ? 'Level 3' : accountDetail?.level) ?? 'Level 2',
+            level: accountDetail?.level ?? 'Level 2',
+            credit: accountDetail?.credit ?? '',
             creditLimit: accountDetail?.creditLimit ?? '',
             license: accountDetail?.license ?? '',
             mobile: accountDetail?.mobile ?? '',
@@ -84,9 +79,29 @@ function AddEditProfile(propsAddEditProfile: any) {
             language: Yup.string().required(),
             partnerLabelId: Yup.string().required(),
             level: Yup.string().required(),
-            ...(account?.credit === 'Yes' ? {creditLimit: Yup.string().required()} : {creditLimit: Yup.string()}),
-        });
+            credit: Yup.string().required(),
+            creditLimit: Yup.string().when('credit', {
+                is: (credit) => a(),
+                then: Yup.string().required(),
+                otherwise: Yup.string().notRequired()
+            }),
+            // creditLimit: Yup.string().when('credit', {
+            //     is: account?.credit === 'Yes',
+            //     then: Yup.string().required(),
+            //     otherwise: Yup.string()
+            // }),
+            // ...(account?.credit === 'Yes' ? {creditLimit: Yup.string().required()} : {creditLimit: Yup.string().notRequired()}),
+        }, [['credit', 'creditLimit']]);
     };
+
+    function a() {
+        console.log('call in here ', account?.credit === 'Yes' ? 'true' : 'false');
+        return account?.credit === 'Yes';
+    };
+
+    useEffect(() => {
+        console.log(JSON.stringify(account));
+    }, [account]);
 
     const profileInfo = (setFieldValue: any, values: any) => {
         return (
@@ -118,7 +133,8 @@ function AddEditProfile(propsAddEditProfile: any) {
                                 Level
                             </td>
                             <td>
-                                <FastField name='level' component={InputField} disabled={!accountDetail || isLevel3}/>
+                                 {/*disabled={!accountDetail || isLevel3}*/}
+                                <FastField name='level' component={InputField} disabled/>
                             </td>
                         </tr>
                         <tr>
@@ -166,7 +182,8 @@ function AddEditProfile(propsAddEditProfile: any) {
                         <tr>
                             <td className='required-field'>Credit Account</td>
                             <td>
-                                <ToggleButton name='credit' small={true} onClick={onChangeCredit} defaultChecked={account?.credit === 'Yes'}/>
+                                {/*<ToggleButton name='credit' small={true} onClick={onChangeCredit} defaultChecked={account?.credit === 'Yes'}/>*/}
+                                <Field name='credit' component={ToggleButton} onClick={onChangeCredit} small={true} defaultChecked={account?.credit === 'Yes'}/>
                             </td>
                             <td>
                                 Mobile
@@ -307,7 +324,7 @@ function AddEditProfile(propsAddEditProfile: any) {
                         <Modal show={true} onHide={onClosePopup} keyboard={false} dialogClassName='modal-dialog modal-xl'>
                             <Modal.Header closeButton>
                                 <Modal.Title className='title'>
-                                    {accountDetail && !isLevel3 ? 'EDIT' : 'ADD NEW'} CORPORATE PROFILE
+                                    {accountDetail ? 'EDIT' : 'ADD NEW'} CORPORATE PROFILE
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
@@ -320,7 +337,7 @@ function AddEditProfile(propsAddEditProfile: any) {
                                 <Button variant='primary' onClick={onClosePopup}>
                                     Close
                                 </Button>
-                                <Button type='submit' variant='success' disabled={!props.isValid} onClick={props.handleSubmit}>
+                                <Button type='submit' variant='success' disabled={!props.isValid} onClick={handleSubmit}>
                                     Save
                                 </Button>
                             </Modal.Footer>

@@ -1,22 +1,45 @@
-import React, {lazy, useState} from 'react';
+import React, {lazy, useEffect, useState} from 'react';
 import './profile.scss';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Button} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPencilAlt} from '@fortawesome/free-solid-svg-icons';
 import {format} from 'date-fns';
+import ModalYesNo from '../../../shared/model-yes-no/model-yes-no';
+import {getAccountDetail, saveAccount} from '../../../../store/slice/account.slice';
 
 const AddEditProfile = lazy(() => import('./add-edit-profile/add-edit-profile'));
 
 function Profile() {
-    const {accountDetail} = useSelector((state: any) => state.account);
+    const {accountDetail, isUpdateAccount} = useSelector((state: any) => state.account);
     const [isEdit, setEdit] = useState(false);
     const [isCreateParentAccount, setCreateParentAccount] = useState(false);
+    const dispatch = useDispatch();
+
+    const createAccountLv3 = () => {
+        const accountLevel3 = {...accountDetail, id: generateAccountId(6), statusAccount: 'verified', level: 'Level 3', 'parentId': accountDetail.id};
+        dispatch(saveAccount(accountLevel3));
+        setCreateParentAccount(false);
+    };
+
+    useEffect(() => {
+        if (isUpdateAccount) {
+            dispatch(getAccountDetail(accountDetail.id));
+        }
+
+    }, [isUpdateAccount]);
+
+    const generateAccountId = (n: number) => {
+        return Math.floor(Math.random() * (9 * (Math.pow(10, n)))) + (Math.pow(10, n));
+    };
 
     return (
         <>
             {isEdit && <AddEditProfile accountDetail={accountDetail} closeAddEditProfilePopup={(isClose: boolean) => setEdit(isClose)}/>}
-            {isCreateParentAccount && <AddEditProfile accountDetail={accountDetail} isLevel3={true} closeAddEditProfilePopup={(isClose: boolean) => setCreateParentAccount(isClose)}/>}
+            {isCreateParentAccount && <ModalYesNo onNo={() => setCreateParentAccount(false)} onYes={createAccountLv3} title={ 'Confirm Message!'}
+                                                  message='This will create a parent Level 3 account. Are you sure you wish to continue?'/>}
+
+
             <div className='profile'>
                 <div className='profile-info'>
                     <table>
@@ -154,6 +177,8 @@ function Profile() {
             </div>
         </>
     );
+
+
 }
 
 export default Profile;
