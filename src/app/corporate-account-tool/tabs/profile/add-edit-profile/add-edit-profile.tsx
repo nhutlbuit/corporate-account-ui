@@ -53,7 +53,7 @@ function AddEditProfile(propsAddEditProfile: any) {
             language: accountDetail?.language ?? '',
             partnerLabelId: accountDetail?.partnerLabelId ?? '',
             level: accountDetail?.level ?? 'Level 2',
-            credit: accountDetail?.credit ?? '',
+            credit: accountDetail?.credit ?? false,
             creditLimit: accountDetail?.creditLimit ?? '',
             license: accountDetail?.license ?? '',
             mobile: accountDetail?.mobile ?? '',
@@ -79,29 +79,14 @@ function AddEditProfile(propsAddEditProfile: any) {
             language: Yup.string().required(),
             partnerLabelId: Yup.string().required(),
             level: Yup.string().required(),
-            credit: Yup.string().required(),
+            credit: Yup.boolean().required(),
             creditLimit: Yup.string().when('credit', {
-                is: (credit) => a(),
+                is: (isCreditChecked) => isCreditChecked,
                 then: Yup.string().required(),
                 otherwise: Yup.string().notRequired()
             }),
-            // creditLimit: Yup.string().when('credit', {
-            //     is: account?.credit === 'Yes',
-            //     then: Yup.string().required(),
-            //     otherwise: Yup.string()
-            // }),
-            // ...(account?.credit === 'Yes' ? {creditLimit: Yup.string().required()} : {creditLimit: Yup.string().notRequired()}),
-        }, [['credit', 'creditLimit']]);
+        });
     };
-
-    function a() {
-        console.log('call in here ', account?.credit === 'Yes' ? 'true' : 'false');
-        return account?.credit === 'Yes';
-    };
-
-    useEffect(() => {
-        console.log(JSON.stringify(account));
-    }, [account]);
 
     const profileInfo = (setFieldValue: any, values: any) => {
         return (
@@ -133,7 +118,6 @@ function AddEditProfile(propsAddEditProfile: any) {
                                 Level
                             </td>
                             <td>
-                                 {/*disabled={!accountDetail || isLevel3}*/}
                                 <FastField name='level' component={InputField} disabled/>
                             </td>
                         </tr>
@@ -182,8 +166,7 @@ function AddEditProfile(propsAddEditProfile: any) {
                         <tr>
                             <td className='required-field'>Credit Account</td>
                             <td>
-                                {/*<ToggleButton name='credit' small={true} onClick={onChangeCredit} defaultChecked={account?.credit === 'Yes'}/>*/}
-                                <Field name='credit' component={ToggleButton} onClick={onChangeCredit} small={true} defaultChecked={account?.credit === 'Yes'}/>
+                                <Field name='credit' component={ToggleButton} small={true} defaultChecked={values?.credit}/>
                             </td>
                             <td>
                                 Mobile
@@ -197,7 +180,7 @@ function AddEditProfile(propsAddEditProfile: any) {
                                 Credit Limit
                             </td>
                             <td>
-                                <Field name='creditLimit' component={InputField} disabled={account?.credit !== 'Yes'}/>
+                                <Field name='creditLimit' component={InputField} disabled={!values?.credit}/>
                             </td>
                             <td>
                                 username
@@ -306,10 +289,6 @@ function AddEditProfile(propsAddEditProfile: any) {
         );
     };
 
-    const onChangeCredit = (e: any) => {
-        setAccount({...account, [e.target.name]: e.target.checked ? 'Yes' : 'No'});
-    };
-
     const onChangeProductAccess = (e: any) => {
         setAccount({...account, [e.target.name]: e.target.checked ? 'Yes' : 'No'});
     };
@@ -337,7 +316,7 @@ function AddEditProfile(propsAddEditProfile: any) {
                                 <Button variant='primary' onClick={onClosePopup}>
                                     Close
                                 </Button>
-                                <Button type='submit' variant='success' disabled={!props.isValid} onClick={handleSubmit}>
+                                <Button type='submit' variant='success' onClick={handleSubmit}>
                                     Save
                                 </Button>
                             </Modal.Footer>

@@ -4,7 +4,7 @@ import { parseItem, parseList } from './ResponseHandler';
 let accounts = [
     {
         id: 1112890, name: 'Kevin.os', partnerId: 'Fred Dan', level: 'Level 3', currency: 'GBP', email: 'corporate@js.com', status: 'ACTIVE',
-        partnerLabelId: 'Peter Pan', statusAccount: 'pending', license: 'Curacao', credit: 'No', creditLimit: 'N/A',
+        partnerLabelId: 'Peter Pan', statusAccount: 'pending', license: 'Curacao', credit: false, creditLimit: '',
         address: 'United KingDom', postalCode: '10000', language: 'en', phoneNumber: '0968868300', mobile: '0968868300',
         userName: 'nat.os', password: '1234qwer', questionnaireReceiptDate: new Date(), approvedDate: new Date(),
         country: 'us',
@@ -13,7 +13,7 @@ let accounts = [
     },
     {
         id: 1112891, name: 'Rob.os', partnerId: 'Fred Dan', level: 'Level 3', currency: 'VND', email: 'corporate@js.com', status: 'INACTIVE',
-        partnerLabelId: 'Peter Pan', statusAccount: 'verified', license: 'Curacao', credit: 'Yes', creditLimit: 'N/A',
+        partnerLabelId: 'Peter Pan', statusAccount: 'verified', license: 'Curacao', credit: true, creditLimit: '100',
         address: 'United KingDom', postalCode: '10000', language: 'en', phoneNumber: '0968868300', mobile: '0968868300',
         userName: 'nat.os', password: '1234qwer', questionnaireReceiptDate: new Date(), approvedDate: new Date(),
         country: 'vn',
@@ -21,7 +21,7 @@ let accounts = [
     },
     {
         id: 1112892, name: 'Kenny.os', partnerId: 'Fred Dan', level: 'Level 3', currency: 'USD', email: 'corporate@js.com', status: 'ACTIVE',
-        partnerLabelId: 'Peter Pan', statusAccount: 'inactive', license: 'Curacao', credit: 'No', creditLimit: 'N/A',
+        partnerLabelId: 'Peter Pan', statusAccount: 'inactive', license: 'Curacao', credit: false, creditLimit: '',
         address: 'United KingDom', postalCode: '10000', language: 'vn', phoneNumber: '0968868300', mobile: '0968868300',
         userName: 'nat.os', password: '1234qwer', questionnaireReceiptDate: new Date(), approvedDate: new Date(),
         country: 'uk',
@@ -29,7 +29,7 @@ let accounts = [
     },
     {
         id: 1112893, name: 'Ali.os', partnerId: 'Fred Dan', level: 'Level 2', currency: 'USD', email: 'corporate@js.com', status: 'INACTIVE',
-        partnerLabelId: 'Conan Huynh', statusAccount: 'pending', license: 'Curacao', credit: 'Yes', creditLimit: 'N/A',
+        partnerLabelId: 'Conan Huynh', statusAccount: 'pending', license: 'Curacao', credit: true, creditLimit: '10000',
         address: 'United KingDom', postalCode: '10000', language: 'fr', phoneNumber: '0968868300', mobile: '0968868300',
         userName: 'nat.os', password: '1234qwer', questionnaireReceiptDate: new Date(), approvedDate: new Date(),
         country: 'us',
@@ -37,7 +37,7 @@ let accounts = [
     },
     {
         id: 1112894, name: 'Nat.os', partnerId: 'Fred Dan', level: 'Level 2', currency: 'VND', email: 'corporate@js.com', status: 'ACTIVE',
-        partnerLabelId: 'Conan Huynh', statusAccount: 'verified', license: 'Curacao', credit: 'No', creditLimit: 'N/A',
+        partnerLabelId: 'Conan Huynh', statusAccount: 'verified', license: 'Curacao', credit: false, creditLimit: '',
         address: 'United KingDom', postalCode: '10000', language: 'vn', phoneNumber: '0968868300', mobile: '0968868300',
         userName: 'nat.os', password: '1234qwer', questionnaireReceiptDate: new Date(), approvedDate: new Date(),
         country: 'vn',
