@@ -1,3 +1,5 @@
+@import '../../../shared/style-common.scss';
+
 .director {
   margin: 30px;
 
@@ -12,18 +14,10 @@
   }
 
   table {
-    border-collapse: collapse;
-    border-spacing: 0;
     width: 100%;
 
     thead {
-      background: #2865A2;
-      text-align: center;
-
-      tr > th {
-        font-weight: bold;
-        color: white;
-      }
+      @extend .header-table;
     }
 
     tr > *:nth-child(1) {
@@ -52,17 +46,14 @@
     }
 
     tbody {
+      @extend .body-table;
+      
       tr:hover {
-        cursor: pointer;
-        background-color: #fcfbdc;
-      }
-
-      tr {
-        background-color: white;
-      }
+        @extend .hover-row-on-table;
+      }   
 
       .active {
-        color: #19B82A;
+        color: $active-color;
       }
 
     }
@@ -70,13 +61,7 @@
     th, td {
       padding: 5px !important;
       text-align: left;
-      border: 1px solid #ddd;
-    }
-
-    .no-record-found {
-      background-color: white;
-      text-align: center !important;
-      cursor: auto;
+      border: $border-table;
     }
   }
 }

@@ -1,25 +1,26 @@
+@import '../../shared/style-common.scss';
 
 .menu-list {
   a {
     display: block;
     padding: 0.5em 0.75em;
     font-weight: bold;
-    color: #9298A5;
+    color: $bg-primary-level1;
   }
 
   a:hover {
-    color: black;
+    color: $color-primary-dark;
     text-decoration: none;
   }
 
   .active-link,
   .router-link-active {
-    color: black;
-    background-color: white;
+    color: $color-primary-dark;
+    background-color: $bg-primary-light;
     border-radius: 5px;
 
     .svg-inline--fa {
-      color: #FF5500;
+      color: $selected-icon;
     }
   }
 

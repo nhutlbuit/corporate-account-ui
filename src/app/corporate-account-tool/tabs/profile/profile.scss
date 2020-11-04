@@ -1,3 +1,4 @@
+@import '../.././../shared/style-common.scss';
 
 .profile {
   .profile-info {
@@ -23,26 +24,23 @@
 
         input:disabled {
           border: none;
-          background-color: white;
-          color: black;
+          background-color: $bg-primary-light;
+          color: $color-primary-dark;
         }
       }
 
       thead {
-        background-color: #2865A2;
-        text-align: left;
+       @extend .header-table;
 
         tr > th {
-          font-weight: bold;
-          color: white;
           border: none;
 
           .edit-action {
             float: right;
             height: 44px;
-            font-weight: bold;
+           font-weight: bold;
             background-color: inherit;
-            border-left: 2px solid black;
+            border-left: 2px solid $color-primary-dark;
           }
         }
 
@@ -55,30 +53,27 @@
         tr {
           td {
             padding: 5px !important;
-            text-align: left;
-            border: 1px solid #E7EAF1;
+            border: $border-table;
           }
 
           td:nth-child(odd) {
             font-weight: bold;
             padding: 10px 25px !important;
-            background-color: #F8F8F9;
+            background-color: $bg-primary-level4;
           }
 
           td:nth-child(even) {
-            background-color: white;
+            background-color: $bg-primary-light;
             padding: 10px 25px !important;
           }
 
           .status-account {
-            color: green;
+            color: $active-color;
           }
         }
       }
     }
   }
-
-  $product-access-color: #d9edf7;
 
   .product-access {
     padding-top: 20px;
@@ -87,10 +82,10 @@
       border-collapse: collapse;
       border-spacing: 0;
       width: 100%;
-      border: 1px solid $product-access-color;
+      border: 1px solid $bg-product;
 
       thead {
-        background-color: $product-access-color;
+        background-color: $bg-product;
 
         tr > *:nth-child(1) {
           padding: 10px;
@@ -101,7 +96,7 @@
         tr {
           td {
             padding: 10px 8% 10px 15px;
-            background-color: white;
+            background-color: $bg-primary-light;
             text-align: left;
             border: none;
             .type-product {

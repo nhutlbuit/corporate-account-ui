@@ -1,6 +1,15 @@
+@import '../style-common.scss';
 
-.custom-input {
-	height: 37px;
-	padding-left: 5px;
+.input-field {
+	
+	.custom-input {
+		height: 37px;
+		padding-left: 5px;
+	}
+	
+	input {
+		@extend .custom-input-field;
+	}
 }
+
 

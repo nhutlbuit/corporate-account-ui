@@ -81,7 +81,7 @@ function AddEditProfile(propsAddEditProfile: any) {
             level: Yup.string().required(),
             credit: Yup.boolean().required(),
             creditLimit: Yup.string().when('credit', {
-                is: (isCreditChecked) => isCreditChecked,
+                is: isCreditChecked => isCreditChecked,
                 then: Yup.string().required(),
                 otherwise: Yup.string().notRequired()
             }),

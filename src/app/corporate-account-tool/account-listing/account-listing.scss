@@ -1,3 +1,5 @@
+@import '../../shared/style-common.scss';
+
 .account-listing {
   margin: 30px;
 
@@ -6,18 +8,10 @@
   }
 
   table {
-    border-collapse: collapse;
-    border-spacing: 0;
     width: 100%;
 
     thead {
-      background: #2865A2;
-      text-align: center;
-
-      tr > th {
-        font-weight: bold;
-        color: white;
-      }
+      @extend .header-table;
     }
 
     tr > *:nth-child(1) {
@@ -51,27 +45,20 @@
 
     tbody {
       tr:hover {
-        cursor: pointer;
-        background-color: #fcfbdc;
+        @extend .hover-row-on-table;
       }
 
       .active {
-        color: #19B82A;
+        color: $active-color;
       }
-
     }
 
     th, td {
       padding: 5px !important;
       text-align: left;
-      border: 1px solid #ddd;
+      border: $border-table;
     }
 
-    .no-record-found {
-      background-color: white;
-      text-align: center !important;
-      cursor: auto;
-    }
   }
 }
 

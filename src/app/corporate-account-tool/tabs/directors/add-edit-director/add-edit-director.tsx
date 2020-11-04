@@ -137,7 +137,7 @@ function AddEditDirector(propsAddEditProfile: any) {
                                     <FormCheck name='certificateOfIncumbency' type='checkbox' defaultChecked={directorDetail?.certificateOfIncumbency} onClick={onChangeDocument}/>
                                     Certificate Of Incumbency
                                 </div>
-                                <div className='required' dangerouslySetInnerHTML= {{__html: errorMsg}}/>
+                                <div className='message-error' dangerouslySetInnerHTML= {{__html: errorMsg}}/>
                             </td>
                         </tr>
                     </tbody>

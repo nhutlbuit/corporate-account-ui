@@ -1,21 +1,9 @@
+@import '../../../../shared/style-common.scss';
 
 .profile-detail {
-
   .profile-info {
-    .error {
-      border-color: red !important;
-    }
-
-    input {
-      border-color: hsl(0, 0%, 80%) !important;
-      border-radius: 3px;
-      border-style: solid;
-      border-width: 1px;
-    }
 
     table {
-      border-collapse: collapse;
-      border-spacing: 0;
       width: 100%;
 
       tr > *:nth-child(1) {
@@ -38,47 +26,33 @@
         tr {
           td {
             padding: 5px !important;
-            text-align: left;
-            border: 1px solid #E7EAF1;
+            border: $border-table
           }
 
           td:nth-child(odd) {
             font-weight: bold;
             padding: 10px 25px !important;
-            background-color: #F8F8F9;
+            background-color: $bg-primary-level4;
           }
 
           td:nth-child(even) {
-            background-color: white;
+            background-color: $bg-primary-light;
             padding: 10px 25px !important;
-
-            input {
-              width: 100%;
-            }
-          }
-
-          .required-field:after {
-            color: #e83200;
-            content: " *";
           }
         }
       }
     }
   }
 
-  $product-access-color: #d9edf7;
-
   .product-access {
     padding-top: 20px;
 
     table {
-      border-collapse: collapse;
-      border-spacing: 0;
       width: 100%;
-      border: 1px solid $product-access-color;
+      border: 1px solid $bg-product;
 
       thead {
-        background-color: $product-access-color;
+        background-color: $bg-product;
 
         tr > *:nth-child(1) {
           padding: 10px;

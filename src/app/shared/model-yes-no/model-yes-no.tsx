@@ -7,7 +7,7 @@ import {Button, Modal} from 'react-bootstrap';
 const ModalYesNo = (props: any) => {
     const {title, message, onYes, onNo} = props;
     return (
-        <Modal className='model-yes-no' show={true} onHide={onNo} keyboard={false} dialogClassName='modal-dialog modal-lg' centered>
+        <Modal show={true} onHide={onNo} keyboard={false} dialogClassName='modal-dialog modal-lg' centered>
             <Modal.Header closeButton>
                 <Modal.Title>
                     {title}

@@ -38,7 +38,7 @@ function DatePickerField(props: any) {
             type='text'
             selected={(value && new Date(value)) || null}
             onChange={val => onChange(name, val)}
-            className = {`custom-input ${errors[name] && touched[name] ? 'error' : ''}`}
+            className = {`custom-input ${errors[name] && touched[name] ? ' required-input-field' : ''}`}
             disabled={disabled}
         />
         <div className='calendar-alt'><FontAwesomeIcon icon={faCalendarAlt} size='lg'/></div>

@@ -1,18 +1,3 @@
 
-.model-yes-no {
-
-  .modal-header {
-    background-color: #2865A2;
-    color: white;
-    font-weight: bold;
-  }
-
-  .modal-footer {
-    button {
-      font-weight: bold;
-      width: 80px;
-    }
-  }
-
-}
+@import '../style-common.scss';
 

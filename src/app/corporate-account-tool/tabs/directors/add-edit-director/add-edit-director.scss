@@ -1,3 +1,4 @@
+@import '../../../../shared/style-common.scss';
 
 .director-detail {
 
@@ -7,25 +8,11 @@
     font-weight: bold;
   }
 
-  .error {
-    border-color: red !important;
-  }
-
-  .required {
-    color: red;
+  .message-error {
     padding-top: 5px;
   }
 
-  input {
-    border-color: hsl(0, 0%, 80%);
-    border-radius: 3px;
-    border-style: solid;
-    border-width: 1px;
-  }
-
   table {
-    border-collapse: collapse;
-    border-spacing: 0;
     width: 100%;
 
     tr > *:nth-child(1) {
@@ -40,28 +27,22 @@
       tr {
         td {
           padding: 5px;
-          text-align: left;
-          border: 1px solid #E7EAF1;
+          border: $border-table;
         }
 
         td:nth-child(odd) {
           font-weight: bold;
           padding: 10px 25px;
-          background-color: #F8F8F9;
+          background-color: $bg-primary-level4;
         }
 
         td:nth-child(even) {
-          background-color: white;
+          background-color: $bg-primary-light;
           padding: 10px 25px;
 
           input {
             width: 100%;
           }
-        }
-
-        .required-field:after {
-          color: #e83200;
-          content: " *";
         }
 
         .inline {

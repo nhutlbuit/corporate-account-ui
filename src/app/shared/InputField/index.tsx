@@ -29,13 +29,13 @@ function InputField(props: any) {
   const { errors, touched } = form;
 
   return (
-    <FormGroup>
+    <FormGroup className='input-field'>
       {label && <label htmlFor={name}>{label}</label>}
 
       <input
         id={name}
         {...field}
-        className = {`custom-input ${errors[name] && touched[name] && !disabled ? 'error' : ''}`}
+        className = {`custom-input ${errors[name] && touched[name] && !disabled ? 'required-input-field' : ''}`}
         type={type ? type : 'text'}
         disabled={disabled}
         placeholder={placeholder}

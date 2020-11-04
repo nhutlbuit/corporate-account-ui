@@ -1,6 +1,7 @@
+@import '../../shared/style-common.scss';
 
 .search-panel {
-  background-color: #dedfe1;
+  background-color: $bg-primary-level2;
   padding: 10px;
   height: 60px;
 
@@ -12,10 +13,6 @@
   .select {
     min-width: 300px;
     margin-left: 20px;
-
-    .css-6q0nyr-Svg {
-     // fill: none;
-    }
   }
 
   .filter-input {
