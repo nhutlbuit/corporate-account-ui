@@ -27,7 +27,7 @@ const Profile: FunctionComponent = (): ReactElement => {
 
     useEffect(() => {
         if (isUpdateAccount) {
-            dispatch(getAccountDetail(accountDetail?.id));
+            dispatch(getAccountDetail(accountDetail));
         }
     }, [isUpdateAccount]);
 
@@ -35,25 +35,8 @@ const Profile: FunctionComponent = (): ReactElement => {
         return Math.floor(Math.random() * (9 * (Math.pow(10, n)))) + (Math.pow(10, n));
     };
 
-    return (
-        <> {!_.isEmpty(accountDetail) ?
-            <>
-                { isEdit &&
-                    <AddEditProfile
-                        accountDetail={accountDetail}
-                        closeAddEditProfilePopup={(isClose: boolean) => setEdit(isClose)}
-                    />
-                }
-
-                { isCreateParentAccount &&
-                    <ModalYesNo
-                        onNo={() => setCreateParentAccount(false)}
-                        onYes={createAccountLv3}
-                        title={ 'Confirm Message!'}
-                        message='This will create a parent Level 3 account. Are you sure you wish to continue?'
-                    />
-                }
-
+    const renderProfileDetail = (): JSX.Element => {
+        return (
                 <div className='profile'>
                     <div className='profile-info'>
                         <table>
@@ -189,9 +172,32 @@ const Profile: FunctionComponent = (): ReactElement => {
                         </Button>
                     }
                 </div>
-            </>
-            :
+        );
+    };
+
+    return (
+        <> { _.isEmpty(accountDetail) ?
             <Spinner/>
+            :
+            <>
+                { isEdit &&
+                    <AddEditProfile
+                        accountDetail={accountDetail}
+                        onClosePopup={() => setEdit(false)}
+                    />
+                }
+
+                { isCreateParentAccount &&
+                    <ModalYesNo
+                        onNo={() => setCreateParentAccount(false)}
+                        onYes={createAccountLv3}
+                        title={ 'Confirm Message!'}
+                        message='This will create a parent Level 3 account. Are you sure you wish to continue?'
+                    />
+                }
+
+                {renderProfileDetail()}
+            </>
         }
         </>
     );

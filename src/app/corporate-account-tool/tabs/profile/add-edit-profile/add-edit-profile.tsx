@@ -13,13 +13,13 @@ import {CONSTANT} from '../../../../../common/constants/CommonConst';
 import PropTypes from 'prop-types';
 
 AddEditProfile.propTypes = {
-    closeAddEditProfilePopup: PropTypes.func.isRequired,
+    onClosePopup: PropTypes.func.isRequired,
     accountDetail: PropTypes.object,
 };
 
 function AddEditProfile(propsAddEditProfile: any): ReactElement {
 
-    const {closeAddEditProfilePopup, accountDetail} = propsAddEditProfile;
+    const {onClosePopup, accountDetail} = propsAddEditProfile;
     const {isUpdateAccount, error} = useSelector((state: any) => state.account);
     const [account, setAccount] = useState(accountDetail);
     const [isSubmit, setSubmit] = useState(false);
@@ -39,10 +39,6 @@ function AddEditProfile(propsAddEditProfile: any): ReactElement {
             dispatch(getAccountDetail(accountDetail.id));
         }
     }, [isUpdateAccount]);
-
-    const onClosePopup = (): void => {
-        closeAddEditProfilePopup(false);
-    };
 
     const updateAccount = (values: FormikValues): void => {
         setSubmit(true);

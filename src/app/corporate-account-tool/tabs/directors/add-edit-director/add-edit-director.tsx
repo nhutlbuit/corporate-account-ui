@@ -37,7 +37,7 @@ function AddEditDirector(propsAddEditDirector: any): ReactElement {
     };
 
     useEffect(() => {
-        if (isAdd || isUpdate || isDelete || error !== '') {
+        if (isAdd || isUpdate || isDelete || error?.length > 0) {
             if (error === '') {
                 onClosePopup();
             }
@@ -46,17 +46,21 @@ function AddEditDirector(propsAddEditDirector: any): ReactElement {
         }
     }, [isAdd, isUpdate, isDelete, error]);
 
+    useEffect(() => {
+        setRequiredMsg('Document at least one must be selected');
+        if (director?.passport || director?.nationalId || director?.proofOfAddress || director?.certificateOfIncumbency) {
+            setRequiredMsg('');
+        }
+    }, [director]);
+
     const saveDirector = (values: FormikValues): void => {
-        setRequiredMsg('');
-        if (director.passport || director.nationalId || director.proofOfAddress || director.certificateOfIncumbency) {
+        if (requiredMsg.length === 0) {
             setSubmit(true);
             if (isAddNew.current) {
-                dispatch(addDirector({...director, ...values, id: generateDirectorId(6), partnerLabelId: accountDetail.partnerLabelId}));
+                dispatch(addDirector({...director, ...values, id: generateDirectorId(6), partnerLabelId: accountDetail?.partnerLabelId}));
             } else {
                 dispatch(updateDirector({...director, ...values}));
             }
-        } else {
-            setRequiredMsg('Document at least one must be selected');
         }
     };
 

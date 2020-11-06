@@ -8,7 +8,7 @@ function AccountListing() {
     const dispatch = useDispatch();
 
     const gotoAccountDetail = (item: any) => {
-        dispatch(getAccountDetail(item.id));
+        dispatch(getAccountDetail(item));
     };
 
     return (

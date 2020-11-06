@@ -45,15 +45,15 @@ let accounts = [
 let directors = [
     {
         id: 1112890, name: 'Kevin.os', dateOfBirth: new Date(), countryOfResidence: 'Malta', idType: 'passport', idNumber: '164 465 987',
-        partnerLabelId: 'Peter Pan', passPort: true, nationalId: true, proofOfAddress: false, certificateOfIncumbency: false,
+        partnerLabelId: 'Peter PanNo1', passPort: true, nationalId: true, proofOfAddress: false, certificateOfIncumbency: false,
     },
     {
         id: 1112891, name: 'Rob.os', dateOfBirth: new Date(), countryOfResidence: 'Malta', idType: 'nationalID', idNumber: '165 465 987',
-        partnerLabelId: 'Peter Pan', passPort: true, nationalID: false, proofOfAddress: false, certificateOfIncumbency: false,
+        partnerLabelId: 'Peter Pan1', passPort: true, nationalID: false, proofOfAddress: false, certificateOfIncumbency: false,
     },
     {
         id: 1112892, name: 'Kenny.os', dateOfBirth: new Date(), countryOfResidence: 'Malta', idType: 'proofOfAddress', idNumber: '166 465 987',
-        partnerLabelId: 'Peter Pan', passPort: true, nationalID: false, proofOfAddress: false, certificateOfIncumbency: false,
+        partnerLabelId: 'Peter Pan1', passPort: true, nationalID: false, proofOfAddress: false, certificateOfIncumbency: false,
     },
     {
         id: 1112893, name: 'Ali.os', dateOfBirth: new Date(), countryOfResidence: 'Malta', idType: 'certificateOfIncumbency', idNumber: '167 465 987',
@@ -107,12 +107,12 @@ export const getAccountListingService = async (account: any) => {
     return await getAccounts(account.type);
 };
 
-export const getAccountDetailService = async (accountId: any) => {
+export const getAccountDetailService = async (account: any) => {
     return new Promise(function (resolve, reject) {
         setTimeout(() => {
-            return resolve(accounts.filter(e => e.id == accountId)[0]);
+            return resolve(accounts.filter(e => e.id == account.id)[0]);
             // return reject(new Error(''));
-        }, 3000);
+        }, 4000);
     });
 };
 

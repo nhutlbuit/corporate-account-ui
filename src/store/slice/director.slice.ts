@@ -20,6 +20,7 @@ export const DirectorSlice = createSlice({
             state.isAdd = false;
             state.isUpdate = false;
             state.isDelete = false;
+            state.directors = [];
         },
         loadDirectorsSuccess: (state, payloadAction: PayloadAction<any>) => {
             state.loading = false;

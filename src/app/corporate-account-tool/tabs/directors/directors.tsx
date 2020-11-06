@@ -5,27 +5,22 @@ import {loadDirectors} from '../../../../store/slice/director.slice';
 import {format} from 'date-fns';
 import {Button} from 'react-bootstrap';
 import AddEditDirector from './add-edit-director/add-edit-director';
-
+import Spinner from '../../../shared/spinner/spinner';
 
 const Directors: FunctionComponent = (): ReactElement => {
 
-    const {directors, isAdd, isUpdate, isDelete} = useSelector((state: any) => state.director);
-    const {accountDetail} = useSelector((state: any) => state.account);
+    const {directors, isAdd, isUpdate, isDelete, loading} = useSelector((state: any) => state.director);
+    const {accountIdSelected, partnerLabelId} = useSelector((state: any) => state.account);
     const dispatch = useDispatch();
     const [isAddEdit, setAddEdit] = useState(false);
     const [directorSelected, setDirectorSelected] = useState({});
 
-    useEffect(() => {
-        if (accountDetail.id) {
-            dispatch(loadDirectors(accountDetail.partnerLabelId));
-        }
-    }, []);
 
     useEffect(() => {
-        if (isAdd || isUpdate || isDelete) {
-            dispatch(loadDirectors(accountDetail.partnerLabelId));
+        if (isAdd || isUpdate || isDelete || accountIdSelected) {
+            dispatch(loadDirectors(partnerLabelId));
         }
-    }, [isAdd, isUpdate, isDelete]);
+    }, [isAdd, isUpdate, isDelete, accountIdSelected]);
 
     const editDirector = (item: any) => {
         setAddEdit(true);
@@ -34,7 +29,7 @@ const Directors: FunctionComponent = (): ReactElement => {
 
     const addDirector = (): void => {
         setAddEdit(true);
-        setDirectorSelected({id: accountDetail.id});
+        setDirectorSelected({id: accountIdSelected});
     };
 
     const getDocuments = (item: any): string => {
@@ -54,16 +49,9 @@ const Directors: FunctionComponent = (): ReactElement => {
         return documents.join(', ');
     };
 
-    return (
-        <>
-            {isAddEdit && <AddEditDirector directorDetail={directorSelected} closeAddEditProfilePopup={(isClose: boolean): void => setAddEdit(isClose)}/>}
-            <div className='director'>
-
-                <p className='title' >
-                    <b>Director for Corporate Account {accountDetail.id}</b>
-                    <Button className='btn-add' onClick={addDirector}>ADD DIRECTOR</Button>
-                </p>
-                <table>
+    const renderTable = (): JSX.Element => {
+        return (
+            <table>
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -94,7 +82,25 @@ const Directors: FunctionComponent = (): ReactElement => {
                     }
                     </tbody>
                 </table>
-            </div>
+        );
+    };
+
+    return (
+        <> { !directors?.length && loading ?
+            <Spinner/>
+            :
+            <>
+                {isAddEdit && <AddEditDirector directorDetail={directorSelected} closeAddEditProfilePopup={(isClose: boolean): void => setAddEdit(isClose)}/>}
+                <div className='director'>
+
+                    <p className='title' >
+                        <b>Director for Corporate Account {accountIdSelected}</b>
+                        <Button className='btn-add' onClick={addDirector}>ADD DIRECTOR</Button>
+                    </p>
+                    {renderTable()}
+                </div>
+            </>
+            }
         </>
     );
 };

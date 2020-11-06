@@ -1,9 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { startCase } from 'lodash';
 import {toast} from 'react-toastify';
 
 const initialState = {
     accounts: [],
     accountDetail: {},
+    accountIdSelected: 0,
+    partnerLabelId: 0,
     filterName: '',
     loading: false,
     isLoadingAccountListing: false,
@@ -48,6 +51,8 @@ export const AccountSlice = createSlice({
             state.isShowAccountListing = false;
             state.isUpdateAccount = false;
             state.accountDetail = {};
+            state.accountIdSelected = payloadAction.payload.id;
+            state.partnerLabelId = payloadAction.payload.partnerLabelId;
         },
         getAccountDetailSuccess: (state, payloadAction: PayloadAction<any>) => {
             state.loading = false;
