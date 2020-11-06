@@ -6,6 +6,7 @@ const initialState = {
     accountDetail: {},
     filterName: '',
     loading: false,
+    isLoadingAccountListing: false,
     error: '',
     toggleNavbar: true,
     isShowAccountListing: false,
@@ -18,21 +19,21 @@ export const AccountSlice = createSlice({
     initialState,
     reducers: {
         loadAccounts: (state, payloadAction: PayloadAction<any>) => {
-            state.loading = true;
+            state.isLoadingAccountListing = true;
             state.error = '';
             state.filterName = payloadAction.payload.value;
             state.isShowContentPage = false;
             state.isShowAccountListing = false;
         },
         loadAccountsSuccess: (state, payloadAction: PayloadAction<any>) => {
-            state.loading = false;
+            state.isLoadingAccountListing = false;
             state.error = '';
             state.accounts = payloadAction.payload;
             state.isShowAccountListing = true;
         },
         loadAccountsError: (state) => {
             state.error = 'failed';
-            state.loading = true;
+            state.isLoadingAccountListing = true;
             toast.error('get accounts failed. Please contact admin!');
         },
 
@@ -46,6 +47,7 @@ export const AccountSlice = createSlice({
             state.isShowContentPage = true;
             state.isShowAccountListing = false;
             state.isUpdateAccount = false;
+            state.accountDetail = {};
         },
         getAccountDetailSuccess: (state, payloadAction: PayloadAction<any>) => {
             state.loading = false;

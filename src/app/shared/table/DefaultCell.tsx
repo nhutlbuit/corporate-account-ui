@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {customFormatTzYMD} from "../../../common/utils/DateUtils";
-import {DataTypeEnum} from "../../../common/enum/DataTypeEnum";
+import {DataTypeEnum} from "./CustomTableCore";
+import {customFormatTzYMD} from "../DateUtils";
 
 const DefaultCell = (props: any) => {
     const {column, data} = props

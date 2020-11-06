@@ -1,10 +1,9 @@
 import {ReactElement} from "react";
-import {DataTypeEnum} from "../../../common/enum/DataTypeEnum";
-import {SortOrder} from "../../../common/enums/PagingEnum";
 
 export interface Column {
     id: string
     header: string
+    headerCell?: ReactElement
     accessor: string
     className?: string
     dataType?: DataTypeEnum
@@ -12,11 +11,19 @@ export interface Column {
     minWidth: number
     sort?: SortOrder
     cell?: ReactElement
+    filter?: ReactElement
     icons?: Array<ReactElement>
 }
 
-export interface Group {
+export interface GroupCol {
     groupId: number
+    header: string
+    cols: Array<Column>
+    minWidth: number
+}
+
+export interface Group {
+    groupId: string
     expanded: boolean
     rows: Array<Row>
 }
@@ -27,10 +34,18 @@ export interface Row {
     item: any
 }
 
-export const groupBy = (array: Array<any>, key: string) => {
+export enum SortOrder {
+    DEFAULT, ASC, DESC,
+}
+
+export enum DataTypeEnum {
+    String = 'String', Number = 'Number', Date = 'Date'
+}
+
+export const groupBy = (array: Array<any>, key: string, expanded: boolean) => {
     let groupMap = array.reduce((map: Map<any, Array<any>>, currentItem, currentIndex) => {
         let id = !!key ? currentItem[key] : currentIndex
-        let item = {item: currentItem, isRoot: false, expanded: false}
+        let item = {item: currentItem, isRoot: false, expanded: expanded}
         map = map.size > 0 ? map : new Map()
         map.has(id) ? map.get(id)?.push(item) : map.set(id, [item])
         return map;
@@ -38,16 +53,39 @@ export const groupBy = (array: Array<any>, key: string) => {
 
     let result = Array.from(groupMap.keys()).map(key => {
         let list = groupMap.get(key)
-        if (list.length > 1) {
+        let multiple = list.length > 1
+        if (multiple) {
             list[0].isRoot = true
         }
         return {
             groupId: key,
-            rows: list
+            rows: list,
+            expanded: multiple && expanded
         }
     })
 
     return result.slice()
+}
+
+export const groupColumn = (array: Array<any>, key: string) => {
+    let groupMap = array.reduce((map: Map<any, Array<any>>, currentItem, currentIndex) => {
+        let id = !!currentItem[key] ? currentItem[key] : currentIndex
+        let item = currentItem
+        map = map.size > 0 ? map : new Map()
+        map.has(id) ? map.get(id)?.push(item) : map.set(id, [item])
+        return map;
+    }, []);
+    let result = Array.from(groupMap.keys()).map(key => {
+        return {
+            groupId: key,
+            header: groupMap.get(key)[0].groupHeader,
+            cols: groupMap.get(key),
+            minWidth: groupMap.get(key).reduce((minWidth: number, col: Column) => {
+                return minWidth + col.minWidth;
+            }, 0)
+        }
+    });
+    return result;
 }
 
 export const updateSort = (column: Column, columns: Array<Column>): Array<Column> => {

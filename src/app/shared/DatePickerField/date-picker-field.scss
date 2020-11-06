@@ -11,12 +11,17 @@
 
     .calendar-alt {
       padding: 8px 0px 0px 5px;
+      cursor: pointer;
     }
+  }
+
+  .react-datepicker-wrapper {
+    flex: 1;
   }
 
   input {
     @extend .custom-input-field;
-	}
+  }
 
 }
 

@@ -1,27 +1,38 @@
-import React, {useEffect, useState} from 'react';
+import React, { ReactElement, useEffect, useState} from 'react';
 import './add-edit-profile.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import * as Yup from 'yup';
 import {getAccountDetail, saveAccount} from '../../../../../store/slice/account.slice';
-import {Button, FormCheck, Modal} from 'react-bootstrap';
-import {FastField, Field, Formik} from 'formik';
+import {Button, FormCheck, Modal, Spinner} from 'react-bootstrap';
+import {FastField, Field, Formik, FormikValues} from 'formik';
 import SelectField from '../../../../shared/SelectField';
 import InputField from '../../../../shared/InputField';
 import DatePickerField from '../../../../shared/DatePickerField';
 import ToggleButton from '../../../../shared/toggle-button/toggle-button';
 import {CONSTANT} from '../../../../../common/constants/CommonConst';
+import PropTypes from 'prop-types';
 
-function AddEditProfile(propsAddEditProfile: any) {
+AddEditProfile.propTypes = {
+    closeAddEditProfilePopup: PropTypes.func.isRequired,
+    accountDetail: PropTypes.object,
+};
+
+function AddEditProfile(propsAddEditProfile: any): ReactElement {
+
     const {closeAddEditProfilePopup, accountDetail} = propsAddEditProfile;
-    const {isUpdateAccount} = useSelector((state: any) => state.account);
+    const {isUpdateAccount, error} = useSelector((state: any) => state.account);
     const [account, setAccount] = useState(accountDetail);
+    const [isSubmit, setSubmit] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (isUpdateAccount) {
-            onClosePopup();
+        if (isUpdateAccount || error !== '') {
+            if (error === '') {
+                onClosePopup();
+            }
+            setSubmit(false);
         }
-    }, [isUpdateAccount]);
+    }, [isUpdateAccount, error]);
 
     useEffect(() => {
         if (isUpdateAccount && accountDetail) {
@@ -29,19 +40,20 @@ function AddEditProfile(propsAddEditProfile: any) {
         }
     }, [isUpdateAccount]);
 
-    const onClosePopup = () => {
+    const onClosePopup = (): void => {
         closeAddEditProfilePopup(false);
     };
 
-    const updateAccount = (values: any) => {
+    const updateAccount = (values: FormikValues): void => {
+        setSubmit(true);
         dispatch(saveAccount({...account, ...values}));
     };
 
-    const generateAccountId = (n: number) => {
+    const generateAccountId = (n: number): number => {
         return Math.floor(Math.random() * (9 * (Math.pow(10, n)))) + (Math.pow(10, n));
     };
 
-    const initialValues = () => {
+    const initialValues = (): FormikValues => {
         return {
             name: accountDetail?.name ?? '',
             id: accountDetail?.id ?? generateAccountId(6),
@@ -67,7 +79,7 @@ function AddEditProfile(propsAddEditProfile: any) {
         };
     };
 
-    const validationSchema = () => {
+    const validationSchema = (): Yup.ObjectSchema => {
         return Yup.object().shape({
             name: Yup.string().required(),
             id: Yup.number().positive().integer().required(),
@@ -88,7 +100,7 @@ function AddEditProfile(propsAddEditProfile: any) {
         });
     };
 
-    const profileInfo = (setFieldValue: any, values: any) => {
+    const profileInfo = (setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void, values: FormikValues): JSX.Element => {
         return (
             <div className='profile-info'>
                 <table>
@@ -247,7 +259,7 @@ function AddEditProfile(propsAddEditProfile: any) {
         );
     };
 
-    const productAccess = () => {
+    const productAccess = (): JSX.Element => {
         return (
             <div className='product-access'>
                 <table>
@@ -289,15 +301,15 @@ function AddEditProfile(propsAddEditProfile: any) {
         );
     };
 
-    const onChangeProductAccess = (e: any) => {
-        setAccount({...account, [e.target.name]: e.target.checked ? 'Yes' : 'No'});
+    const onChangeProductAccess = (e: React.FormEvent<HTMLInputElement>): void => {
+        setAccount({...account, [(e.target as any).name]: (e.target as any).checked ? 'Yes' : 'No'});
     };
 
     return (
         <Formik initialValues={initialValues()} onSubmit={values => updateAccount(values)}
                 validationSchema={validationSchema()}>
             {(props) => {
-                const {handleSubmit, setFieldValue, values} = props;
+                const {handleSubmit, setFieldValue, values, isSubmitting} = props;
                 return (
                     <form onSubmit={handleSubmit}>
                         <Modal show={true} onHide={onClosePopup} keyboard={false} dialogClassName='modal-dialog modal-xl'>
@@ -316,7 +328,8 @@ function AddEditProfile(propsAddEditProfile: any) {
                                 <Button variant='primary' onClick={onClosePopup}>
                                     Close
                                 </Button>
-                                <Button type='submit' variant='success' onClick={handleSubmit}>
+                                <Button type='submit' variant='success' onClick={() => handleSubmit()}>
+                                    { isSubmitting && isSubmit && <Spinner animation='border' size='sm'/>}
                                     Save
                                 </Button>
                             </Modal.Footer>

@@ -20,10 +20,10 @@ const ModalYesNo = (props: any) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant='secondary' onClick={onNo}>
-                    No
+                    Cancel
                 </Button>
                 <Button type='submit' variant='primary' onClick={onYes}>
-                    Yes
+                    OK
                 </Button>
             </Modal.Footer>
         </Modal>

@@ -17,6 +17,9 @@ export const DirectorSlice = createSlice({
         loadDirectors: (state, payloadAction: PayloadAction<any>) => {
             state.loading = true;
             state.error = '';
+            state.isAdd = false;
+            state.isUpdate = false;
+            state.isDelete = false;
         },
         loadDirectorsSuccess: (state, payloadAction: PayloadAction<any>) => {
             state.loading = false;
@@ -58,7 +61,7 @@ export const DirectorSlice = createSlice({
             toast.success('update director successfully');
         },
         updateDirectorError: (state) => {
-            state.error = 'failed';
+            state.error = 'update director failed. Please contact admin!';
             state.loading = true;
             toast.error('update director failed. Please contact admin!');
         },
@@ -75,9 +78,9 @@ export const DirectorSlice = createSlice({
             toast.success('delete director successfully');
         },
         deleteDirectorError: (state) => {
-            state.error = 'failed';
+            state.error = 'delete director failed. Please contact admin!';
             state.loading = true;
-            toast.error('delete director failed. Please contact admin!');
+            toast.error(state.error);
         },
     }
 });

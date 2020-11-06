@@ -1,9 +1,6 @@
-import axios from 'axios';
-import { parseItem, parseList } from './ResponseHandler';
-
 let accounts = [
     {
-        id: 1112890, name: 'Kevin.os', partnerId: 'Fred Dan', level: 'Level 3', currency: 'GBP', email: 'corporate@js.com', status: 'ACTIVE',
+        id: 1112890, name: 'Kevin.os', partnerId: 'Fred Dan', level: 'Level 2', currency: 'GBP', email: 'corporate@js.com', status: 'ACTIVE',
         partnerLabelId: 'Peter Pan', statusAccount: 'pending', license: 'Curacao', credit: false, creditLimit: '',
         address: 'United KingDom', postalCode: '10000', language: 'en', phoneNumber: '0968868300', mobile: '0968868300',
         userName: 'nat.os', password: '1234qwer', questionnaireReceiptDate: new Date(), approvedDate: new Date(),
@@ -69,6 +66,17 @@ let directors = [
 
 ];
 
+let downLines = [
+    {
+        id: 1113301, name: 'Sub 01', level: '2', subGroup:'', currency: 'GBP', status: 'ACTIVE', credit: 'No', creditLimit: 'N/A',
+        userName: 'sub01.os', casino: 'YES', sportsBook: 'YES', deposits: 'NO', withdrawals: 'YES'
+    },
+    {
+        id: 1113302, name: 'Sub 02', level: '2', subGroup:'', currency: 'GBP', status: 'ACTIVE', credit: 'No', creditLimit: 'N/A',
+        userName: 'sub01.os', casino: 'YES', sportsBook: 'YES', deposits: 'NO', withdrawals: 'YES'
+    }
+];
+
 export const getAccountListingService = async (account: any) => {
 
     const getAccounts = (type: String) => {
@@ -100,47 +108,120 @@ export const getAccountListingService = async (account: any) => {
 };
 
 export const getAccountDetailService = async (accountId: any) => {
-    return accounts.filter(e => e.id == accountId)[0];
+    return new Promise(function (resolve, reject) {
+        setTimeout(() => {
+            return resolve(accounts.filter(e => e.id == accountId)[0]);
+            // return reject(new Error(''));
+        }, 3000);
+    });
 };
 
 export const updateAccountService = async (account: any) => {
-    let acc = accounts.filter((e: any) => e.id != account.id);
-    if ( acc.length === accounts.length && account.level === 'Level 3') {
-        acc = acc.map((e: any) => {
-            if (e.id === account.parentId) {
-                e = {...e , 'parentId': account.id};
-            }
-            return e;
+
+    const updateAccountSelected = (accountSelected: any) => {
+        return new Promise(function (resolve, reject) {
+            setTimeout(() => {
+                let acc = accounts.filter((e: any) => e.id != accountSelected.id);
+                if ( acc.length === accounts.length && accountSelected.level === 'Level 3') {
+                    acc = acc.map((e: any) => {
+                        if (e.id === accountSelected.parentId) {
+                            e = {...e , 'parentId': accountSelected.id};
+                        }
+                        return e;
+                    });
+                }
+                acc.push(accountSelected);
+                accounts = acc;
+                 return resolve('success');
+               // return reject(new Error(''));
+            }, 5000);
         });
-    }
-    acc.push(account);
-    accounts = acc;
-    return 'ok';
+    };
+    return await updateAccountSelected(account);
 };
 
 export const getDirectorsService = async (partnerLabelId: any) => {
-    return directors.filter(e => e.partnerLabelId == partnerLabelId);
+
+    const getDirectorsByPartnerLabelId = (partnerLabelIdSelected: any) => {
+        return new Promise(function (resolve, reject) {
+            setTimeout(() => {
+                return resolve(directors.filter(e => e.partnerLabelId == partnerLabelIdSelected));
+            }, 5000);
+        });
+    };
+
+    return getDirectorsByPartnerLabelId(partnerLabelId);
 };
 
 export const addDirectorService = async (director: any) => {
-    directors.push(director);
-    return 'success';
+
+    const addDirector = (aDirector: any) => {
+        return new Promise(function (resolve, reject) {
+            setTimeout(() => {
+                directors.push(aDirector);
+                return resolve('success');
+            }, 5000);
+        });
+    };
+
+    return await addDirector(director);
 };
 
 export const updateDirectorService = async (director: any) => {
-    const direc = directors.filter((e: any) => e.id != director.id);
-    direc.push(director);
-    directors = direc;
-    return 'success';
+
+    const addDirector = (aDirector: any) => {
+        return new Promise(function (resolve, reject) {
+            setTimeout(() => {
+                const direc = directors.filter((e: any) => e.id != aDirector.id);
+                direc.push(director);
+                directors = direc;
+               // return resolve('success');
+                return reject(new Error(''));
+            }, 3000);
+        });
+    };
+
+    return await addDirector(director);
 };
 
 export const deleteDirectorService = async (directorId: number) => {
-    const direc = directors.filter((e: any) => e.id != directorId);
-    directors = direc;
-    return 'success';
+
+    const deleteDirectorSelected = (directorIdSelected: number) => {
+        return new Promise(function (resolve, reject) {
+            setTimeout(() => {
+                const direc = directors.filter((e: any) => e.id != directorIdSelected);
+                directors = direc;
+                // return resolve('success');
+                return reject(new Error(''));
+            }, 5000);
+        });
+    };
+    return await deleteDirectorSelected(directorId);
 };
+export const getDownLineListing = async (filter: any) => {
 
+    const getDownLines = (filter: any) => {
+        return new Promise(function (resolve, reject) {
+            setTimeout(() => {
+                let list = downLines.filter(a => matchingConditions(a, filter));
+                return resolve({viewAccount: {}, downLines: list});
+            }, 1000);
+        });
+    };
 
+    const matchingConditions  = (account: any, filter: any) => {
+       return (!filter.id || account.id.includes(filter.id)) &&
+           (!filter.subGroup || account.subGroup.includes(filter.subGroup)) &&
+           (!filter.credit || account.credit === filter.credit) &&
+           (!filter.status || account.status === filter.status) &&
+           (!filter.casino || account.casino === filter.casino) &&
+           (!filter.sportsBook || account.sportsBook === filter.sportsBook) &&
+           (!filter.deposits || account.deposits === filter.deposits) &&
+           (!filter.withdrawals || account.withdrawals === filter.withdrawals)
+    }
+
+    return await getDownLines(filter);
+};
 
 
 

@@ -1,79 +1,91 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {ReactElement, useEffect, useRef, useState} from 'react';
 import './add-edit-director.scss';
 import {useDispatch, useSelector} from 'react-redux';
-import { string, object, number} from 'yup';
+import {string, object, number, ObjectSchema} from 'yup';
 import {addDirector, updateDirector, deleteDirector} from '../../../../../store/slice/director.slice';
-import {Button, FormCheck, Modal} from 'react-bootstrap';
-import {FastField, Field, Formik} from 'formik';
+import {Button, FormCheck, Modal, Spinner} from 'react-bootstrap';
+import {FastField, Field, Formik, FormikValues} from 'formik';
 import SelectField from '../../../../shared/SelectField';
 import InputField from '../../../../shared/InputField';
 import {CONSTANT} from '../../../../../common/constants/CommonConst';
 import DatePickerField from '../../../../shared/DatePickerField';
+import PropTypes from 'prop-types';
 
-function AddEditDirector(propsAddEditProfile: any) {
-    const {closeAddEditProfilePopup, directorDetail} = propsAddEditProfile;
+AddEditDirector.propTypes = {
+    closeAddEditProfilePopup: PropTypes.func.isRequired,
+    directorDetail: PropTypes.object.isRequired,
+};
+
+function AddEditDirector(propsAddEditDirector: any): ReactElement {
+
+    const {closeAddEditProfilePopup, directorDetail} = propsAddEditDirector;
     const {accountDetail} = useSelector((state: any) => state.account);
+    const {isAdd, isUpdate, isDelete, error} = useSelector((state: any) => state.director);
     const [director, setDirector] = useState(directorDetail);
     const dispatch = useDispatch();
     const isAddNew = useRef(!directorDetail?.idNumber);
-    const [errorMsg, setErrorMsg] = useState('');
+    const [requiredMsg, setRequiredMsg] = useState('');
+    const [isSubmit, setSubmit] = useState(false);
+    const [isDeleteDirector, setDeleteDirector] = useState(false);
 
-    const onClosePopup = () => {
+    const onClosePopup = (): void => {
         closeAddEditProfilePopup(false);
     };
 
-    const generateDirectorId = (n: number) => {
+    const generateDirectorId = (n: number): number => {
         return Math.floor(Math.random() * (9 * (Math.pow(10, n)))) + (Math.pow(10, n));
     };
 
-    const saveDirector = (values: any) => {
-        setErrorMsg('');
+    useEffect(() => {
+        if (isAdd || isUpdate || isDelete || error !== '') {
+            if (error === '') {
+                onClosePopup();
+            }
+            setSubmit(false);
+            setDeleteDirector(false);
+        }
+    }, [isAdd, isUpdate, isDelete, error]);
+
+    const saveDirector = (values: FormikValues): void => {
+        setRequiredMsg('');
         if (director.passport || director.nationalId || director.proofOfAddress || director.certificateOfIncumbency) {
+            setSubmit(true);
             if (isAddNew.current) {
                 dispatch(addDirector({...director, ...values, id: generateDirectorId(6), partnerLabelId: accountDetail.partnerLabelId}));
             } else {
                 dispatch(updateDirector({...director, ...values}));
             }
-            onClosePopup();
         } else {
-            setErrorMsg('Document at least one must be selected');
+            setRequiredMsg('Document at least one must be selected');
         }
     };
 
-    const deleteDirectorSelected = () => {
+    const deleteDirectorSelected = (): void => {
+        setDeleteDirector(true);
         dispatch(deleteDirector(directorDetail.id));
-        onClosePopup();
     };
 
-    const initialValues = () => {
+    const initialValues = (): FormikValues => {
         return {
             name: directorDetail?.name ?? '',
             dateOfBirth: directorDetail?.dateOfBirth ?? '',
             countryOfResidence: directorDetail?.countryOfResidence ?? '',
             idType: directorDetail?.idType ?? '',
-            idNumber: directorDetail?.idNumber ?? '',
-            // passPort: directorDetail?.passPort ?? false,
-            // nationalId: directorDetail?.nationalId ?? false,
-            // proofOfAddress: directorDetail?.proofOfAddress ?? false,
-            // certificateOfIncumbency: directorDetail?.certificateOfIncumbency ?? false,
+            idNumber: directorDetail?.idNumber ?? ''
         };
     };
 
-    const validationSchema = () => {
+    const validationSchema = (): ObjectSchema => {
         return object().shape({
             name: string().required(),
             dateOfBirth: string().required(),
             countryOfResidence: string().required(),
             idType: string().required(),
-            idNumber: number().positive().required(),
-            // passPort: Yup.mixed(),
-            // nationalId: Yup.mixed(),
-            // proofOfAddress: Yup.mixed(),
-            // certificateOfIncumbency: Yup.mixed(),
+            idNumber: number().positive().required()
         });
     };
 
-    const profileInfo = (setFieldValue: any, values: any) => {
+    const profileInfo = (setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void): JSX.Element => {
         return (
             <div>
                 <table>
@@ -137,7 +149,7 @@ function AddEditDirector(propsAddEditProfile: any) {
                                     <FormCheck name='certificateOfIncumbency' type='checkbox' defaultChecked={directorDetail?.certificateOfIncumbency} onClick={onChangeDocument}/>
                                     Certificate Of Incumbency
                                 </div>
-                                <div className='message-error' dangerouslySetInnerHTML= {{__html: errorMsg}}/>
+                                <div className='message-error' dangerouslySetInnerHTML= {{__html: requiredMsg}}/>
                             </td>
                         </tr>
                     </tbody>
@@ -146,17 +158,17 @@ function AddEditDirector(propsAddEditProfile: any) {
         );
     };
 
-    const onChangeDocument = (e: any) => {
-        setDirector({...director, [e.target.name]: e.target.checked});
+    const onChangeDocument = (e: React.FormEvent<HTMLInputElement>): void => {
+        setDirector({...director, [(e.target as any).name]: (e.target as any).checked});
     };
 
     return (
         <Formik initialValues={initialValues()} onSubmit={values => saveDirector(values)}
                 validationSchema={validationSchema()}>
             {(props) => {
-                const {handleSubmit, setFieldValue, values} = props;
+                const {handleSubmit, setFieldValue, isSubmitting} = props;
                 return (
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <Modal show={true} onHide={onClosePopup} keyboard={false} dialogClassName='modal-dialog modal-lg'>
                             <Modal.Header closeButton>
                                 <Modal.Title className='title'>
@@ -165,15 +177,21 @@ function AddEditDirector(propsAddEditProfile: any) {
                             </Modal.Header>
                             <Modal.Body>
                                 <div className='director-detail'>
-                                    {profileInfo(setFieldValue, values)}
-                                    { !isAddNew.current && <Button className='btn-add' onClick={deleteDirectorSelected} >DELETE DIRECTOR</Button> }
+                                    {profileInfo(setFieldValue)}
+                                    { !isAddNew.current &&
+                                        <Button className='btn-add' onClick={deleteDirectorSelected} >
+                                            { isDeleteDirector && <Spinner animation='border' size='sm'/>}
+                                            {'  DELETE DIRECTOR'}
+                                        </Button>
+                                    }
                                 </div>
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant='primary' onClick={onClosePopup}>
                                     Close
                                 </Button>
-                                <Button type='submit' variant='success' disabled={!props.isValid} onClick={props.handleSubmit}>
+                                <Button variant='success' onClick={() => handleSubmit()}>
+                                    { isSubmitting && requiredMsg === '' && isSubmit && <Spinner animation='border' size='sm'/>}
                                     Save
                                 </Button>
                             </Modal.Footer>

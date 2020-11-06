@@ -17,7 +17,7 @@ const ChangeLog = withRouter(lazy(() => import('./tabs/change-log/change-log')))
 
 function CorporateAccountTool() {
 
-    const {toggleNavbar, isShowAccountListing, isShowContentPage, loading} = useSelector((state: any) => state.account);
+    const {toggleNavbar, isShowAccountListing, isShowContentPage, isLoadingAccountListing} = useSelector((state: any) => state.account);
     const match = useRouteMatch();
     const history = useHistory();
 
@@ -31,7 +31,7 @@ function CorporateAccountTool() {
         <>
             <HeaderBar/>
             <SearchPanel/>
-            {loading && <Spinner/> }
+            {isLoadingAccountListing && <Spinner/> }
             {isShowAccountListing && <AccountListing/>}
             {isShowContentPage &&
             <div className='columns'>

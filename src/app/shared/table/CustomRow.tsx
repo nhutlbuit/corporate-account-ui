@@ -29,7 +29,7 @@ const CustomRow = (props: any) => {
                         <div className={'align-middle'}>
                             {c.icons && <CustomCellGroupIcon isRoot={row.isRoot} column={c} isExpanded={row.expanded}/>}
                             {!c.cell && <DefaultCell column={c} data={row.item}/>}
-                            {!!c.cell && React.cloneElement(c.cell, {column: c, data: row.item})}
+                            {!!c.cell && React.cloneElement(c.cell, {column: c, data: row.item, group: c.id, id: row.item[c.accessor]})}
                         </div>
                     </div>
                 ))

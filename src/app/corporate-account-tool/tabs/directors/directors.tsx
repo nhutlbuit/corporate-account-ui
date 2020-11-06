@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {FunctionComponent, ReactElement, useEffect, useState} from 'react';
 import './directors.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {loadDirectors} from '../../../../store/slice/director.slice';
@@ -6,7 +6,9 @@ import {format} from 'date-fns';
 import {Button} from 'react-bootstrap';
 import AddEditDirector from './add-edit-director/add-edit-director';
 
-function Directors() {
+
+const Directors: FunctionComponent = (): ReactElement => {
+
     const {directors, isAdd, isUpdate, isDelete} = useSelector((state: any) => state.director);
     const {accountDetail} = useSelector((state: any) => state.account);
     const dispatch = useDispatch();
@@ -30,7 +32,7 @@ function Directors() {
         setDirectorSelected(item);
     };
 
-    const addDirector = () => {
+    const addDirector = (): void => {
         setAddEdit(true);
         setDirectorSelected({id: accountDetail.id});
     };
@@ -54,7 +56,7 @@ function Directors() {
 
     return (
         <>
-            {isAddEdit && <AddEditDirector directorDetail={directorSelected} closeAddEditProfilePopup={(isClose: boolean) => setAddEdit(isClose)}/>}
+            {isAddEdit && <AddEditDirector directorDetail={directorSelected} closeAddEditProfilePopup={(isClose: boolean): void => setAddEdit(isClose)}/>}
             <div className='director'>
 
                 <p className='title' >
@@ -95,6 +97,6 @@ function Directors() {
             </div>
         </>
     );
-}
+};
 
 export default Directors;

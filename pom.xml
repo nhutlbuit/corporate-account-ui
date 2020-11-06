@@ -2,14 +2,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ludus.member</groupId>
-    <artifactId>pacman-reactjs</artifactId>
+    <artifactId>corporate-account-ui</artifactId>
     <version>1.0.0</version>
     <packaging>war</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <npm.output.directory>build</npm.output.directory>
-        <public.dir>${basedir}/pacman-reactjs/public</public.dir>
+        <public.dir>${basedir}/public</public.dir>
     </properties>
 
     <build>

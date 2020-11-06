@@ -42,7 +42,7 @@ function SearchPanel() {
                 <Button className='fieldset' onClick={search}>SEARCH</Button>
                 <Button className='add-profile' onClick={() => setAdd(true)}>ADD CORPORATE PROFILE</Button>
             </div>
-            {isAdd && <AddEditProfile accountDetail={null} closeAddEditProfilePopup={(isClose: boolean) => setAdd(isClose)}/>}
+            {isAdd && <AddEditProfile closeAddEditProfilePopup={(isClose: boolean) => setAdd(isClose)}/>}
         </>
     );
 }
