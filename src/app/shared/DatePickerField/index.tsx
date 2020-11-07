@@ -43,6 +43,7 @@ function DatePickerField(props: any) {
         />
         <div className='calendar-alt'><FontAwesomeIcon icon={faCalendarAlt} size='lg'/></div>
       </label>
+
     </FormGroup>
   );
 }

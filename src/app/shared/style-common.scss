@@ -90,8 +90,11 @@ $bg-primary-light: white;
     border-color: red !important;
 }
 
-.message-error {
-    color: red;
+.required-msg {
+    color: #f44336;
+    font-size: 85%;
+    position: absolute;
+    display: flex;
 }
 
 .no-record-found {

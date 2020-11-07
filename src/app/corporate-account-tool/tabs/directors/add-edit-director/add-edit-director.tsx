@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {string, object, number, ObjectSchema} from 'yup';
 import {addDirector, updateDirector, deleteDirector} from '../../../../../store/slice/director.slice';
 import {Button, FormCheck, Modal, Spinner} from 'react-bootstrap';
-import {FastField, Field, Formik, FormikValues} from 'formik';
+import {FastField, Field, Formik, FormikErrors, FormikValues} from 'formik';
 import SelectField from '../../../../shared/SelectField';
 import InputField from '../../../../shared/InputField';
 import {CONSTANT} from '../../../../../common/constants/CommonConst';
@@ -89,7 +89,7 @@ function AddEditDirector(propsAddEditDirector: any): ReactElement {
         });
     };
 
-    const profileInfo = (setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void): JSX.Element => {
+    const profileInfo = (setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void, errors: FormikErrors<FormikValues>): JSX.Element => {
         return (
             <div>
                 <table>
@@ -136,7 +136,7 @@ function AddEditDirector(propsAddEditDirector: any): ReactElement {
                         </tr>
                         <tr>
                             <td className='required-field'>Documents</td>
-                            <td>
+                            <td className='document'>
                                 <div className='inline'>
                                     <FormCheck name='passport' type='checkbox' defaultChecked={directorDetail?.passport } onClick={onChangeDocument}/>
                                      Passport
@@ -153,7 +153,7 @@ function AddEditDirector(propsAddEditDirector: any): ReactElement {
                                     <FormCheck name='certificateOfIncumbency' type='checkbox' defaultChecked={directorDetail?.certificateOfIncumbency} onClick={onChangeDocument}/>
                                     Certificate Of Incumbency
                                 </div>
-                                <div className='message-error' dangerouslySetInnerHTML= {{__html: requiredMsg}}/>
+                                <div className='required-msg' dangerouslySetInnerHTML= {{__html: requiredMsg}}/>
                             </td>
                         </tr>
                     </tbody>
@@ -170,7 +170,7 @@ function AddEditDirector(propsAddEditDirector: any): ReactElement {
         <Formik initialValues={initialValues()} onSubmit={values => saveDirector(values)}
                 validationSchema={validationSchema()}>
             {(props) => {
-                const {handleSubmit, setFieldValue, isSubmitting} = props;
+                const {handleSubmit, setFieldValue, isSubmitting, errors} = props;
                 return (
                     <form>
                         <Modal show={true} onHide={onClosePopup} keyboard={false} dialogClassName='modal-dialog modal-lg'>
@@ -181,7 +181,7 @@ function AddEditDirector(propsAddEditDirector: any): ReactElement {
                             </Modal.Header>
                             <Modal.Body>
                                 <div className='director-detail'>
-                                    {profileInfo(setFieldValue)}
+                                    {profileInfo(setFieldValue, errors)}
                                     { !isAddNew.current &&
                                         <Button className='btn-add' onClick={deleteDirectorSelected} >
                                             { isDeleteDirector && <Spinner animation='border' size='sm'/>}
@@ -198,6 +198,7 @@ function AddEditDirector(propsAddEditDirector: any): ReactElement {
                                     { isSubmitting && requiredMsg === '' && isSubmit && <Spinner animation='border' size='sm'/>}
                                     Save
                                 </Button>
+                                {JSON.stringify(props)}
                             </Modal.Footer>
                         </Modal>
                     </form>

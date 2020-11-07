@@ -25,19 +25,18 @@
       tbody {
         tr {
           td {
-            padding: 5px !important;
             border: $border-table
           }
 
           td:nth-child(odd) {
             font-weight: bold;
-            padding: 10px 25px !important;
+            padding: 10px 25px 5px 25px;
             background-color: $bg-primary-level4;
           }
 
           td:nth-child(even) {
             background-color: $bg-primary-light;
-            padding: 10px 25px !important;
+            padding: 10px 25px 5px 25px;
           }
         }
       }

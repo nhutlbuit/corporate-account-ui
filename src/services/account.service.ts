@@ -93,7 +93,7 @@ export const getAccountListingService = async (account: any) => {
                         break;
                     }
                     case 'partnerId':
-                        result = accounts.filter(e => e.partnerLabelId.includes(account.value));
+                        result = accounts.filter(e => e.partnerLabelId.toUpperCase().includes(account.value.toUpperCase()));
                         break;
                     default: {
                         break;

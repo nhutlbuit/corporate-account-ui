@@ -8,10 +8,6 @@
     font-weight: bold;
   }
 
-  .message-error {
-    padding-top: 5px;
-  }
-
   table {
     width: 100%;
 
@@ -26,34 +22,37 @@
     tbody {
       tr {
         td {
-          padding: 5px;
           border: $border-table;
         }
 
         td:nth-child(odd) {
           font-weight: bold;
-          padding: 10px 25px;
+          padding: 10px 25px 5px 25px;
           background-color: $bg-primary-level4;
         }
 
         td:nth-child(even) {
           background-color: $bg-primary-light;
-          padding: 10px 25px;
+          padding: 10px 25px 5px 25px;
 
           input {
             width: 100%;
           }
         }
 
-        .inline {
-          display: flex;
-
-          .form-check {
-            margin-right: 5px;
-          }
-
-          .position-static {
-            position: absolute !important;
+        .document {
+          padding-bottom: 20px !important;
+          
+          .inline {
+            display: flex;
+  
+            .form-check {
+              margin-right: 5px;
+            }
+  
+            .position-static {
+              position: absolute !important;
+            }
           }
         }
       }

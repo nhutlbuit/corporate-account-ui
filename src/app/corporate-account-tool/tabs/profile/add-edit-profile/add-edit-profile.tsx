@@ -78,15 +78,12 @@ function AddEditProfile(propsAddEditProfile: any): ReactElement {
     const validationSchema = (): Yup.ObjectSchema => {
         return Yup.object().shape({
             name: Yup.string().required(),
-            id: Yup.number().positive().integer().required(),
             email: Yup.string().email().required(),
             questionnaireReceiptDate: Yup.date().required(),
-            statusAccount: Yup.string().required(),
             country: Yup.string().required(),
             currency: Yup.string().required(),
             language: Yup.string().required(),
             partnerLabelId: Yup.string().required(),
-            level: Yup.string().required(),
             credit: Yup.boolean().required(),
             creditLimit: Yup.string().when('credit', {
                 is: isCreditChecked => isCreditChecked,

@@ -58,6 +58,8 @@ function SelectField(props: any) {
           })
         }}
       />
+
+    {touched[name] && <span className='required-msg' dangerouslySetInnerHTML= {{__html: errors[name]}}/>}
     </FormGroup>
   );
 }
