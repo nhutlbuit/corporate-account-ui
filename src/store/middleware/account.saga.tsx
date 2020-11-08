@@ -2,13 +2,17 @@ import {all, call, put, takeLatest} from 'redux-saga/effects';
 import {
     getAccountListingService,
     getAccountDetailService,
+    createAccountService,
     updateAccountService,
     getDownLineListing
 } from '../../services/account.service';
 import {
     loadAccounts, loadAccountsSuccess, loadAccountsError,
     getAccountDetail, getAccountDetailSuccess, getAccountDetailError,
-    saveAccount, saveAccountSuccess, saveAccountError
+    saveAccount, saveAccountSuccess, saveAccountError,
+    createAccount,
+    createAccountSuccess,
+    createAccountError,
 } from '../slice/account.slice';
 import {loadDownLines, loadDownLinesSuccess, loadDownLinesError} from '../slice/account-drill-down.slice';
 
@@ -27,6 +31,15 @@ function* loadingAccountDetailAsync(param: any) {
         yield put(getAccountDetailSuccess(data));
     } catch (err) {
         yield put(getAccountDetailError());
+    }
+}
+
+function* creatingAccountAsync(param: any) {
+    try {
+        const data = yield call(createAccountService, param.payload);
+        yield put(createAccountSuccess(data));
+    } catch (err) {
+        yield put(createAccountError());
     }
 }
 
@@ -52,6 +65,7 @@ export function* AccountSaga() {
     yield all([
         yield takeLatest(loadAccounts, loadingAccountsAsync),
         yield takeLatest(getAccountDetail, loadingAccountDetailAsync),
+        yield takeLatest(createAccount, creatingAccountAsync),
         yield takeLatest(saveAccount, updatingAccountAsync),
         yield takeLatest(loadDownLines, loadingDownLineAsync),
     ]);

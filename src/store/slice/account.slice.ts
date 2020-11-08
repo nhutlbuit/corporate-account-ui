@@ -15,6 +15,8 @@ const initialState = {
     isShowAccountListing: false,
     isShowContentPage: false,
     isUpdateAccount: false,
+    creating: false,
+    isCreated: false
 };
 
 export const AccountSlice = createSlice({
@@ -65,6 +67,27 @@ export const AccountSlice = createSlice({
             toast.error('get account detail failed. Please contact admin!');
         },
 
+        createAccount: (state, payloadAction: PayloadAction<any>) => {
+            state.loading = true;
+            state.error = '';
+            state.creating = true;
+            state.isCreated = false;
+        },
+        createAccountSuccess: (state, payloadAction: PayloadAction<any>) => {
+            state.loading = false;
+            state.error = '';
+            state.creating = false;
+            state.isCreated = true;
+            toast.success('Update Account successfully!');
+        },
+        createAccountError: (state) => {
+            state.loading = false;
+            state.error = 'failed';
+            state.creating = true;
+            state.isCreated = false;
+            toast.error('Create an account failed. Please contact admin!');
+        },
+
         saveAccount: (state, payloadAction: PayloadAction<any>) => {
             state.loading = true;
             state.error = '';
@@ -94,6 +117,10 @@ export const {
     getAccountDetail,
     getAccountDetailError,
     getAccountDetailSuccess,
+
+    createAccount,
+    createAccountSuccess,
+    createAccountError,
 
     saveAccount,
     saveAccountSuccess,

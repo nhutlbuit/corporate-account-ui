@@ -1,12 +1,12 @@
 import React, {FunctionComponent, lazy, ReactElement, useEffect, useState} from 'react';
 import './profile.scss';
 import {useDispatch, useSelector} from 'react-redux';
-import {Button} from 'react-bootstrap';
+import {Button, Spinner as BootstrapSpinner} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPencilAlt} from '@fortawesome/free-solid-svg-icons';
 import {format} from 'date-fns';
 import ModalYesNo from '../../../shared/model-yes-no/model-yes-no';
-import {getAccountDetail, saveAccount} from '../../../../store/slice/account.slice';
+import {getAccountDetail, createAccount} from '../../../../store/slice/account.slice';
 import Spinner from '../../../shared/spinner/spinner';
 import _ from 'lodash';
 
@@ -14,22 +14,22 @@ const AddEditProfile = lazy(() => import('./add-edit-profile/add-edit-profile'))
 
 const Profile: FunctionComponent = (): ReactElement => {
 
-    const {accountDetail, isUpdateAccount} = useSelector((state: any) => state.account);
+    const {accountDetail, isUpdateAccount, isCreated, creating} = useSelector((state: any) => state.account);
     const [isEdit, setEdit] = useState(false);
     const [isCreateParentAccount, setCreateParentAccount] = useState(false);
     const dispatch = useDispatch();
 
     const createAccountLv3 = (): void => {
         const accountLevel3 = {...accountDetail, id: generateAccountId(6), statusAccount: 'verified', level: 'Level 3', 'parentId': accountDetail.id};
-        dispatch(saveAccount(accountLevel3));
+        dispatch(createAccount(accountLevel3));
         setCreateParentAccount(false);
     };
 
     useEffect(() => {
-        if (isUpdateAccount) {
+        if (isUpdateAccount || isCreated) {
             dispatch(getAccountDetail(accountDetail));
         }
-    }, [isUpdateAccount]);
+    }, [isUpdateAccount, isCreated]);
 
     const generateAccountId = (n: number): number => {
         return Math.floor(Math.random() * (9 * (Math.pow(10, n)))) + (Math.pow(10, n));
@@ -83,7 +83,7 @@ const Profile: FunctionComponent = (): ReactElement => {
                             </tr>
                             <tr>
                                 <td>Credit Account</td>
-                                <td>{accountDetail?.credit}</td>
+                                <td>{accountDetail?.credit ? 'YES' : 'NO'}</td>
                                 <td>Mobile</td>
                                 <td>{accountDetail?.mobile}</td>
                             </tr>
@@ -167,8 +167,9 @@ const Profile: FunctionComponent = (): ReactElement => {
                         && accountDetail?.level === 'Level 2'
                         && ['verified', 'pending'].includes(accountDetail?.statusAccount)
                         && accountDetail.license !== 'Malta' &&
-                        <Button variant='primary' className='create-parent-account' onClick={() => setCreateParentAccount(true)}>
-                            CREATE PARENT ACCOUNT (LEVEL 3)
+                        <Button variant='primary' className='create-parent-account' disabled={creating} onClick={() => setCreateParentAccount(true)}>
+                            {creating && <BootstrapSpinner animation='border' size='sm'/>}
+                            {' CREATE PARENT ACCOUNT (LEVEL 3)'}
                         </Button>
                     }
                 </div>

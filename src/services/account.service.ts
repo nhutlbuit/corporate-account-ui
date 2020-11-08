@@ -116,7 +116,7 @@ export const getAccountDetailService = async (account: any) => {
     });
 };
 
-export const updateAccountService = async (account: any) => {
+export const createAccountService = async (account: any) => {
 
     const updateAccountSelected = (accountSelected: any) => {
         return new Promise(function (resolve, reject) {
@@ -130,6 +130,22 @@ export const updateAccountService = async (account: any) => {
                         return e;
                     });
                 }
+                acc.push(accountSelected);
+                accounts = acc;
+                 return resolve('success');
+               // return reject(new Error(''));
+            }, 5000);
+        });
+    };
+    return await updateAccountSelected(account);
+};
+
+export const updateAccountService = async (account: any) => {
+
+    const updateAccountSelected = (accountSelected: any) => {
+        return new Promise(function (resolve, reject) {
+            setTimeout(() => {
+                const acc = accounts.filter((e: any) => e.id != accountSelected.id);
                 acc.push(accountSelected);
                 accounts = acc;
                  return resolve('success');

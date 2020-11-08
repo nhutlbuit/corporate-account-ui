@@ -103,6 +103,10 @@ $bg-primary-light: white;
     cursor: auto;
 }
 
+.modal.modal-static .modal-dialog {
+    transform: none;
+}
+
 /********* End Classes Global *********/
 
 

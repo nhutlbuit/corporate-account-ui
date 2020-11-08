@@ -305,7 +305,7 @@ function AddEditProfile(propsAddEditProfile: any): ReactElement {
                 const {handleSubmit, setFieldValue, values, isSubmitting} = props;
                 return (
                     <form onSubmit={handleSubmit}>
-                        <Modal show={true} onHide={onClosePopup} keyboard={false} dialogClassName='modal-dialog modal-xl'>
+                        <Modal show={true} onHide={onClosePopup} backdrop='static' keyboard={false} dialogClassName=' modal-xl'>
                             <Modal.Header closeButton>
                                 <Modal.Title className='title'>
                                     {accountDetail ? 'EDIT' : 'ADD NEW'} CORPORATE PROFILE

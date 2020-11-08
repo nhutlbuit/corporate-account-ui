@@ -198,7 +198,6 @@ function AddEditDirector(propsAddEditDirector: any): ReactElement {
                                     { isSubmitting && requiredMsg === '' && isSubmit && <Spinner animation='border' size='sm'/>}
                                     Save
                                 </Button>
-                                {JSON.stringify(props)}
                             </Modal.Footer>
                         </Modal>
                     </form>
