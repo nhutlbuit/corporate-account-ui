@@ -53,6 +53,7 @@ export const AccountSlice = createSlice({
             state.isShowAccountListing = false;
             state.isUpdateAccount = false;
             state.accountDetail = {};
+            state.isCreated = false;
             state.accountIdSelected = payloadAction.payload.id;
             state.partnerLabelId = payloadAction.payload.partnerLabelId;
         },
