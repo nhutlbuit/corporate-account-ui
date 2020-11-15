@@ -116,7 +116,7 @@ Corporate-account-ui
 ## 3. Basic knowledge and how to apply to this project - Redux + Saga-middleware
   ### 3.1: Create a store - configureStore with redux-toolkit
   - To define a store and declare reducers
-  ```
+  ```tsx
 	import createSagaMiddleware from 'redux-saga';
 	import { configureStore } from '@reduxjs/toolkit';
 	import {RootReducer} from "./slice/root.reducer";
@@ -134,7 +134,7 @@ Corporate-account-ui
 	export default Store;
   ```
 ### 3.2: To use this store:
-  ```
+  ```tsx
 	import React from 'react';
 	import ReactDOM from 'react-dom';
 	import { Provider } from 'react-redux';
@@ -153,13 +153,12 @@ Corporate-account-ui
 
 		rootNode
 	);
-
-
 ```
 
 ### 3.3: Create file saga to watch action (in here is :'accounts' which exporting from Slice).  
 #### 3.3.1: Create a CommunicationTabsSaga file.
-	```tsx
+	
+```tsx
 	import {all, call, put, takeLatest} from 'redux-saga/effects';
 	import { getAccountListingService} from '../../services/account.service';
 	import {loadAccounts, loadAccountsSuccess, loadAccountsError} from '../slice/account.slice';
@@ -178,10 +177,9 @@ Corporate-account-ui
 			yield takeLatest(loadAccounts, loadingAccountsAsync)
 		]);
 	}
-
-	```
-#### 3.3.2: import CommunicationTabsSaga in initSaga to register sagaMiddleware.
 ```
+#### 3.3.2: import CommunicationTabsSaga in initSaga to register sagaMiddleware.
+```tsx
     import {all} from 'redux-saga/effects';
 	import {AccountSaga} from './account.saga';
 	import {DirectorSaga} from './director.saga';
@@ -196,7 +194,7 @@ Corporate-account-ui
 ```
 
 ### 3.4: Create a file slice and public a reducer and actions.
- ```
+ ```tsx
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 	import { toast } from "react-toastify";
 
@@ -238,7 +236,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 ### 3.5: Use in Component: dispatch actions to saga and reducer, after that use useSelector hook trigger to get data from store once data has updated.
  
-```
+```ts
 	import { useDispatch, useSelector } from "react-redux";
 	
 	function nameComponent() {
@@ -249,7 +247,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 ```
 
 ## 4. Define API services in Project.
-```
+```ts
 	export const accountsApi = async (userId: number) => {
 	const response = await axios.get(`/getAccounts`);
 	return parseItem(response, 200);
