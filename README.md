@@ -116,7 +116,7 @@ Corporate-account-ui
 ## 3. Basic knowledge and how to apply to this project - Redux + Saga-middleware
   ### 3.1: Create a store - configureStore with redux-toolkit
   - To define a store and declare reducers
-  ```tsx
+  ```ts
 	import createSagaMiddleware from 'redux-saga';
 	import { configureStore } from '@reduxjs/toolkit';
 	import {RootReducer} from "./slice/root.reducer";
@@ -125,8 +125,8 @@ Corporate-account-ui
 	const sagaMiddleware = createSagaMiddleware();
 
 	const Store = configureStore({
-	reducer: RootReducer,
-	middleware: [sagaMiddleware]
+		reducer: RootReducer,
+		middleware: [sagaMiddleware]
 	});
 
 	sagaMiddleware.run(RootSaga);
@@ -134,7 +134,7 @@ Corporate-account-ui
 	export default Store;
   ```
 ### 3.2: To use this store:
-  ```tsx
+  ```ts
 	import React from 'react';
 	import ReactDOM from 'react-dom';
 	import { Provider } from 'react-redux';
@@ -158,7 +158,7 @@ Corporate-account-ui
 ### 3.3: Create file saga to watch action (in here is :'accounts' which exporting from Slice).  
 #### 3.3.1: Create a CommunicationTabsSaga file.
 	
-```tsx
+```ts
 	import {all, call, put, takeLatest} from 'redux-saga/effects';
 	import { getAccountListingService} from '../../services/account.service';
 	import {loadAccounts, loadAccountsSuccess, loadAccountsError} from '../slice/account.slice';
@@ -179,7 +179,7 @@ Corporate-account-ui
 	}
 ```
 #### 3.3.2: import CommunicationTabsSaga in initSaga to register sagaMiddleware.
-```tsx
+```ts
     import {all} from 'redux-saga/effects';
 	import {AccountSaga} from './account.saga';
 	import {DirectorSaga} from './director.saga';
@@ -194,7 +194,7 @@ Corporate-account-ui
 ```
 
 ### 3.4: Create a file slice and public a reducer and actions.
- ```tsx
+ ```ts
 	import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 	import { toast } from "react-toastify";
 
@@ -273,5 +273,6 @@ Corporate-account-ui
  \corporate-account-tool\yarn.lock<br/>
  \corporate-account-tool\yarn-error.log<br/>
  \corporate-account-tool\debug.log<br/>
+
 
 
