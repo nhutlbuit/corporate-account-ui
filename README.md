@@ -195,7 +195,7 @@ Corporate-account-ui
 
 ### 3.4: Create a file slice and public a reducer and actions.
  ```tsx
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+	import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 	import { toast } from "react-toastify";
 
 	const initialState = {
@@ -254,10 +254,10 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 	};
 ```
 #### View more: 
-Using Axios with React: <span style="color:blue">https://alligator.io/react/axios-react/</span> <br>
-Using redux: <span style="color:blue">https://redux.js.org/ </span> <br>
-Applying redux-saga middleware: <span style="color:blue">https://redux-saga.js.org/</span>  <br>
-Redux-toolkit: <span style="color:blue">https://redux-toolkit.js.org </span><br>
+- Using Axios with React: <span style="color:blue">https://alligator.io/react/axios-react/</span> <br>
+- Using redux: <span style="color:blue">https://redux.js.org/ </span> <br>
+- Applying redux-saga middleware: <span style="color:blue">https://redux-saga.js.org/</span>  <br>
+- Redux-toolkit: <span style="color:blue">https://redux-toolkit.js.org </span><br>
 
 ## 6. Run project
 1. npm run start (port 4400)

@@ -39,7 +39,10 @@ module.exports = {
     chunkFilename: `[id].chunk.js`
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.ts', '.tsx']
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx', '.scss'],
+    alias: {
+      'commonScss': path.resolve(__dirname, 'src/app/style-common.scss')
+    }
   },
   devServer: {
     contentBase: path.resolve(__dirname, "build"),
@@ -52,6 +55,14 @@ module.exports = {
     disableHostCheck: true,
     lazy: false,
     https: false,
+    watchContentBase: true,
+    proxy: {
+      '/api': {
+        target: 'https://other-server.example.com',
+        secure: false,
+        changeOrigin: true,
+      }
+    },
   },
   module: {
     rules: [

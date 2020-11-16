@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import { startCase } from 'lodash';
 import {toast} from 'react-toastify';
 
 const initialState = {

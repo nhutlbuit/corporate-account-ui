@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="overview-libraries-using-in-the-project-%F0%9F%90%AE">Overview libraries using in the project 🐮</h1>
+<p>This uses some supporting plugins:</p>
+<ul>
+<li>React Libraries (Main Platform): 'react', 'react-dom'.</li>
+<li>React Router V4 (React Plugin): 'react-router', 'react-router-dom'.</li>
+<li>Redux (Management State Library): 'redux', 'redux-react', '@reduxjs/toolkit'.</li>
+<li>Middleware Saga(handle side effect: asynchronous, timer...base on generators in JavaScript (- from es6): 'redux-saga'.</li>
+<li>Webpack (Bundling Module support to build project): 'webpack'</li>
+<li>SASS - Pre-Processor: 'sass', 'node-sass'</li>
+<li>Library UI: 'react-bootstrap',</li>
+<li>react-select: a component build for ReactJS with multi-select, autocomplete and ajax support.</li>
+<li>react-date-picker.</li>
+<li>react-toastify.</li>
+</ul>
+<h1 id="guideline-for-focusing-and-developing-to-project">Guideline for focusing and developing to project</h1>
+<h2 id="1-using-command-line-cli-in-project">1. Using command line (CLI) in project</h2>
+<p>*Note: You can 'yarn' or 'npm' to work with this project.</p>
+<p>Current time, we just use 'start' &amp; 'build' to develop and pack modules in the project:</p>
+<ul>
+<li>Build project for the production environment:</li>
+</ul>
+<pre class="hljs"><code><div>  npm build    
+  yarn build 
+</div></code></pre>
+<ul>
+<li>Start project at dev environment:</li>
+</ul>
+<pre class="hljs"><code><div>  npm start
+  yarn start
+</div></code></pre>
+<div style="page-break-before: always;"></div>
+<h2 id="2-structure-of-project">2. Structure of project</h2>
+<pre class="hljs"><code><div>Corporate-account-ui
+├───nginx
+└───src
+	│   index.html
+	│   index.tsx
+	├───app
+	│   │   app.scss
+	│   │   App.tsx
+	│   └───shared (shared components)
+	│   ├───corporate-account-tool
+	│   │   ├───header-bar
+	│   │   ├───nav-bar
+	│   │   └───search-panel
+	│   └───corporate-account-report
+	├───assets
+	├───common
+	│   ├───constants
+	│   ├───enums
+	│   └───types
+	├───services
+	└───store
+		│   store.ts
+		├───middleware
+		│       root.saga.ts
+		└───slice
+				root.reducer.ts
+</div></code></pre>
+<ul>
+<li>
+<p>2.1. <b>tsconfig.json</b>:<br>
+<br>File configures for typescript project such as compile decorator.</p>
+</li>
+<li>
+<p>2.2. <b>package.json</b><br>
+<br>File contains all configurations of project (libs-dependencies, script-task, plugins...)</p>
+</li>
+<li>
+<p>2.3. <b>nginx/</b> folder:<br>
+<br>It stores some configurations for running project with nginx.</p>
+</li>
+<li>
+<p>2.4. <b>build/</b> folder:<br>
+<br>It stores sources of project after building.</p>
+</li>
+<li>
+<p>2.5. <b>public/</b> folder:<br>
+<br>It stores sources (css, data-resources, fonts, images, locales) of project after building at the dev environment.</p>
+</li>
+<li>
+<p>2.6. <b>script/</b> folder:<br>
+<br>It includes files using to build and start project.</p>
+</li>
+<li>
+<p>2.7. <b>src/</b><br>
+<br>This is the main folder in project. You can develop anything in here. It separates to 5 sub-folders: <b>api/ , common/ , component/ , static/, middleware/, slice/, store app.tsx and index.tsx file </b></p>
+<ul>
+<li>
+<p>2.7.1. <b>apis/</b> folder<br>
+<br>This includes all of apis.</p>
+</li>
+<li>
+<p>2.7.2. <b>common/</b> folder<br>
+<br>This includes common files, logic, component, constant... which can re-use more than one time in project.</p>
+</li>
+<li>
+<p>2.7.3. <b>app/</b> folder<br>
+<br>This includes ts and scss files of component group by every feature.</p>
+</li>
+<li>
+<p>2.7.4. <b>static/</b> folder<br>
+<br>Folder stores build svn version.</p>
+</li>
+<li>
+<p>2.7.5. <b>middleware/</b> folder<br>
+<br>This includes middleware as redux-saga, redux thunk (this project apply <strong>redux-saga</strong>).</p>
+</li>
+<li>
+<p>2.7.6. <b>slice/</b> folder<br>
+<br>This includes actions and reducers of redux. 'Redux Toolkit' has recommended by the Redux base on 4 criteria: Simple, Opinionated, Powerful, Effective. <br/><br>
+<em>view more: <span style="color:blue">https://redux-toolkit.js.org</span></em></p>
+</li>
+<li>
+<p>2.7.7. <b>store/</b> folder<br>
+<br>This folder includes file store to create a store to storage data to share between components.</p>
+</li>
+<li>
+<p>2.7.8. <b>app.tsx/</b> file<br>
+<br>App.tsx is a start-point to any process, and imported out of <b>index.tsx</b> to run project.</p>
+</li>
+<li>
+<p>2.7.9 <b>index.tsx file</b><br>
+<br>This is the first file called from server after running project. All threads of project will begin from here.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-basic-knowledge-and-how-to-apply-to-this-project---redux--saga-middleware">3. Basic knowledge and how to apply to this project - Redux + Saga-middleware</h2>
+<h3 id="31-create-a-store---configurestore-with-redux-toolkit">3.1: Create a store - configureStore with redux-toolkit</h3>
+<ul>
+<li>To define a store and declare reducers</li>
+</ul>
+<pre class="hljs"><code><div>  import createSagaMiddleware from 'redux-saga';
+  import { configureStore } from '@reduxjs/toolkit';
+  import {RootReducer} from &quot;./slice/root.reducer&quot;;
+  import {RootSaga} from &quot;./middleware/root.saga&quot;;
+
+  const sagaMiddleware = createSagaMiddleware();
+
+  const Store = configureStore({
+  reducer: RootReducer,
+  middleware: [sagaMiddleware]
+  });
+
+  sagaMiddleware.run(RootSaga);
+
+  export default Store;
+</div></code></pre>
+<h3 id="32-to-use-this-store">3.2: To use this store:</h3>
+<pre class="hljs"><code><div>  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import { Provider } from 'react-redux';
+  import { BrowserRouter } from 'react-router-dom';
+  import App from './app/App';
+  import store from './store/store';
+
+  const rootNode = document.getElementById('root');
+
+  ReactDOM.render(
+  &lt;Provider store={store}&gt;
+  	&lt;BrowserRouter basename='corporate-account-ui'&gt;
+  	&lt;App /&gt;
+  	&lt;/BrowserRouter&gt;
+  &lt;/Provider&gt;,
+
+  	rootNode
+  );
+</div></code></pre>
+<h3 id="33-create-file-saga-to-watch-action-in-here-is-accounts-which-exporting-from-slice">3.3: Create file saga to watch action (in here is :'accounts' which exporting from Slice).</h3>
+<h4 id="331-create-a-communicationtabssaga-file">3.3.1: Create a CommunicationTabsSaga file.</h4>
+<pre class="hljs"><code><div>	import {all, call, put, takeLatest} from 'redux-saga/effects';
+	import { getAccountListingService} from '../../services/account.service';
+	import {loadAccounts, loadAccountsSuccess, loadAccountsError} from '../slice/account.slice';
+
+	function* loadingAccountsAsync(param: any) {
+		try {
+			const data = yield call(getAccountListingService, param.payload);
+			yield put(loadAccountsSuccess(data));
+		} catch (err) {
+			yield put(loadAccountsError());
+		}
+	}
+
+	export function* AccountSaga() {
+		yield all([
+			yield takeLatest(loadAccounts, loadingAccountsAsync)
+		]);
+	}
+</div></code></pre>
+<h4 id="332-import-communicationtabssaga-in-initsaga-to-register-sagamiddleware">3.3.2: import CommunicationTabsSaga in initSaga to register sagaMiddleware.</h4>
+<pre class="hljs"><code><div>    import {all} from 'redux-saga/effects';
+	import {AccountSaga} from './account.saga';
+	import {DirectorSaga} from './director.saga';
+
+	export function* RootSaga() {
+		yield all([
+			AccountSaga(),
+			DirectorSaga()
+		]);
+	}
+
+</div></code></pre>
+<h3 id="34-create-a-file-slice-and-public-a-reducer-and-actions">3.4: Create a file slice and public a reducer and actions.</h3>
+<pre class="hljs"><code><div>import {createSlice, PayloadAction} from &quot;@reduxjs/toolkit&quot;;
+   import { toast } from &quot;react-toastify&quot;;
+
+   const initialState = {
+   	accounts: {},
+   	loading: false,
+   	error: ''
+   };
+
+   export const AccountSlice = createSlice({
+   	name: 'tabAll',
+   	initialState,
+   	reducers: {
+   		loadAccount: (state, action: PayloadAction&lt;any&gt;) =&gt; {
+   			state.loading = true;
+   			state.error = '';
+   		},
+   		loadAccountSuccess: (state, action: PayloadAction&lt;any&gt;) =&gt; {
+   			state.loading = false;
+   			state.error = '';
+   			state.commentsTab = action.payload;
+   		},
+   		loadAccountError: (state) =&gt; {
+   			state.error = 'failed';
+   			toast.error(&quot;Fetch data accounts failed. Please contact admin!&quot;);
+   		},
+   	}
+   });
+
+   export const {
+   	loadAccount,
+   	loadAccountSuccess,
+   	loadAccountError,
+   } = AccountSlice.actions;
+
+   export default AccountSlice.reducer;
+
+</div></code></pre>
+<h3 id="35-use-in-component-dispatch-actions-to-saga-and-reducer-after-that-use-useselector-hook-trigger-to-get-data-from-store-once-data-has-updated">3.5: Use in Component: dispatch actions to saga and reducer, after that use useSelector hook trigger to get data from store once data has updated.</h3>
+<pre class="hljs"><code><div>	<span class="hljs-keyword">import</span> { useDispatch, useSelector } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-redux"</span>;
+	
+	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nameComponent</span>(<span class="hljs-params"></span>) </span>{
+		<span class="hljs-keyword">const</span> dispatch = useDispatch();
+		dispatch(loadAccounts(paramObject));
+		<span class="hljs-keyword">const</span> account = useSelector(<span class="hljs-function">(<span class="hljs-params">state: <span class="hljs-built_in">any</span></span>) =&gt;</span> state.accounts);
+	}	
+</div></code></pre>
+<h2 id="4-define-api-services-in-project">4. Define API services in Project.</h2>
+<pre class="hljs"><code><div>	<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> accountsApi = <span class="hljs-keyword">async</span> (userId: <span class="hljs-built_in">number</span>) =&gt; {
+	<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">`/getAccounts`</span>);
+	<span class="hljs-keyword">return</span> parseItem(response, <span class="hljs-number">200</span>);
+	};
+</div></code></pre>
+<h4 id="view-more">View more:</h4>
+<p>Using Axios with React: <span style="color:blue">https://alligator.io/react/axios-react/</span> <br><br>
+Using redux: <span style="color:blue">https://redux.js.org/ </span> <br><br>
+Applying redux-saga middleware: <span style="color:blue">https://redux-saga.js.org/</span>  <br><br>
+Redux-toolkit: <span style="color:blue">https://redux-toolkit.js.org </span><br></p>
+<h2 id="6-run-project">6. Run project</h2>
+<ol>
+<li>npm run start (port 4400)</li>
+<li>Start Nodejs server (default port 4400, Can change port at the webpack devServer port).</li>
+<li>Open web browser with url: http://your_ip and login</li>
+</ol>
+<h2 id="7-note-commit-in-project">7. Note commit in project</h2>
+<h3 id="dont-commit-these-paths-folder-and-file-in-the-project-because-they-will-auto-generate-when-buildbr">Don't commit these paths folder and file in the project. Because, they will auto generate when build<br/></h3>
+<p>\corporate-account-tool\target<br/><br>
+\corporate-account-tool\build<br/><br>
+\corporate-account-tool\package-lock.json<br/><br>
+\corporate-account-tool\yarn-lock.json<br/><br>
+\corporate-account-tool\yarn.lock<br/><br>
+\corporate-account-tool\yarn-error.log<br/><br>
+\corporate-account-tool\debug.log<br/></p>
+
+</body>
+</html>
