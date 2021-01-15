@@ -18,11 +18,7 @@
     "resolveJsonModule": true,  // Include modules imported with .json extension
     "isolatedModules": false,
     "noEmit": true,
-    "sourceMap": true, // Generate corresponding .map file
-    "baseUrl": "./",
-    "paths": {
-      "commonScss": ["src/app/style-common.scss"],
-    }
+    "sourceMap": true // Generate corresponding .map file
   },
   "include": [
     "src/**/*" // *** The files TypeScript should type check ***

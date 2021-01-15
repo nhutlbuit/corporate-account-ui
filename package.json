@@ -1,13 +1,7 @@
 {
   "name": "corporate-account-ui",
-<<<<<<< HEAD
   "version": "0.1.0",
   "private": true,
-=======
-  "version": "0.1.1",
-  "private": false,
-  "homepage": "http://nhutlbuit.github.io/corporate-account-ui",
->>>>>>> a451ad70c34b20f51f1c9066e307a9f576a2b741
   "scripts": {
     "clean": "rimraf build",
     "start": "npm run clean && webpack-dev-server --config=webpack.dev.js",
@@ -64,11 +58,7 @@
     "css-loader": "^5.0.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.10.0",
-<<<<<<< HEAD
     "eslint-config-prettier": "^6.15.0",
-=======
-    "eslint-import-resolver-alias": "^1.1.2",
->>>>>>> a451ad70c34b20f51f1c9066e307a9f576a2b741
     "eslint-loader": "4.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.1.4",

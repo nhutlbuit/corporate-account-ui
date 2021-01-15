@@ -38,10 +38,7 @@ module.exports = {
     chunkFilename: `[id].chunk.js`
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.ts', '.tsx', '.scss'],
-    alias: {
-      'commonScss': path.resolve(__dirname, 'src/app/style-common.scss')
-    }
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx']
   },
   devServer: {
     contentBase: path.resolve(__dirname, "build"),
@@ -54,18 +51,7 @@ module.exports = {
     disableHostCheck: true,
     lazy: false,
     https: false,
-<<<<<<< HEAD
     open: 'chrome'
-=======
-    watchContentBase: true,
-    proxy: {
-      '/api': {
-        target: 'https://other-server.example.com',
-        secure: false,
-        changeOrigin: true,
-      }
-    },
->>>>>>> a451ad70c34b20f51f1c9066e307a9f576a2b741
   },
   module: {
     rules: [
