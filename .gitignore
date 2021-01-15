@@ -24,3 +24,4 @@ debug.log
 package-lock.json
 .idea/
 pacman-reactjs.iml
+target
