@@ -1,0 +1,66 @@
+@import '../../../../shared/style-common.scss';
+
+.sub-group-detail {
+  margin-top: 30px;
+
+  .search-message{
+    padding: 0px 0px 15px 0px;
+  }
+
+  table {
+    width: 100%;
+
+    thead {
+      @extend .header-table;
+
+      th {
+        text-align: center;
+      }
+    }
+
+    tr > *:nth-child(1) {
+      width: 40%;
+    }
+
+    tr > *:nth-child(2) {
+      width: 30%;
+    }
+
+    tr > *:nth-child(3) {
+      width: 30%;
+    }
+
+    .action {
+      text-align: center;
+      color: #3572b0;
+    }
+
+
+    tbody {
+      tr:hover {
+        @extend .hover-row-on-table;
+      }
+
+      .active {
+        color: $active-color;
+      }
+    }
+
+    th, td {
+      padding: 5px !important;
+      text-align: left;
+      border: $border-table;
+    }
+
+    td {
+      background: $bg-primary-light;
+    }
+
+  }
+}
+
+
+
+
+
+

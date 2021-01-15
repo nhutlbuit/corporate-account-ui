@@ -79,7 +79,7 @@ export const AccountSlice = createSlice({
             state.error = '';
             state.creating = false;
             state.isCreated = true;
-            toast.success('Update Account successfully!');
+            toast.success('Create Account successfully!');
         },
         createAccountError: (state) => {
             state.loading = false;

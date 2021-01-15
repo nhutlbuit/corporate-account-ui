@@ -1,5 +1,7 @@
 export const parseList = (response: any) => {
-  if (response.status !== 200) throw Error(response.message);
+  if (response.status !== 200) {
+    throw Error(response.message);
+  }
   let list = response.data;
   if (typeof list !== 'object') {
     list = [];
@@ -8,7 +10,9 @@ export const parseList = (response: any) => {
 };
 
 export const parseItem = (response: any, code: number) => {
-  if (response.status !== code) throw Error(response.message);
+  if (response.status !== code) {
+    throw Error(response.message);
+  }
   let item = response.data;
   if (typeof item !== 'object') {
     item = undefined;
@@ -17,6 +21,8 @@ export const parseItem = (response: any, code: number) => {
 };
 
 export const parseItemString = (response: any, code: number) => {
-  if (response.status !== code) throw Error(response.message);
+  if (response.status !== code) {
+    throw Error(response.message);
+  }
   return response.data;
 };

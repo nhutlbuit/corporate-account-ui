@@ -5,7 +5,7 @@ import Spinner from 'react-bootstrap/Spinner';
 const Interceptors: React.FC = (): JSX.Element => {
 
     axios.interceptors.request.use(req => {
-        console.log('request')
+        console.log('request');
             return req;
         }, error => {
             return Promise.reject(error);
@@ -13,21 +13,22 @@ const Interceptors: React.FC = (): JSX.Element => {
     );
 
     axios.interceptors.response.use(response => {
-            console.log('response')
+            console.log('response');
             return response;
         },
         error => {
-            console.log('response')
+            console.log('response');
             return Promise.reject(error);
         }
     );
 
     return(
         <>
-            {<Spinner animation="border" variant="success" />}
+            {<Spinner animation='border' variant='success' />}
         </>
-    )
+    );
 
-}
+};
+
 
 export default Interceptors;

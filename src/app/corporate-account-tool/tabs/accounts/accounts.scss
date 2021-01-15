@@ -1,0 +1,54 @@
+@import '../../../shared/style-common.scss';
+
+.filter {
+  margin-bottom: 30px;
+  background-color: $bg-primary-level2;
+  padding: 10px;
+  .credit {
+    height: 60px;
+  
+    .fieldset {
+      margin-right: 15px;
+    }
+    .field-text {
+        height: 37px;
+        font-weight: bold;
+    }
+  
+    .filter-input {
+      height: 37px;
+    }
+  
+    .add-profile {
+      margin-right: 5px;
+      float: right;
+    }
+
+    .checkbox {
+        display: inline-block;
+    }
+  }
+
+  .section-group {
+    display: flex;
+    align-items: center;
+
+    .sub-group-name {
+      font-weight: bold;
+    }
+
+    .select {
+      margin-left: 20px;
+      margin-right: 20px;
+      width: 300px;
+    }
+
+    .add-new-sub-group {
+      margin-left: auto;
+    }
+  }
+
+  button {
+    font-weight: bold;
+  }
+}

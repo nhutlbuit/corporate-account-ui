@@ -1,13 +1,13 @@
 import axios from 'axios';
 import {METHOD} from '../common/constants/CommonConst';
 
-let config = {
-    contextPath: "/member-manager",
+const config = {
+    contextPath: '/member-manager',
     methodSupport: {
-        "get": "GET",
-        "post": "POST",
-        "put": "PUT",
-        "delete": "DELETE"
+        'get': 'GET',
+        'post': 'POST',
+        'put': 'PUT',
+        'delete': 'DELETE'
     }
 };
 
@@ -46,7 +46,7 @@ const request = (method: string, url: string, params?: object, body?: object) =>
     let promise;
     params = params ? params : {};
     body = body ? body : {};
-    
+
     if (!isMethodSupport(method)) {
         console.error(`The method ${method} is not support `);
         return undefined;

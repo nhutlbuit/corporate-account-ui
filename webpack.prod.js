@@ -2,11 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const WebpackBar = require('webpackbar');
 process.env = dotenv.parsed;
 
 const VENDOR_LIBS = [
   'axios',
-  'moment',
   'prop-types',
   'react',
   'react-dom',
@@ -24,13 +25,14 @@ module.exports = {
   // the output bundle won't be optimized for production but suitable for development
   mode: process.env.NODE_ENV,
   // Disable generate source map
-  devtool: 'false',
+  devtool: 'source-map',
   // the app entry point is /src/index.js
   entry: {
     bundle: path.resolve(__dirname, 'src', 'index.tsx'),
     vendor: VENDOR_LIBS
   },
   output: {
+    pathinfo: true,
     publicPath: '/corporate-account-ui/',
     // the output of the webpack build will be in /build directory
     path: path.resolve(__dirname, 'build'),
@@ -54,12 +56,10 @@ module.exports = {
           // attach the presets to the loader (most projects use .babelrc file instead)
           presets: ['@babel/preset-env', '@babel/preset-react'],
           plugins: [
-            [
-              "@babel/plugin-proposal-class-properties",
-              {
-                "loose": true
-              }
-            ]
+            ["@babel/plugin-proposal-class-properties", { loose: true }],
+            '@babel/plugin-transform-runtime',
+            ['@babel/plugin-proposal-decorators', { legacy: true }],
+            '@babel/plugin-syntax-dynamic-import'
           ]
         }
       },
@@ -111,11 +111,22 @@ module.exports = {
       maxSize: 250000,
       name: '[id].chunk.js',
       chunks: 'all',
+      cacheGroups: {
+        default: {
+          name: 'common',
+          chunks: 'initial',
+          minSize: 0,
+          minChunks: 2,
+          priority: -20
+        }
+      }
     }
   },
   // add a custom index.html as the template
   plugins: 
   [
+    new WebpackBar(),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'src', 'index.html'),
     minify: {
       removeComments: true,

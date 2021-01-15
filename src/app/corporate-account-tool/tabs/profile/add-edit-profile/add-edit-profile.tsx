@@ -77,17 +77,17 @@ function AddEditProfile(propsAddEditProfile: any): ReactElement {
 
     const validationSchema = (): Yup.ObjectSchema => {
         return Yup.object().shape({
-            name: Yup.string().required(),
-            email: Yup.string().email().required(),
+            name: Yup.string().required('Account Name is a required field'),
+            email: Yup.string().email().required('Email is a required field'),
             questionnaireReceiptDate: Yup.date().required(),
-            country: Yup.string().required(),
-            currency: Yup.string().required(),
-            language: Yup.string().required(),
-            partnerLabelId: Yup.string().required(),
+            country: Yup.string().required('Country is a required field'),
+            currency: Yup.string().required('Currency is a required field'),
+            language: Yup.string().required('Language is a required field'),
+            partnerLabelId: Yup.string().required('Partner Label ID is a required field'),
             credit: Yup.boolean().required(),
             creditLimit: Yup.string().when('credit', {
                 is: isCreditChecked => isCreditChecked,
-                then: Yup.string().required(),
+                then: Yup.string().required('Credit Limit is a required field'),
                 otherwise: Yup.string().notRequired()
             }),
         });
@@ -181,7 +181,7 @@ function AddEditProfile(propsAddEditProfile: any): ReactElement {
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td className={values?.credit ? 'required-field' : ''}>
                                 Credit Limit
                             </td>
                             <td>

@@ -16,7 +16,7 @@ ToggleButton.defaultProps = {
 
 function ToggleButton(props: any) {
     const {disabled, defaultChecked, field, small, optionLabels} = props;
-    const { name, value } = field;
+    const { name } = field;
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         const changeEvent = {

@@ -1,0 +1,85 @@
+@import '../../../../shared/style-common.scss';
+
+.profile-detail {
+  .profile-info {
+
+    .number-of-accounts {
+      width: 20% !important;
+    }
+
+    table {
+      width: 100%;
+
+      tr > *:nth-child(1) {
+        width: 25%;
+      }
+
+      tr > *:nth-child(2) {
+        width: 25%;
+      }
+
+      tr > *:nth-child(3) {
+        width: 25%;
+      }
+
+      tr > *:nth-child(4) {
+        width: fit-content;
+      }
+
+      tbody {
+        tr {
+          td {
+            border: $border-table
+          }
+
+          td:nth-child(odd) {
+            font-weight: bold;
+            padding: 10px 25px 5px 25px;
+            background-color: $bg-primary-level4;
+          }
+
+          td:nth-child(even) {
+            background-color: $bg-primary-light;
+            padding: 10px 25px 5px 25px;
+          }
+        }
+      }
+    }
+  }
+
+  .product-access {
+    padding-top: 20px;
+
+    table {
+      width: 100%;
+      border: 1px solid $bg-product;
+
+      thead {
+        background-color: $bg-product;
+
+        tr > *:nth-child(1) {
+          padding: 10px;
+        }
+      }
+
+      tbody {
+        tr {
+          td {
+            padding: 10px 10px 10px 15px;
+            text-align: left;
+            border: none;
+          }
+          .inline {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+
+
+

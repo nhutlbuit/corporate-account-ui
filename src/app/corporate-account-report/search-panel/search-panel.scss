@@ -1,0 +1,31 @@
+@import '../../shared/style-common.scss';
+
+.search-panel {
+  background-color: $bg-primary-level2;
+  padding: 10px;
+  height: 60px;
+
+  .fieldset {
+    margin-right: 15px;
+    float: left;
+  }
+  
+  .select {
+    min-width: 300px;
+    margin-left: 20px;
+  }
+
+  .filter-input {
+    height: 37px;
+  }
+
+  .add-profile {
+    margin-right: 5px;
+    float: right;
+  }
+
+  button {
+    font-weight: bold;
+  }
+}
+

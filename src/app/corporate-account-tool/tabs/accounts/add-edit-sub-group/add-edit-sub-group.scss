@@ -1,0 +1,20 @@
+@import '../../../../shared/style-common.scss';
+
+.new-sub-group {
+  display: flex;
+
+  .title {
+    flex: auto;
+    font-weight: bold;
+  }
+
+  .input {
+    width: 60%;
+  }
+
+}
+
+
+
+
+

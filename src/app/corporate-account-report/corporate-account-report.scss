@@ -1,0 +1,46 @@
+.section-main-table{
+  .rt-resizable-header-content{
+    font-weight: bold;
+    float: left;
+  }
+  .ReactTable .rt-thead .rt-th,.ReactTable.-striped .rt-tbody .rt-tr .rt-td:first-child{
+    border-right: unset;
+  }
+  .section-sub-table{
+    .ReactTable{
+      .-even{
+        background-color: unset !important;
+      }
+      .rt-resizable-header-content{
+        font-weight: normal;
+        text-transform: uppercase;
+        float: left;
+      }
+    }
+  }
+  .negative-number{
+    color: red;
+  }
+  
+}
+.search-panel{
+  .react-datepicker{
+    margin-left: -11em;
+    .react-datepicker__triangle{
+      left: 270px !important;
+    }
+  }
+  .section-date-picker{
+    float: right;
+    display: inline-flex;
+    .calendar-container{
+      display: inline-flex !important;
+    }
+    .calendar-alt{
+      padding-top: 10px;
+      margin-left: -10px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  }
+}

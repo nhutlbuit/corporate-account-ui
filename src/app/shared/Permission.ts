@@ -1,9 +1,9 @@
 import {PropsWithChildren, ReactElement} from 'react';
 
-type PermissionProp = {
-    hasAnyPermission?: any,
-    hasAllPermission?: any
-};
+interface PermissionProp {
+    hasAnyPermission?: any;
+    hasAllPermission?: any;
+}
 
 export const Permission = (props: PropsWithChildren<PermissionProp>) => {
     if (!props.hasAllPermission && !props.hasAnyPermission) { return null; }

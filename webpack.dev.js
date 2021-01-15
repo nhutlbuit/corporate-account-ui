@@ -5,7 +5,6 @@ process.env = dotenv.parsed;
 
 const VENDOR_LIBS = [
   'axios',
-  'moment',
   'prop-types',
   'react',
   'react-dom',
@@ -52,6 +51,7 @@ module.exports = {
     disableHostCheck: true,
     lazy: false,
     https: false,
+    open: 'chrome'
   },
   module: {
     rules: [

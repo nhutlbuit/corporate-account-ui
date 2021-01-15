@@ -5,7 +5,7 @@ let accounts = [
         address: 'United KingDom', postalCode: '10000', language: 'en', phoneNumber: '0968868300', mobile: '0968868300',
         userName: 'nat.os', password: '1234qwer', questionnaireReceiptDate: new Date(), approvedDate: new Date(),
         country: 'us',
-        deposits: 'Yes', withdrawals: 'No', casino: 'Yes', sportsbook: 'No', parentId: 0
+        deposits: 'Yes', withdrawals: 'No', casino: 'Yes', sportsbook: 'No', parentId: 0, subGroup: ''
 
     },
     {
@@ -14,7 +14,7 @@ let accounts = [
         address: 'United KingDom', postalCode: '10000', language: 'en', phoneNumber: '0968868300', mobile: '0968868300',
         userName: 'nat.os', password: '1234qwer', questionnaireReceiptDate: new Date(), approvedDate: new Date(),
         country: 'vn',
-        deposits: 'Yes', withdrawals: 'No', casino: 'Yes', sportsbook: 'No', parentId: 0
+        deposits: 'Yes', withdrawals: 'No', casino: 'Yes', sportsbook: 'No', parentId: 0, subGroup: ''
     },
     {
         id: 1112892, name: 'Kenny.os', partnerId: 'Fred Dan', level: 'Level 3', currency: 'USD', email: 'corporate@js.com', status: 'ACTIVE',
@@ -22,7 +22,7 @@ let accounts = [
         address: 'United KingDom', postalCode: '10000', language: 'vn', phoneNumber: '0968868300', mobile: '0968868300',
         userName: 'nat.os', password: '1234qwer', questionnaireReceiptDate: new Date(), approvedDate: new Date(),
         country: 'uk',
-        deposits: 'Yes', withdrawals: 'No', casino: 'Yes', sportsbook: 'No', parentId: 0
+        deposits: 'Yes', withdrawals: 'No', casino: 'Yes', sportsbook: 'No', parentId: 0, subGroup: ''
     },
     {
         id: 1112893, name: 'Ali.os', partnerId: 'Fred Dan', level: 'Level 2', currency: 'USD', email: 'corporate@js.com', status: 'INACTIVE',
@@ -30,7 +30,7 @@ let accounts = [
         address: 'United KingDom', postalCode: '10000', language: 'fr', phoneNumber: '0968868300', mobile: '0968868300',
         userName: 'nat.os', password: '1234qwer', questionnaireReceiptDate: new Date(), approvedDate: new Date(),
         country: 'us',
-        deposits: 'Yes', withdrawals: 'No', casino: 'Yes', sportsbook: 'No', parentId: 0
+        deposits: 'Yes', withdrawals: 'No', casino: 'Yes', sportsbook: 'No', parentId: 0, subGroup: ''
     },
     {
         id: 1112894, name: 'Nat.os', partnerId: 'Fred Dan', level: 'Level 2', currency: 'VND', email: 'corporate@js.com', status: 'ACTIVE',
@@ -38,7 +38,7 @@ let accounts = [
         address: 'United KingDom', postalCode: '10000', language: 'vn', phoneNumber: '0968868300', mobile: '0968868300',
         userName: 'nat.os', password: '1234qwer', questionnaireReceiptDate: new Date(), approvedDate: new Date(),
         country: 'vn',
-        deposits: 'Yes', withdrawals: 'No', casino: 'Yes', sportsbook: 'No', parentId: 0
+        deposits: 'Yes', withdrawals: 'No', casino: 'Yes', sportsbook: 'No', parentId: 0, subGroup: 'Group A'
     }
 ];
 
@@ -68,11 +68,11 @@ let directors = [
 
 let downLines = [
     {
-        id: 1113301, name: 'Sub 01', level: '2', subGroup:'', currency: 'GBP', status: 'ACTIVE', credit: 'No', creditLimit: 'N/A',
+        id: 1113301, name: 'Sub 01', level: '2', subGroup:'', currency: 'GBP', status: 'ACTIVE', credit: 'No', creditLimit: 'N/A', creditAmount: 0,
         userName: 'sub01.os', casino: 'YES', sportsBook: 'YES', deposits: 'NO', withdrawals: 'YES'
     },
     {
-        id: 1113302, name: 'Sub 02', level: '2', subGroup:'', currency: 'GBP', status: 'ACTIVE', credit: 'No', creditLimit: 'N/A',
+        id: 1113302, name: 'Sub 02', level: '2', subGroup:'', currency: 'GBP', status: 'ACTIVE', credit: 'No', creditLimit: 'N/A', creditAmount: 0,
         userName: 'sub01.os', casino: 'YES', sportsBook: 'YES', deposits: 'NO', withdrawals: 'YES'
     }
 ];
@@ -112,9 +112,19 @@ export const getAccountDetailService = async (account: any) => {
         setTimeout(() => {
             return resolve(accounts.filter(e => e.id == account.id)[0]);
             // return reject(new Error(''));
-        }, 4000);
+        }, 1000);
     });
 };
+
+const generateAccountId = (n: number): number => {
+    return Math.floor(Math.random() * (9 * (Math.pow(10, n)))) + (Math.pow(10, n));
+};
+
+const generateUserName = (): string => {
+    return Math.random().toString(36).substring(7);
+};
+
+
 
 export const createAccountService = async (account: any) => {
 
@@ -130,11 +140,44 @@ export const createAccountService = async (account: any) => {
                         return e;
                     });
                 }
-                acc.push(accountSelected);
+
+                if (accountSelected.level === 'Level 1') {
+                  for (let i = 0; i < accountSelected.numberOfAccounts; i++) {
+                    const newAccount =  {
+                        id: generateAccountId(6),
+                        name: '', // rule for create name
+                        partnerId: 'Fred Dan',
+                        partnerLabelId: 'Conan Huynh',
+                        statusAccount: accountSelected.status,
+                        license: 'Curacao',
+                        credit: accountSelected.creditAccount,
+                        creditLimit: accountSelected.creditAmount,
+                        address: '',
+                        postalCode: '',
+                        language: '',
+                        phoneNumber: '',
+                        mobile: '',
+                        userName: generateUserName(), // rule for userName
+                        password: '1234qwer', // rule for password
+                        questionnaireReceiptDate: new Date(),
+                        approvedDate: new Date(),
+                        country: '',
+                        deposits: 'No',
+                        withdrawals: 'No',
+                        parentId: accountSelected.parentAccounts
+                    };
+                    acc.push({...accountSelected, ...newAccount});
+                  }
+                }
+
+                if (accountSelected.level !== 'Level 1') {
+                    acc.push(accountSelected);
+                }
+
                 accounts = acc;
                  return resolve('success');
                // return reject(new Error(''));
-            }, 5000);
+            }, 1000);
         });
     };
     return await updateAccountSelected(account);
@@ -145,12 +188,18 @@ export const updateAccountService = async (account: any) => {
     const updateAccountSelected = (accountSelected: any) => {
         return new Promise(function (resolve, reject) {
             setTimeout(() => {
-                const acc = accounts.filter((e: any) => e.id != accountSelected.id);
-                acc.push(accountSelected);
+                let acc: any[];
+                if (accountSelected instanceof Array) {
+                    acc = accounts.filter((e: any) => !accountSelected.find((el: any) => el.id === e.id));
+                    acc = [...acc, ...accountSelected];
+                } else {
+                    acc = accounts.filter((e: any) => e.id != accountSelected.id);
+                    acc.push(accountSelected);
+                }
                 accounts = acc;
                  return resolve('success');
                // return reject(new Error(''));
-            }, 5000);
+            }, 1000);
         });
     };
     return await updateAccountSelected(account);
@@ -162,7 +211,7 @@ export const getDirectorsService = async (partnerLabelId: any) => {
         return new Promise(function (resolve, reject) {
             setTimeout(() => {
                 return resolve(directors.filter(e => e.partnerLabelId == partnerLabelIdSelected));
-            }, 5000);
+            }, 1000);
         });
     };
 
@@ -176,7 +225,7 @@ export const addDirectorService = async (director: any) => {
             setTimeout(() => {
                 directors.push(aDirector);
                 return resolve('success');
-            }, 5000);
+            }, 1000);
         });
     };
 
@@ -193,7 +242,7 @@ export const updateDirectorService = async (director: any) => {
                 directors = direc;
                // return resolve('success');
                 return reject(new Error(''));
-            }, 3000);
+            }, 1000);
         });
     };
 
@@ -207,19 +256,28 @@ export const deleteDirectorService = async (directorId: number) => {
             setTimeout(() => {
                 const direc = directors.filter((e: any) => e.id != directorIdSelected);
                 directors = direc;
-                // return resolve('success');
-                return reject(new Error(''));
-            }, 5000);
+                return resolve('success');
+                // return reject(new Error(''));
+            }, 1000);
         });
     };
     return await deleteDirectorSelected(directorId);
 };
 export const getDownLineListing = async (filter: any) => {
 
-    const getDownLines = (filter: any) => {
+    const getDownLines = (filterParam: any) => {
         return new Promise(function (resolve, reject) {
             setTimeout(() => {
-                let list = downLines.filter(a => matchingConditions(a, filter));
+                const list = accounts.filter(a => matchingConditions(a, filterParam));
+                list.sort((a: any, b: any) => {
+                    if (a.id > b.id) {
+                        return -1;
+                    }
+                    if (b.id > a.id) {
+                        return 1;
+                    }
+                    return 0;
+                });
                 return resolve({viewAccount: {}, downLines: list});
             }, 1000);
         });
